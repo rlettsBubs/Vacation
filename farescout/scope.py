@@ -64,6 +64,11 @@ def scrape_plan(con):
         if flight["trip"] in active:
             plan.append(dict(trip=flight["trip"], source="GoogleFlights",
                              kind="Flight", target=flight["route"]))
+    seen = {(s["trip"], s["source"], s["target"]) for s in plan}
+    for t in config.CHANNEL_TARGETS:
+        if t["trip"] in active and (t["trip"], t["source"], t["name"]) not in seen:
+            plan.append(dict(trip=t["trip"], source=t["source"], kind=t["kind"],
+                             target=t["name"]))
     return plan
 
 

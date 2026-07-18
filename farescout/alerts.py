@@ -7,6 +7,7 @@ noise); acknowledging the alert re-arms the rule.
 """
 
 import datetime
+import re
 
 from . import config, scope
 
@@ -102,12 +103,59 @@ def rule_deadline(con, now=None):
     return []
 
 
+RE_SYNTH_TOTAL = re.compile(r"SYNTH_TOTAL:\s*(\d+(?:\.\d+)?)")
+
+
+def _comparable_total(row):
+    """Package rows compare on TotalPrice; hotel-only rows only via their
+    SYNTH_TOTAL note (hotel-only vs package would be a false undercut)."""
+    if row["Kind"] == "Package":
+        return row["TotalPrice"]
+    m = RE_SYNTH_TOTAL.search(row["RawNotes"] or "")
+    return float(m.group(1)) if m else None
+
+
+def rule_channel_beat(con, now=None):
+    """Phase 2b: another channel undercuts CheapCaribbean by >$100 for the
+    same property/dates."""
+    alerts_out = []
+    for prop in config.TRACKED_PROPERTIES:
+        cc = con.execute(
+            """SELECT TotalPrice FROM PriceCheck
+               WHERE RouteOrResort=? AND Source='CheapCaribbean'
+                 AND Kind='Package' AND TotalPrice > 0
+               ORDER BY CheckId DESC LIMIT 1""", (prop["name"],)
+        ).fetchone()
+        if not cc:
+            continue
+        rivals = con.execute(
+            """SELECT Source, Kind, TotalPrice, RawNotes,
+                      MAX(CheckId) FROM PriceCheck
+               WHERE RouteOrResort=? AND Source != 'CheapCaribbean'
+                 AND Kind IN ('Package','Hotel') AND TotalPrice > 0
+                 AND DepartDate=?
+               GROUP BY Source""", (prop["name"], config.DEPART)
+        ).fetchall()
+        for rival in rivals:
+            total = _comparable_total(rival)
+            if total is None:
+                continue
+            saving = cc["TotalPrice"] - total
+            if saving > config.CHANNEL_BEAT_THRESHOLD:
+                alerts_out.append((prop["trip"], "CHANNEL_BEAT",
+                                   f"{rival['Source']} beats CheapCaribbean on "
+                                   f"{prop['label']} by ${saving:,.0f} "
+                                   f"(${total:,.0f} vs ${cc['TotalPrice']:,.0f})"))
+    return alerts_out
+
+
 RULES = [
     rule_aura_price_move,
     rule_czm_nonstop,
     rule_cozumel_conditions,
     rule_aruba_conditions,
     rule_riu_aruba_hedge,
+    rule_channel_beat,
     rule_deadline,
 ]
 
@@ -124,9 +172,11 @@ def fire(con, now=None, quiet=False):
     created_at = (now or datetime.datetime.now()).isoformat(timespec="seconds")
     fired = []
     for trip_id, kind, message in evaluate(con, now=now):
+        # Dedupe on Kind+Message so e.g. two different CHANNEL_BEAT findings
+        # both surface, while the same finding doesn't repeat every cycle.
         dup = con.execute(
-            "SELECT 1 FROM Alert WHERE Kind=? AND Acknowledged=0 LIMIT 1",
-            (kind,),
+            "SELECT 1 FROM Alert WHERE Kind=? AND Message=? AND Acknowledged=0 "
+            "LIMIT 1", (kind, message),
         ).fetchone()
         if dup:
             continue

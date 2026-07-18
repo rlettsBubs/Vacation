@@ -130,6 +130,9 @@ def render(con, now=None):
             lines.append(f"    #{a['AlertId']} [{a['Kind']}] {a['Message']}")
     else:
         lines.append("  UNACKNOWLEDGED ALERTS: none")
+    for check in config.MANUAL_CHECKS:
+        if now.date().weekday() == check["day"]:
+            lines.append(f"  MANUAL CHECK DUE TODAY: {check['label']}")
     lines.append("=" * w)
     return "\n".join(lines), state
 

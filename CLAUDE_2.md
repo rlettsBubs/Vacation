@@ -88,8 +88,18 @@ prices are within ~$75.
 3. **Riu.com packages** (packagesus.riu.com) — both Riu Aruba properties (refundable hedge).
 4. **Kayak / Expedia** — hotel-only cross-check, the three Aruba properties only.
 5. **howisthesargassum.com** — daily beach conditions (see Condition monitoring).
+6. **Phase 2b channels** (`python3 -m farescout channels`): Apple Vacations and
+   Funjet packages for Secrets Aura Cozumel + Dreams Cozumel Cape; Hyatt
+   Inclusive Collection direct rate for Aura (hotel-only — paired with the
+   current Google Flights low and stored in RawNotes as `SYNTH_TOTAL: <amt>`,
+   never in TotalPrice); riu.com direct for Riu Latino. Any channel that beats
+   CheapCaribbean by >$100 on the same property/dates fires a `CHANNEL_BEAT`
+   alert. Sites that block automation are SKIP-logged after 3 attempts — never
+   fight captchas.
+7. **Costco Travel** — MANUAL weekly check (login wall, ToS forbids
+   automation). The status view surfaces a reminder every Monday.
 
-The scrape cycle plans work for Active trips only — `python3 -m farescout scrape --dry-run` shows the 16-step cycle.
+The scrape cycle plans work for Active trips only — `python3 -m farescout scrape --dry-run` shows the 22-step cycle.
 
 Record every price seen, even off-target dates — history is the point.
 

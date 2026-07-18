@@ -139,6 +139,44 @@ class AlertRuleTests(unittest.TestCase):
         self.assertNotIn("DECISION_DEADLINE",
                          self.fired_kinds(now=AT_DEADLINE))       # cleared
 
+    # --- Phase 2b: CHANNEL_BEAT ----------------------------------------------
+    def test_channel_beat_fires_and_clears(self):
+        insert_price(self.con, alerts.AURA, 3568, source="CheapCaribbean")
+        insert_price(self.con, alerts.AURA, 3500, source="AppleVacations")
+        self.assertNotIn("CHANNEL_BEAT", self.fired_kinds())      # $68: clear
+        insert_price(self.con, alerts.AURA, 3400, source="AppleVacations")
+        self.assertIn("CHANNEL_BEAT", self.fired_kinds())         # $168: fires
+        self.assertNotIn("CHANNEL_BEAT", self.fired_kinds())      # dedupes
+
+    def test_channel_beat_two_channels_both_surface(self):
+        insert_price(self.con, alerts.AURA, 3568, source="CheapCaribbean")
+        insert_price(self.con, alerts.AURA, 3400, source="AppleVacations")
+        insert_price(self.con, alerts.AURA, 3300, source="Funjet")
+        kinds = [k for _, k, _ in alerts.fire(self.con, quiet=True,
+                                              now=BEFORE_DEADLINE)]
+        self.assertEqual(kinds.count("CHANNEL_BEAT"), 2)
+
+    def test_channel_beat_hotel_only_needs_synth_total(self):
+        insert_price(self.con, alerts.AURA, 3568, source="CheapCaribbean")
+        # A bare hotel-only quote must NOT count as an undercut...
+        self.con.execute(
+            """INSERT INTO PriceCheck (CheckedAt, TripId, Source, Kind,
+                   RouteOrResort, DepartDate, TotalPrice, RawNotes)
+               VALUES ('2026-07-18T12:00:00','SCOUT-CZM','HyattDirect','Hotel',
+                       ?, '2026-08-08', 2600, 'hotel-only, no flight low')""",
+            (alerts.AURA,))
+        self.con.commit()
+        self.assertNotIn("CHANNEL_BEAT", self.fired_kinds())
+        # ...but its SYNTH_TOTAL does, when it beats CC by >$100.
+        self.con.execute(
+            """INSERT INTO PriceCheck (CheckedAt, TripId, Source, Kind,
+                   RouteOrResort, DepartDate, TotalPrice, RawNotes)
+               VALUES ('2026-07-18T13:00:00','SCOUT-CZM','HyattDirect','Hotel',
+                       ?, '2026-08-08', 2600, 'SYNTH_TOTAL: 3400 (hotel 2600 + flight 800)')""",
+            (alerts.AURA,))
+        self.con.commit()
+        self.assertIn("CHANNEL_BEAT", self.fired_kinds())
+
     # --- Safety ----------------------------------------------------------------
     def test_never_touches_live_db(self):
         live = sqlite3.connect(DB_PATH).execute(

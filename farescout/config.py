@@ -62,6 +62,43 @@ TRACKED_FLIGHTS = [
     dict(trip="ARUBA-001", route="DTW-AUA"),
 ]
 
+# --- Phase 2b: channel expansion (tracked properties only) -------------------
+# Six new property/source pairs. Riu.com direct for the two Aruba Rius was
+# already tracked above; these are the additions. HyattDirect is hotel-only:
+# its quote gets paired with the current GoogleFlights low for `route` and
+# the combined figure goes into RawNotes as 'SYNTH_TOTAL: <amount>' — never
+# into TotalPrice.
+CHANNEL_TARGETS = [
+    dict(source="AppleVacations", kind="Package", trip="SCOUT-CZM",
+         name="Secrets Aura Cozumel - AI - Adults Only",
+         url="https://www.applevacations.com/", hints=["secrets aura"]),
+    dict(source="AppleVacations", kind="Package", trip="SCOUT-CZM",
+         name="Dreams Cozumel Cape - AI",
+         url="https://www.applevacations.com/", hints=["dreams cozumel"]),
+    dict(source="Funjet", kind="Package", trip="SCOUT-CZM",
+         name="Secrets Aura Cozumel - AI - Adults Only",
+         url="https://www.funjet.com/", hints=["secrets aura"]),
+    dict(source="Funjet", kind="Package", trip="SCOUT-CZM",
+         name="Dreams Cozumel Cape - AI",
+         url="https://www.funjet.com/", hints=["dreams cozumel"]),
+    dict(source="HyattDirect", kind="Hotel", trip="SCOUT-CZM",
+         name="Secrets Aura Cozumel - AI - Adults Only",
+         url="https://www.hyattinclusivecollection.com/", hints=["secrets aura", "aura cozumel"],
+         route="DTW-CZM"),
+    dict(source="Riu", kind="Package", trip="SCOUT-CUN",
+         name="Riu Latino - AI - Adults Only",
+         url="https://packagesus.riu.com/", hints=["riu latino"]),
+]
+
+# Fires when another channel undercuts the current CheapCaribbean price for
+# the same property/dates by more than this.
+CHANNEL_BEAT_THRESHOLD = 100.0
+
+# Costco Travel sits behind a login wall and its ToS rule out automation:
+# it is a MANUAL weekly check, surfaced in the status view every Monday.
+MANUAL_CHECKS = [dict(day=0, label="Costco Travel — manual price check "
+                                   "(login wall/ToS; compare vs CheapCaribbean)")]
+
 # --- Condition monitoring ----------------------------------------------------
 CONDITION_SOURCE = "howisthesargassum.com"
 BEACHES = ["Cozumel West", "Playa Mujeres", "Palm Beach Aruba"]

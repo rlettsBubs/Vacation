@@ -13,7 +13,7 @@
 import argparse
 import sys
 
-from . import alerts, conditions, db, migrate, scope, status
+from . import alerts, channels, conditions, db, migrate, scope, status
 
 
 def main(argv=None):
@@ -24,6 +24,7 @@ def main(argv=None):
     p = sub.add_parser("scrape")
     p.add_argument("--dry-run", action="store_true")
     sub.add_parser("conditions")
+    sub.add_parser("channels")
     sub.add_parser("alerts")
     p = sub.add_parser("ack")
     p.add_argument("alert_id", nargs="?", type=int)
@@ -54,6 +55,11 @@ def main(argv=None):
             inserted = conditions.run(con)
             for row in inserted:
                 print(f"  {row['beach']:<18} {row['status']:<9} {row['notes'][:70]}")
+            alerts.fire(con)
+        elif args.cmd == "channels":
+            results = channels.run(con)
+            _, lines = channels.verify(results)
+            print("\n".join(lines))
             alerts.fire(con)
         elif args.cmd == "alerts":
             fired = alerts.fire(con)

@@ -103,11 +103,58 @@ The backup is deliberately left untracked (`data/*.backup-*.db` in .gitignore).
 
 ---
 
+## Phase 2b — Source expansion  ⚠️ CODE VERIFIED / LIVE PULL ENVIRONMENT-BLOCKED
+
+Added 2026-07-18 (after Phase 5). Six new property/source pairs, tracked
+properties only, no new destinations:
+
+| Source | Property | Kind |
+|---|---|---|
+| AppleVacations | Secrets Aura Cozumel, Dreams Cozumel Cape | Package |
+| Funjet | Secrets Aura Cozumel, Dreams Cozumel Cape | Package |
+| HyattDirect | Secrets Aura Cozumel | Hotel-only (SYNTH_TOTAL in RawNotes) |
+| Riu (packagesus.riu.com) | Riu Latino | Package |
+
+- `python3 -m farescout channels` — one PriceCheck row per parsed pair,
+  Source set accordingly. Hotel-only quotes pair with the current
+  GoogleFlights low for the route; the combined figure goes to RawNotes as
+  `SYNTH_TOTAL: <amount>`, never TotalPrice. SKIPs insert **nothing**.
+- New rule `CHANNEL_BEAT`: any channel undercuts the latest CheapCaribbean
+  package for the same property/dates by >$100. Hotel-only rows only
+  compete via their SYNTH_TOTAL (a bare room rate "beating" a package is a
+  false positive and is ignored). Alert dedupe tightened from Kind-only to
+  Kind+Message so two different channel beats both surface.
+- Unit tests: 3 new (fire/clear, two channels both surface, hotel-only needs
+  SYNTH_TOTAL) — suite now 12/12.
+- Status view: Costco Travel manual-check reminder renders every Monday
+  (verified by injecting 2026-07-20; absent on other days). Costco stays
+  manual: login wall + ToS.
+- Dry-run cycle grew 16 → 22 steps, still active-trips-only.
+
+**Live-pull verification (needs ≥4 of 6 pairs parsed): FAILED in this
+sandbox, 0/6 — environment, not code.**
+- Attempt 1: plain fetch blocked (proxy 403 CONNECT); Chrome rung couldn't
+  run (Python playwright module missing). All 6 SKIP, 0 rows inserted.
+- Attempt 2 (fix: installed playwright, added executable-path fallback to
+  the pinned Chromium): real Chromium launched and the network policy
+  refused the tunnel — `net::ERR_TUNNEL_CONNECTION_FAILED` on all four
+  sites, 3 attempts each, URLs logged above in the run output. All 6 SKIP,
+  0 rows inserted.
+- Attempt 3 skipped deliberately: the failure is the sandbox's outbound
+  network policy (google.com is equally blocked), identical retry would be
+  noise. Per spec: SKIP logged, no captcha-fighting, moving on.
+- **Action:** run `python3 -m farescout channels` once on the operator
+  machine (real Chrome, open egress) to complete this verification. Expect
+  Apple/Funjet to need the Chrome path — their quote flows are JS-rendered.
+
 ## Follow-ups for the operator machine
 
 - `pip install playwright` (or keep chrome-devtools-mcp) so the condition
   scraper's Chrome path works; then schedule
   `python3 -m farescout conditions` daily.
+- Run `python3 -m farescout channels` once to complete the Phase 2b
+  live-pull verification (≥4 of 6 pairs must parse), then include it in the
+  daily cycle.
 - After each price run, `python3 -m farescout alerts && python3 -m farescout status`.
 - When you book, record it: `python3 -m farescout book SCOUT-CZM -m "Aura, $X, conf #Y"`
   — this clears the deadline rule.

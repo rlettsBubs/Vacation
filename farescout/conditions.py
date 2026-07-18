@@ -51,9 +51,14 @@ def fetch_chrome(url=URL, timeout_ms=45000):
         from playwright.sync_api import sync_playwright
     except ImportError as exc:
         raise FetchError(f"chrome path unavailable: {exc}") from exc
+    import os
     try:
         with sync_playwright() as pw:
-            browser = pw.chromium.launch()
+            try:
+                browser = pw.chromium.launch()
+            except Exception:  # noqa: BLE001 - version-mismatched install
+                alt = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/opt/pw-browsers")
+                browser = pw.chromium.launch(executable_path=f"{alt}/chromium")
             page = browser.new_page()
             page.goto(url, timeout=timeout_ms, wait_until="networkidle")
             html = page.content()
