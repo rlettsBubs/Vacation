@@ -6,3 +6,4 @@ package-lock.json
 data/*.backup-*.db
 __pycache__/
 *.pyc
+~$*
