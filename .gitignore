@@ -3,3 +3,6 @@ package.json
 package-lock.json
 .chrome-profile/
 .venv/
+data/*.backup-*.db
+__pycache__/
+*.pyc
