@@ -147,6 +147,31 @@ sandbox, 0/6 — environment, not code.**
   machine (real Chrome, open egress) to complete this verification. Expect
   Apple/Funjet to need the Chrome path — their quote flows are JS-rendered.
 
+### Phase 2b live-pull verification — ✅ COMPLETED on operator machine 2026-07-17 overnight
+
+Run by the overnight session (real Chrome via Claude-in-Chrome — session had
+claude-in-chrome rather than chrome-devtools-mcp; same real-fingerprint model).
+`python -m farescout channels` still parses 0/6 from landing pages (quote flows
+are JS/multi-step as expected), so per the overnight instructions each pair was
+driven manually through the real Chrome search flow and recorded as normal
+PriceCheck rows. **6/6 pairs parsed (target ≥4): PASS.**
+
+| Source | Property | Result (2 adults, Aug 8–15) |
+|---|---|---|
+| AppleVacations | Secrets Aura | $1,892/pp = $3,784 (incl $350 Instant Savings + perks) |
+| AppleVacations | Dreams Cape | $1,865/pp = $3,730 |
+| Funjet | Secrets Aura | $1,827/pp = $3,654 |
+| Funjet | Dreams Cape | $1,800/pp = $3,600 |
+| HyattDirect | Secrets Aura (hotel-only) | $2,590 taxes-in, free cancel to 08/02; SYNTH_TOTAL 4,481 w/ GF low $1,891; member rate $2,331 |
+| Riu | Riu Latino | $2,536 package, FULLY REFUNDABLE ($124 over CC's $2,412) |
+
+No CHANNEL_BEAT: CheapCaribbean remains cheapest for every property. Key intel:
+Hyatt direct is refundable to Aug 2 and Riu-direct Latino is fully refundable —
+both change the hedge math. One environment note: the two original Chrome tabs'
+injection bridge wedged mid-run (script injection timeouts even on example.com);
+a fresh tab via tabs_create_mcp restored service. Apple Vacations serves a blank
+page to the in-app (embedded) browser — real Chrome required for ALG sites.
+
 ## Follow-ups for the operator machine
 
 - `pip install playwright` (or keep chrome-devtools-mcp) so the condition
