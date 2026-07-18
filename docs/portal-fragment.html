@@ -1,0 +1,472 @@
+<title>Caribbean Trip Portal — Aug 2026</title>
+<style>
+:root{
+  --bg:#EDF4F3; --surface:#FFFFFF; --surface2:#E3EDEB; --ink:#0B242E;
+  --muted:#51686E; --line:#C9D9D7; --accent:#0E7C7B; --accent-strong:#0A5C5B;
+  --sand:#F2E9D6; --sand-ink:#6B5324;
+  --green:#1E8A4C; --green-bg:#DCEFE3; --amber:#A8690F; --amber-bg:#F5E9D2;
+  --red:#C0402F; --red-bg:#F6DFDA;
+  --shadow:0 1px 3px rgba(11,36,46,.08);
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#081E26; --surface:#0F2E38; --surface2:#143641; --ink:#E4F0EF;
+  --muted:#8FAAAE; --line:#1F4450; --accent:#3CC8BF; --accent-strong:#6FDCD4;
+  --sand:#2E2A1D; --sand-ink:#D8C68F;
+  --green:#4CC98A; --green-bg:#12382B; --amber:#E0A94E; --amber-bg:#3A2F14;
+  --red:#E7705C; --red-bg:#421F19;
+  --shadow:0 1px 3px rgba(0,0,0,.35);
+}}
+:root[data-theme="light"]{
+  --bg:#EDF4F3; --surface:#FFFFFF; --surface2:#E3EDEB; --ink:#0B242E;
+  --muted:#51686E; --line:#C9D9D7; --accent:#0E7C7B; --accent-strong:#0A5C5B;
+  --sand:#F2E9D6; --sand-ink:#6B5324;
+  --green:#1E8A4C; --green-bg:#DCEFE3; --amber:#A8690F; --amber-bg:#F5E9D2;
+  --red:#C0402F; --red-bg:#F6DFDA;
+  --shadow:0 1px 3px rgba(11,36,46,.08);
+}
+:root[data-theme="dark"]{
+  --bg:#081E26; --surface:#0F2E38; --surface2:#143641; --ink:#E4F0EF;
+  --muted:#8FAAAE; --line:#1F4450; --accent:#3CC8BF; --accent-strong:#6FDCD4;
+  --sand:#2E2A1D; --sand-ink:#D8C68F;
+  --green:#4CC98A; --green-bg:#12382B; --amber:#E0A94E; --amber-bg:#3A2F14;
+  --red:#E7705C; --red-bg:#421F19;
+  --shadow:0 1px 3px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 "Charter","Georgia",serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 64px}
+a{color:var(--accent-strong)}
+.mono,.num,.tag,.pill,.eyebrow,th,.ledger td{
+  font-family:ui-monospace,"Cascadia Code","SF Mono",Consolas,Menlo,monospace}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,.sans{font-family:-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif}
+
+header{padding:44px 0 8px;border-bottom:3px solid var(--ink)}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-strong);margin:0 0 10px}
+h1{font-size:clamp(30px,5.4vw,52px);font-weight:800;letter-spacing:-.02em;
+  line-height:1.02;margin:0 0 14px;text-wrap:balance;text-transform:uppercase}
+h1 .thin{color:var(--muted);font-weight:300}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px 22px;padding:10px 0 14px;
+  font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:var(--muted)}
+.meta-row b{color:var(--ink);font-weight:600}
+
+section{margin-top:44px}
+h2{font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  margin:0 0 6px;display:flex;align-items:baseline;gap:10px}
+h2::after{content:"";flex:1;border-top:1px solid var(--line);transform:translateY(-4px)}
+.kicker{color:var(--muted);font-size:14.5px;margin:0 0 18px;max-width:62ch}
+
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media(max-width:720px){.verdict{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  padding:20px 22px;box-shadow:var(--shadow)}
+.card.win{border:2px solid var(--accent);position:relative}
+.card .label{font-family:ui-monospace,Consolas,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent-strong);margin-bottom:8px}
+.card h3{font-family:-apple-system,"Segoe UI",Arial,sans-serif;font-size:22px;
+  font-weight:800;margin:0 0 2px;letter-spacing:-.01em}
+.card .sub{color:var(--muted);font-size:14px;margin-bottom:12px}
+.bigprice{font-family:ui-monospace,Consolas,monospace;font-size:34px;font-weight:700;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.bigprice small{font-size:14px;color:var(--muted);font-weight:400;letter-spacing:0}
+.card p{font-size:14.5px;margin:10px 0 0}
+.caveat{background:var(--sand);color:var(--sand-ink);border-radius:6px;
+  padding:14px 18px;font-size:14.5px;margin-top:16px}
+.caveat b{font-weight:700}
+
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);
+  border-radius:6px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  text-align:left;padding:10px 12px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right}
+.rank{font-weight:700;color:var(--muted);width:2ch}
+.medal-1 .rank,.medal-1 .price{color:var(--accent-strong);font-weight:700}
+.medal-1{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+.resort{font-family:-apple-system,"Segoe UI",Arial,sans-serif;font-weight:700;font-size:15px}
+.stars{color:var(--muted);font-weight:400;font-size:12.5px}
+.where{color:var(--muted);font-size:13px;margin-top:2px;max-width:52ch}
+.price{font-family:ui-monospace,Consolas,monospace;white-space:nowrap;font-size:15px}
+.pp{color:var(--muted);font-size:11.5px}
+.score{color:var(--muted)}
+.tag{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--accent);color:var(--accent-strong);border-radius:999px;
+  padding:1px 8px;vertical-align:2px}
+.clarity{display:flex;align-items:center;gap:8px;min-width:110px}
+.clarity-track{flex:1;height:8px;border-radius:4px;background:var(--surface2);overflow:hidden}
+.clarity-fill{height:100%;border-radius:4px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 40%,var(--surface2)),var(--accent))}
+.clarity-num{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--muted)}
+.dim{color:var(--muted);font-size:12.5px}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.zone{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;box-shadow:var(--shadow)}
+.zone h4{font-family:-apple-system,"Segoe UI",Arial,sans-serif;font-size:13px;
+  letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+.zone.good h4{color:var(--green)} .zone.bad h4{color:var(--red)}
+.zone ul{margin:0;padding:0;list-style:none;font-size:14.5px}
+.zone li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.zone li:last-child{border-bottom:none}
+.zone .val{font-family:ui-monospace,Consolas,monospace;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+.pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;
+  border-radius:3px;padding:2px 7px}
+.pill.GREEN{background:var(--green-bg);color:var(--green)}
+.pill.AMBER{background:var(--amber-bg);color:var(--amber)}
+.pill.RED{background:var(--red-bg);color:var(--red)}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.filters select,.filters input{font-family:ui-monospace,Consolas,monospace;font-size:13px;
+  color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:4px;padding:7px 10px}
+.filters input{flex:1;min-width:160px}
+.filters select:focus,.filters input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.count{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--muted);
+  align-self:center;margin-left:auto}
+.ledger td{font-size:12.5px}
+.ledger .what{max-width:30ch}
+.ledger .notes{color:var(--muted);max-width:36ch}
+
+.aruba{background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  padding:20px 22px;box-shadow:var(--shadow)}
+.aruba .fig{display:flex;flex-wrap:wrap;gap:26px;margin-bottom:12px}
+.aruba .fig div{min-width:120px}
+.aruba .fig .n{font-family:ui-monospace,Consolas,monospace;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.aruba .fig .l{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+  font-family:ui-monospace,Consolas,monospace}
+.aruba p{font-size:14.5px;margin:8px 0 0;max-width:68ch}
+
+ol.book{font-size:15px;max-width:66ch;padding-left:22px}
+ol.book li{margin-bottom:10px}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);
+  font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--muted);line-height:1.7}
+@media (prefers-reduced-motion: no-preference){
+  .clarity-fill{transition:width .6s ease}
+}
+</style>
+<div class="wrap">
+<header>
+  <p class="eyebrow">FareScout · shared trip portal</p>
+  <h1>Where we should go <span class="thin">in August</span></h1>
+  <div class="meta-row">
+    <span><b>DTW</b> departure</span>
+    <span>Sat <b>Aug 8</b> → Sat <b>Aug 15</b>, 2026</span>
+    <span><b>2 adults</b> · all-inclusive · 1 room</span>
+    <span><b>106</b> live price observations · <b>14</b> destinations</span>
+    <span>last checked <b>2026-07-17</b></span>
+  </div>
+</header>
+
+<section>
+  <h2>The verdict</h2>
+  <p class="kicker">Every price below is the full trip for both travelers — flights from Detroit, hotel, taxes — as displayed at the source. Verified across three passes on July 17.</p>
+  <div class="verdict">
+    <div class="card win">
+      <div class="label">Book this — best value found</div>
+      <h3>Riu Latino <span class="tag">adults-only</span></h3>
+      <div class="sub">Costa Mujeres, Mexico · 4.5★ · opened 2024</div>
+      <div class="bigprice">$2,412 <small>total for two</small></div>
+      <p>Cheapest adults-only anywhere in the sweep, a 3h45m <em>nonstop</em> from DTW, and its northwest-facing beach is one of the few mainland-Mexico stretches expected to stay relatively clear in a record seaweed year. The Aug 8 start was confirmed cheapest against six date-shift variants.</p>
+    </div>
+    <div class="card">
+      <div class="label">If crystal water is non-negotiable</div>
+      <h3>Secrets Aura Cozumel <span class="tag">adults-only</span></h3>
+      <div class="sub">Cozumel west coast · 5★ · swim-out suites</div>
+      <div class="bigprice">$3,568 <small>total for two</small></div>
+      <p>Cozumel's west coast is physically shielded from the sargassum flow — clarity there is a near-certainty, not a bet. The +$1,156 buys that certainty; the trade is a ~5.5h one-stop flight instead of a nonstop.</p>
+    </div>
+  </div>
+  <div class="caveat"><b>The honest caveat:</b> Secrets The Vine and everything in Punta Cana are still great resorts at great prices — but in August 2026 you'd be gambling the "crystal clear" part of the trip on which way the wind blows that week. Resorts rake sand daily; they can't rake the water.</div>
+</section>
+
+<section>
+  <h2>The board — all 20 options, conditions-adjusted</h2>
+  <p class="kicker">Score is the 10-criterion model from the scorecard (price, water, flight, resort tier, adults-only fit, conditions…). Clarity is expected August water clarity from the sargassum research, 0–10. Prices are the latest observation in the database.</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr>
+      <th class="num">#</th><th>Resort</th><th class="num">Total (2)</th>
+      <th class="num">Score</th><th>Water clarity</th>
+    </tr></thead>
+    <tbody>
+        <tr class="medal-1">
+          <td class="num rank">1</td>
+          <td><div class="resort">Riu Latino <span class="stars">4.5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Costa Mujeres, Mexico — Cheapest adults-only anywhere; new resort (2024); 3h45m nonstop</div></td>
+          <td class="num price">$2,412<div class="pp">$1,206 pp</div></td>
+          <td class="num score">7.90</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 7.5/10"><div class="clarity-track"><div class="clarity-fill" style="width:75.0%"></div></div><span class="clarity-num">7.5</span></div></td>
+        </tr>
+        <tr class="medal-2">
+          <td class="num rank">2</td>
+          <td><div class="resort">Secrets Aura Cozumel <span class="stars">5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Cozumel west coast — Swim-out suites; the island physically blocks the seaweed</div></td>
+          <td class="num price">$3,568<div class="pp">$1,784 pp</div></td>
+          <td class="num score">7.45</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 9.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:90.0%"></div></div><span class="clarity-num">9</span></div></td>
+        </tr>
+        <tr class="medal-3">
+          <td class="num rank">3</td>
+          <td><div class="resort">Secrets The Vine <span class="stars">5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Cancún Hotel Zone — The romantic splurge pick; 19,475 reviews</div></td>
+          <td class="num price">$2,924<div class="pp">$1,462 pp</div></td>
+          <td class="num score">7.34</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 5.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:50.0%"></div></div><span class="clarity-num">5</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">4</td>
+          <td><div class="resort">Catalonia Riviera Maya <span class="stars">5★</span> </div>
+              <div class="where">Riviera Maya — 5-star at a 3-star price; swim-up rooms</div></td>
+          <td class="num price">$2,144<div class="pp">$1,072 pp</div></td>
+          <td class="num score">7.30</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 4.5/10"><div class="clarity-track"><div class="clarity-fill" style="width:45.0%"></div></div><span class="clarity-num">4.5</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">5</td>
+          <td><div class="resort">Hotel Marina El Cid <span class="stars">4.5★</span> </div>
+              <div class="where">Puerto Morelos — 10,786 reviews; calm bay 14 mi from the airport</div></td>
+          <td class="num price">$2,310<div class="pp">$1,155 pp</div></td>
+          <td class="num score">7.25</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 4.5/10"><div class="clarity-track"><div class="clarity-fill" style="width:45.0%"></div></div><span class="clarity-num">4.5</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">6</td>
+          <td><div class="resort">Riu Negril <span class="stars">4★</span> </div>
+              <div class="where">Negril, Jamaica — Seven-Mile-Beach area; historically seaweed-free</div></td>
+          <td class="num price">$2,906<div class="pp">$1,453 pp</div></td>
+          <td class="num score">7.23</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 8.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:80.0%"></div></div><span class="clarity-num">8</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">7</td>
+          <td><div class="resort">Riu Yucatan <span class="stars">4★</span> </div>
+              <div class="where">Playa del Carmen — Cheapest true beachfront; PDC nightlife walkable</div></td>
+          <td class="num price">$2,134<div class="pp">$1,067 pp</div></td>
+          <td class="num score">7.20</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 4.5/10"><div class="clarity-track"><div class="clarity-fill" style="width:45.0%"></div></div><span class="clarity-num">4.5</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">8</td>
+          <td><div class="resort">Riu Palace Paradise Island <span class="stars">4.5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Nassau, Bahamas — Cabbage Beach postcard water; shortest flight (~3h)</div></td>
+          <td class="num price">$3,716<div class="pp">$1,858 pp</div></td>
+          <td class="num score">7.18</td>
+          <td class="clarity-cell"><span class="dim">not scored</span></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">9</td>
+          <td><div class="resort">Dreams Cozumel Cape <span class="stars">5★</span> </div>
+              <div class="where">Cozumel west coast — Same protected coast as Secrets Aura, family-friendly</div></td>
+          <td class="num price">$3,396<div class="pp">$1,698 pp</div></td>
+          <td class="num score">7.05</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 9.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:90.0%"></div></div><span class="clarity-num">9</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">10</td>
+          <td><div class="resort">Barceló Bávaro Beach <span class="stars">4★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Punta Cana — Moved +6% between verification passes — trending up</div></td>
+          <td class="num price">$2,606<div class="pp">$1,303 pp</div></td>
+          <td class="num score">6.95</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 4.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:40.0%"></div></div><span class="clarity-num">4</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">11</td>
+          <td><div class="resort">Riu Palace Punta Cana <span class="stars">5★</span> </div>
+              <div class="where">Punta Cana — Palace tier under $1,250/pp</div></td>
+          <td class="num price">$2,454<div class="pp">$1,227 pp</div></td>
+          <td class="num score">6.85</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 4.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:40.0%"></div></div><span class="clarity-num">4</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">12</td>
+          <td><div class="resort">Riu Palace Macao <span class="stars">5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Punta Cana — Beachfront swim-up suites</div></td>
+          <td class="num price">$2,904<div class="pp">$1,452 pp</div></td>
+          <td class="num score">6.85</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 4.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:40.0%"></div></div><span class="clarity-num">4</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">13</td>
+          <td><div class="resort">Sonesta Ocean Point <span class="stars">5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">St. Maarten — Heavy seaweed landings expected island-wide</div></td>
+          <td class="num price">$5,820<div class="pp">$2,910 pp</div></td>
+          <td class="num score">6.52</td>
+          <td class="clarity-cell"><span class="dim">not scored</span></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">14</td>
+          <td><div class="resort">Riu Palace Aruba <span class="stars">4★</span> </div>
+              <div class="where">Palm Beach, Aruba — The original target — great water, brutal August pricing</div></td>
+          <td class="num price">$5,972<div class="pp">$2,986 pp</div></td>
+          <td class="num score">6.18</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 8.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:80.0%"></div></div><span class="clarity-num">8</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">15</td>
+          <td><div class="resort">The Reef Beach Resort <span class="stars">3.5★</span> </div>
+              <div class="where">Grand Cayman — Superb water; only true all-inclusive on the island</div></td>
+          <td class="num price">$5,214<div class="pp">$2,607 pp</div></td>
+          <td class="num score">6.17</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 9.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:90.0%"></div></div><span class="clarity-num">9</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">16</td>
+          <td><div class="resort">Blue Haven Resort <span class="stars">4.5★</span> </div>
+              <div class="where">Turks &amp; Caicos — Clearest water in the Caribbean; $8,300+ per couple</div></td>
+          <td class="num price">$8,328<div class="pp">$4,164 pp</div></td>
+          <td class="num score">6.16</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 9.5/10"><div class="clarity-track"><div class="clarity-fill" style="width:95.0%"></div></div><span class="clarity-num">9.5</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">17</td>
+          <td><div class="resort">The Verandah <span class="stars">4★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Antigua — East Caribbean at record seaweed levels</div></td>
+          <td class="num price">$4,998<div class="pp">$2,499 pp</div></td>
+          <td class="num score">6.11</td>
+          <td class="clarity-cell"><span class="dim">not scored</span></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">18</td>
+          <td><div class="resort">Riu Palace Antillas <span class="stars">4★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Palm Beach, Aruba — ~$1,000 premium over Palace Aruba on every source</div></td>
+          <td class="num price">$6,924<div class="pp">$3,462 pp</div></td>
+          <td class="num score">6.10</td>
+          <td class="clarity-cell"><div class="clarity" title="Expected August water clarity 8.0/10"><div class="clarity-track"><div class="clarity-fill" style="width:80.0%"></div></div><span class="clarity-num">8</span></div></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">19</td>
+          <td><div class="resort">Royalton Hideaway <span class="stars">5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">St. Lucia — Volcanic sand and the wettest month — not crystal</div></td>
+          <td class="num price">$5,172<div class="pp">$2,586 pp</div></td>
+          <td class="num score">5.89</td>
+          <td class="clarity-cell"><span class="dim">not scored</span></td>
+        </tr>
+        <tr class="">
+          <td class="num rank">20</td>
+          <td><div class="resort">The Club Barbados <span class="stars">3.5★</span> <span class="tag">adults-only</span></div>
+              <div class="where">Barbados — Worst seaweed year on record for Barbados — out</div></td>
+          <td class="num price">$4,520<div class="pp">$2,260 pp</div></td>
+          <td class="num score">5.54</td>
+          <td class="clarity-cell"><span class="dim">not scored</span></td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>August conditions — the finding that changed the ranking</h2>
+  <p class="kicker">2026 is the second-worst sargassum (seaweed) year ever recorded — 33.6M metric tons, per the USF Optical Oceanography Lab's June 30 bulletin, with beaching likely to increase through August. Hurricanes, by contrast, are a green light: CSU forecasts the quietest season since 2014, and Aug 8–15 sits before the climatological ramp.</p>
+  <div class="cols">
+    <div class="zone good">
+      <h4>Protected water — safe bets</h4>
+      <ul>
+        <li><span>Grace Bay, Turks &amp; Caicos</span><span class="val">9.5 / 10</span></li>
+        <li><span>Cozumel west coast</span><span class="val">9 / 10</span></li>
+        <li><span>Seven Mile Beach, Cayman</span><span class="val">9 / 10</span></li>
+        <li><span>Negril, Jamaica</span><span class="val">8 / 10</span></li>
+        <li><span>Palm Beach, Aruba</span><span class="val">8 / 10</span></li>
+        <li><span>Costa Mujeres, Mexico</span><span class="val">7.5 / 10</span></li>
+      </ul>
+    </div>
+    <div class="zone bad">
+      <h4>Hit zones — avoid for clear water</h4>
+      <ul>
+        <li><span>Punta Cana / Bávaro</span><span class="val">4 / 10 — worst</span></li>
+        <li><span>Riviera Maya / Playa del Carmen</span><span class="val">4.5 / 10</span></li>
+        <li><span>Cancún Hotel Zone</span><span class="val">5 / 10</span></li>
+        <li><span>Barbados</span><span class="val">worst year on record</span></li>
+        <li><span>Puerto Rico</span><span class="val">state of emergency</span></li>
+        <li><span>St. Maarten / E. Caribbean</span><span class="val">record levels</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="caveat">Beach-level seaweed is wind-dependent day to day — USF explicitly declines to predict individual beaches. The scores are zone-level expectations, not guarantees.</div>
+</section>
+
+<section>
+  <h2>Why Aruba — the original target — lost</h2>
+  <div class="aruba">
+    <div class="fig">
+      <div><div class="n">$5,972</div><div class="l">best Aruba package</div></div>
+      <div><div class="n">$2,412</div><div class="l">Riu Latino, same week</div></div>
+      <div><div class="n">2.5×</div><div class="l">the price of equal-tier Mexico</div></div>
+      <div><div class="n">6h40m+</div><div class="l">1-stop only until Dec 19</div></div>
+    </div>
+    <p>Aruba's water (and zero hurricane risk since 1851) is real — Palm Beach scores 8/10 even in a record seaweed year. But every August observation came in <span class="pill RED">RED</span> against the baselines: flights $921/pp vs a $650 AMBER ceiling, and the cheapest complete package at $5,972. Same week, same airport, Cancún and Punta Cana price at roughly a third. Aruba stays in the database as the winter-season candidate — the DTW nonstop returns Dec 19.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The ledger — every price observed</h2>
+  <p class="kicker">All 106 observations from the read-only scouting runs, straight from the database. Status colors apply to the Aruba baselines only; SCOUT rows were exploratory. Prices are quotes, not offers — they can change at checkout.</p>
+  <div class="filters">
+    <select id="f-dest" aria-label="Filter by destination"><option value="">All destinations</option><option value="Antigua">Antigua</option><option value="Aruba">Aruba</option><option value="Bahamas">Bahamas</option><option value="Barbados">Barbados</option><option value="Cancún / Riviera Maya">Cancún / Riviera Maya</option><option value="Cozumel">Cozumel</option><option value="Curaçao">Curaçao</option><option value="Grand Cayman">Grand Cayman</option><option value="Jamaica">Jamaica</option><option value="Puerto Rico">Puerto Rico</option><option value="Punta Cana">Punta Cana</option><option value="St. Lucia">St. Lucia</option><option value="St. Maarten">St. Maarten</option><option value="Turks &amp; Caicos">Turks &amp; Caicos</option></select>
+    <select id="f-src" aria-label="Filter by source"><option value="">All sources</option><option value="CheapCaribbean">CheapCaribbean</option><option value="Expedia">Expedia</option><option value="GoogleFlights">GoogleFlights</option><option value="Kayak">Kayak</option><option value="Riu">Riu</option></select>
+    <select id="f-kind" aria-label="Filter by kind"><option value="">All kinds</option>
+      <option>Flight</option><option>Hotel</option><option>Package</option></select>
+    <select id="f-sort" aria-label="Sort">
+      <option value="id">Order checked</option>
+      <option value="asc">Price ↑</option>
+      <option value="desc">Price ↓</option></select>
+    <input id="f-q" type="search" placeholder="search resort, carrier, notes…" aria-label="Search observations">
+    <span class="count" id="f-count"></span>
+  </div>
+  <div class="tablewrap ledger">
+  <table>
+    <thead><tr>
+      <th>Checked</th><th>Destination</th><th>Source</th><th>Kind</th>
+      <th>Route / resort</th><th class="num">Total (2)</th><th>Status</th><th>Notes</th>
+    </tr></thead>
+    <tbody id="ledger-body"></tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>How to book (no bookings were made)</h2>
+  <ol class="book">
+    <li><b>CheapCaribbean.com</b> → Hotel + Flight → Detroit → destination → Aug 8–15 → 2 adults. The $200 Jet Set July promo applies automatically; 24-hour free cancellation.</li>
+    <li>Filter to the resort by name, pick the entry room, then <b>review the flight it selected</b> — upgrade off a 2-stop if offered for ~$50–100.</li>
+    <li>Cross-check <b>packagesus.riu.com</b> for Riu properties and <b>barcelo.com</b> direct for Barceló — direct occasionally beats the package price.</li>
+  </ol>
+</section>
+
+<footer>
+  Generated from <b>data/FareScout.db</b> (106 PriceCheck rows) and the scouting reports of 2026-07-17.<br>
+  Read-only reconnaissance: no bookings made, no payment or passenger data touched. All prices USD, for 2 adults, as displayed at the source — quotes move; verify at checkout.
+</footer>
+</div>
+
+<script>
+const DATA = [{"id": 2, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-15", "total": 1842.0, "pp": 921.0, "status": "RED", "promo": "", "notes": "5:20AM-12:00PM 6h40m; Google insight: prices HIGH; tip Aug5-13 $1140"}, {"id": 3, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-15", "total": 1862.0, "pp": 931.0, "status": "RED", "promo": "", "notes": "7:15AM-1:59PM 6h44m"}, {"id": 4, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-15", "total": 2042.0, "pp": 1021.0, "status": "RED", "promo": "", "notes": "7:20AM-2:10PM 6h50m"}, {"id": 5, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-15", "total": 2094.0, "pp": 1047.0, "status": "RED", "promo": "", "notes": "7:30AM-4:40PM 9h10m long layover 2h24m"}, {"id": 6, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-15", "total": 2730.0, "pp": 1365.0, "status": "RED", "promo": "", "notes": "6:00AM-12:40PM 6h40m"}, {"id": 7, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-16", "total": 1872.0, "pp": 936.0, "status": "RED", "promo": "", "notes": "7:15AM-1:59PM 6h44m; Google insight: prices HIGH"}, {"id": 8, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-16", "total": 2160.0, "pp": 1080.0, "status": "RED", "promo": "", "notes": "5:20AM-12:00PM 6h40m"}, {"id": 9, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-16", "total": 2211.0, "pp": 1105.5, "status": "RED", "promo": "", "notes": "5:35PM-1:40PM+1 20h5m overnight"}, {"id": 10, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-16", "total": 2262.0, "pp": 1131.0, "status": "RED", "promo": "", "notes": "7:30AM-4:40PM 9h10m"}, {"id": 11, "at": "2026-07-17 18:55", "dest": "Aruba", "trip": "ARUBA-001", "src": "GoogleFlights", "kind": "Flight", "what": "DTW-AUA", "dates": "2026-08-08 → 2026-08-16", "total": 2432.0, "pp": 1216.0, "status": "RED", "promo": "", "notes": "6:00AM-1:30PM 7h30m"}, {"id": 12, "at": "2026-07-17 19:05", "dest": "Aruba", "trip": "ARUBA-001", "src": "Riu", "kind": "Package", "what": "Riu Palace Aruba", "dates": "2026-08-08 → 2026-08-15", "total": 6034.0, "pp": 3017.0, "status": "RED", "promo": "100% off flights promo", "notes": "Promo '100% off flights'; was $4595/traveler now $3017/traveler; fully refundable; 8.2/10 (1762 reviews)"}, {"id": 13, "at": "2026-07-17 19:05", "dest": "Aruba", "trip": "ARUBA-001", "src": "Riu", "kind": "Package", "what": "Riu Palace Antillas (Adults Only)", "dates": "2026-08-08 → 2026-08-15", "total": 7213.0, "pp": 3607.0, "status": "RED", "promo": "100% off flights promo", "notes": "Promo '100% off flights'; was $5849/traveler now $3607/traveler; fully refundable; 8.6/10 (1656 reviews)"}, {"id": 14, "at": "2026-07-17 19:15", "dest": "Aruba", "trip": "ARUBA-001", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Antillas (Adults Only)", "dates": "2026-08-08 → 2026-08-15", "total": 6924.0, "pp": 3462.0, "status": "RED", "promo": "$200 Jet Set July discount applied; price incl hotel+flights+taxes", "notes": "Elite Club by RIU badge; 4-star; Palm Beach 5.1mi from AUA"}, {"id": 15, "at": "2026-07-17 19:15", "dest": "Aruba", "trip": "ARUBA-001", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Aruba", "dates": "2026-08-08 → 2026-08-15", "total": 5972.0, "pp": 2986.0, "status": "RED", "promo": "$200 Jet Set July discount applied; price incl hotel+flights+taxes", "notes": "4-star; 9500 reviews; 5.1mi from AUA"}, {"id": 16, "at": "2026-07-17 19:15", "dest": "Aruba", "trip": "ARUBA-001", "src": "CheapCaribbean", "kind": "Package", "what": "Barcelo Aruba", "dates": "2026-08-08 → 2026-08-15", "total": 6968.0, "pp": 3484.0, "status": "RED", "promo": "$200 Jet Set July discount applied; price incl hotel+flights+taxes", "notes": "4-star; 12983 reviews; Beach 5.3mi from AUA"}, {"id": 17, "at": "2026-07-17 19:25", "dest": "Aruba", "trip": "ARUBA-001", "src": "Expedia", "kind": "Hotel", "what": "Riu Palace Antillas (Adults Only)", "dates": "2026-08-08 → 2026-08-15", "total": 6537.0, "pp": 3268.5, "status": "RED", "promo": "$827/night; total w/ taxes+fees", "notes": "was $11866; 4 left at this price; fully refundable"}, {"id": 18, "at": "2026-07-17 19:25", "dest": "Aruba", "trip": "ARUBA-001", "src": "Expedia", "kind": "Hotel", "what": "Riu Palace Aruba", "dates": "2026-08-08 → 2026-08-15", "total": 5560.0, "pp": 2780.0, "status": "RED", "promo": "$703/night; total w/ taxes+fees", "notes": "was $9250; fully refundable"}, {"id": 19, "at": "2026-07-17 19:25", "dest": "Aruba", "trip": "ARUBA-001", "src": "Expedia", "kind": "Hotel", "what": "Barcelo Aruba", "dates": "2026-08-08 → 2026-08-15", "total": 5999.0, "pp": 2999.5, "status": "RED", "promo": "$728/night; total w/ taxes+fees", "notes": "was $9216 ($3217 off); 1 left at this price"}, {"id": 20, "at": "2026-07-17 19:35", "dest": "Aruba", "trip": "ARUBA-001", "src": "Kayak", "kind": "Hotel", "what": "Riu Palace Aruba", "dates": "2026-08-08 → 2026-08-15", "total": 4921.0, "pp": 2460.5, "status": "RED", "promo": "$703/night cross-check", "notes": "Nightly $703 AI (Expedia/Hotels.com), book-direct $702, low option Pricetravel $620; nightly incl fees BEFORE taxes; 7nt approx $4921"}, {"id": 21, "at": "2026-07-17 19:35", "dest": "Aruba", "trip": "ARUBA-001", "src": "Kayak", "kind": "Hotel", "what": "Riu Palace Antillas (Adults Only)", "dates": "2026-08-08 → 2026-08-15", "total": 5782.0, "pp": 2891.0, "status": "RED", "promo": "$826/night cross-check", "notes": "Nightly $826 (Agoda), Expedia $928 AI, Super.com $693 AI; before taxes; 7nt approx $5782"}, {"id": 22, "at": "2026-07-17 19:35", "dest": "Aruba", "trip": "ARUBA-001", "src": "Kayak", "kind": "Hotel", "what": "Barcelo Aruba", "dates": "2026-08-08 → 2026-08-15", "total": 4340.0, "pp": 2170.0, "status": "RED", "promo": "$620/night cross-check", "notes": "Book DIRECT Barcelo.com $620 nightly cheapest; Expedia $763 AI; Agoda $773 w/breakfast; before taxes; 7nt approx $4340"}, {"id": 23, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Tequila - AI", "dates": "2026-08-08 → 2026-08-15", "total": 1970.0, "pp": 985.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 12758 reviews; Playa del Carmen OFF-beach (shuttle to beach); cheapest found"}, {"id": 24, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Yucatan - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2134.0, "pp": 1067.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 9389 reviews; Playa del Carmen beachfront"}, {"id": 25, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Catalonia Riviera Maya - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2144.0, "pp": 1072.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 3183 reviews; Riviera Maya beach; 43mi from CUN"}, {"id": 26, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Hotel Marina El Cid Spa & Beach - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2310.0, "pp": 1155.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 10786 reviews; Puerto Morelos beachfront"}, {"id": 27, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Dunamar - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2386.0, "pp": 1193.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 5186 reviews; Costa Mujeres beach"}, {"id": 28, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Latino - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2412.0, "pp": 1206.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 2900 reviews; Costa Mujeres; adults-only"}, {"id": 29, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Costa Mujeres - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2632.0, "pp": 1316.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 4946 reviews; "}, {"id": 30, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Cancun - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2696.0, "pp": 1348.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 14781 reviews; Hotel Zone beach"}, {"id": 31, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Riviera Maya - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2676.0, "pp": 1338.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 8712 reviews; Playa del Carmen beach"}, {"id": 32, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets The Vine - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2924.0, "pp": 1462.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 19475 reviews; Hotel Zone; adults-only luxury"}, {"id": 33, "at": "2026-07-17 20:00", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Kukulkan - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3050.0, "pp": 1525.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 1700 reviews; Hotel Zone beach"}, {"id": 34, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "VIK Arena Blanca - AI", "dates": "2026-08-08 → 2026-08-15", "total": 1804.0, "pp": 902.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "3-star; 4377 reviews; Punta Cana beach; budget 3-star"}, {"id": 35, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Bambu - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2174.0, "pp": 1087.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 5580 reviews; Punta Cana beach; family"}, {"id": 36, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Sunscape Coco - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2194.0, "pp": 1097.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 3708 reviews; 1.6mi from PUJ"}, {"id": 37, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Catalonia Bavaro Beach Golf & Casino - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2294.0, "pp": 1147.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 16247 reviews; "}, {"id": 38, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Punta Cana - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2454.0, "pp": 1227.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 4067 reviews; Punta Cana beach"}, {"id": 39, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Barcelo Bavaro Beach - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2460.0, "pp": 1230.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 16399 reviews; Bavaro beach; adults-only"}, {"id": 40, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Barcelo Bavaro Palace - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2588.0, "pp": 1294.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 0 reviews; "}, {"id": 41, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Macao - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2904.0, "pp": 1452.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 6928 reviews; Beachfront swim-up rooms; adults-only"}, {"id": 42, "at": "2026-07-17 20:00", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets Royal Beach - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3146.0, "pp": 1573.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 23486 reviews; adults-only"}, {"id": 43, "at": "2026-07-17 20:00", "dest": "Jamaica", "trip": "SCOUT-MBJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Negril - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2906.0, "pp": 1453.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 9094 reviews; Negril beach (Seven Mile area)"}, {"id": 44, "at": "2026-07-17 20:00", "dest": "Jamaica", "trip": "SCOUT-MBJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Tropical Bay - AI", "dates": "2026-08-08 → 2026-08-15", "total": 3200.0, "pp": 1600.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 8686 reviews; Negril beach"}, {"id": 45, "at": "2026-07-17 20:00", "dest": "Jamaica", "trip": "SCOUT-MBJ", "src": "CheapCaribbean", "kind": "Package", "what": "Bahia Principe Escape Runaway Bay - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3426.0, "pp": 1713.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 5888 reviews; "}, {"id": 46, "at": "2026-07-17 20:00", "dest": "Jamaica", "trip": "SCOUT-MBJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Reggae - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3482.0, "pp": 1741.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 4136 reviews; Montego Bay"}, {"id": 47, "at": "2026-07-17 20:00", "dest": "Jamaica", "trip": "SCOUT-MBJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Jamaica - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 4062.0, "pp": 2031.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 5078 reviews; Montego Bay beach"}, {"id": 48, "at": "2026-07-17 20:00", "dest": "Bahamas", "trip": "SCOUT-NAS", "src": "CheapCaribbean", "kind": "Package", "what": "Breezes Bahamas - AI", "dates": "2026-08-08 → 2026-08-15", "total": 3408.0, "pp": 1704.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "3.5-star; 11151 reviews; Cable Beach Nassau"}, {"id": 49, "at": "2026-07-17 20:00", "dest": "Bahamas", "trip": "SCOUT-NAS", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Paradise Island - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3716.0, "pp": 1858.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 2973 reviews; Paradise Island / Cabbage Beach; adults-only"}, {"id": 50, "at": "2026-07-17 20:00", "dest": "Bahamas", "trip": "SCOUT-NAS", "src": "CheapCaribbean", "kind": "Package", "what": "Warwick Paradise Island - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3890.0, "pp": 1945.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 3188 reviews; Harbour beach; adults-only"}, {"id": 51, "at": "2026-07-17 20:00", "dest": "Curaçao", "trip": "SCOUT-CUR", "src": "CheapCaribbean", "kind": "Package", "what": "Dreams Curacao Resort Spa & Casino - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4632.0, "pp": 2316.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 2224 reviews; "}, {"id": 52, "at": "2026-07-17 20:00", "dest": "Curaçao", "trip": "SCOUT-CUR", "src": "CheapCaribbean", "kind": "Package", "what": "Mangrove Beach Corendon Curio Hilton - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4778.0, "pp": 2389.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 1983 reviews; "}, {"id": 53, "at": "2026-07-17 20:00", "dest": "Curaçao", "trip": "SCOUT-CUR", "src": "CheapCaribbean", "kind": "Package", "what": "Sunscape Curacao - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4996.0, "pp": 2498.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 10177 reviews; "}, {"id": 54, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Latino - AI - Adults Only", "dates": "2026-08-09 → 2026-08-16", "total": 2614.0, "pp": 1307.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 55, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets The Vine - AI - Adults Only", "dates": "2026-08-09 → 2026-08-16", "total": 3122.0, "pp": 1561.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 56, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Hotel Marina El Cid Spa & Beach - AI", "dates": "2026-08-09 → 2026-08-16", "total": 2514.0, "pp": 1257.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 57, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Latino - AI - Adults Only", "dates": "2026-08-10 → 2026-08-17", "total": 2548.0, "pp": 1274.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 58, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets The Vine - AI - Adults Only", "dates": "2026-08-10 → 2026-08-17", "total": 3000.0, "pp": 1500.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 59, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Hotel Marina El Cid Spa & Beach - AI", "dates": "2026-08-10 → 2026-08-17", "total": 2470.0, "pp": 1235.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 60, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Latino - AI - Adults Only", "dates": "2026-08-11 → 2026-08-18", "total": 2482.0, "pp": 1241.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 61, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets The Vine - AI - Adults Only", "dates": "2026-08-11 → 2026-08-18", "total": 2944.0, "pp": 1472.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 62, "at": "2026-07-17 20:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Hotel Marina El Cid Spa & Beach - AI", "dates": "2026-08-11 → 2026-08-18", "total": 2426.0, "pp": 1213.0, "status": "", "promo": "$200 promo applied", "notes": "date-shift variant check; Aug 8 start remains cheapest"}, {"id": 63, "at": "2026-07-17 21:00", "dest": "Turks & Caicos", "trip": "SCOUT-PLS", "src": "CheapCaribbean", "kind": "Package", "what": "Blue Haven Resort - AI", "dates": "2026-08-08 → 2026-08-15", "total": 8328.0, "pp": 4164.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 1886 reviews; Turks & Caicos; true AI; expensive market"}, {"id": 64, "at": "2026-07-17 21:00", "dest": "Turks & Caicos", "trip": "SCOUT-PLS", "src": "CheapCaribbean", "kind": "Package", "what": "Alexandra Resort - AI", "dates": "2026-08-08 → 2026-08-15", "total": 8482.0, "pp": 4241.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 4355 reviews; Grace Bay Beach"}, {"id": 65, "at": "2026-07-17 21:00", "dest": "Turks & Caicos", "trip": "SCOUT-PLS", "src": "CheapCaribbean", "kind": "Package", "what": "Ritz-Carlton Turks & Caicos (EP)", "dates": "2026-08-08 → 2026-08-15", "total": 7778.0, "pp": 3889.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 789 reviews; NOT all-inclusive; for reference"}, {"id": 66, "at": "2026-07-17 21:00", "dest": "Grand Cayman", "trip": "SCOUT-GCM", "src": "CheapCaribbean", "kind": "Package", "what": "The Reef Beach Resort - AI", "dates": "2026-08-08 → 2026-08-15", "total": 5214.0, "pp": 2607.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "3.5-star; 2765 reviews; East End 18.5mi; only true AI on island"}, {"id": 67, "at": "2026-07-17 21:00", "dest": "Grand Cayman", "trip": "SCOUT-GCM", "src": "CheapCaribbean", "kind": "Package", "what": "Westin Grand Cayman Seven Mile (EP)", "dates": "2026-08-08 → 2026-08-15", "total": 5996.0, "pp": 2998.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 1636 reviews; NOT AI; reference"}, {"id": 68, "at": "2026-07-17 21:00", "dest": "St. Maarten", "trip": "SCOUT-SXM", "src": "CheapCaribbean", "kind": "Package", "what": "Sonesta Maho Beach - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4716.0, "pp": 2358.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 1999 reviews; Maho Beach (planes overhead!)"}, {"id": 69, "at": "2026-07-17 21:00", "dest": "St. Maarten", "trip": "SCOUT-SXM", "src": "CheapCaribbean", "kind": "Package", "what": "Sonesta Ocean Point - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 5820.0, "pp": 2910.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 1042 reviews; adults-only"}, {"id": 70, "at": "2026-07-17 21:00", "dest": "Antigua", "trip": "SCOUT-ANU", "src": "CheapCaribbean", "kind": "Package", "what": "St. James's Club - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4892.0, "pp": 2446.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 5088 reviews; "}, {"id": 71, "at": "2026-07-17 21:00", "dest": "Antigua", "trip": "SCOUT-ANU", "src": "CheapCaribbean", "kind": "Package", "what": "The Verandah - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 4998.0, "pp": 2499.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 5377 reviews; adults-only"}, {"id": 72, "at": "2026-07-17 21:00", "dest": "Antigua", "trip": "SCOUT-ANU", "src": "CheapCaribbean", "kind": "Package", "what": "Pineapple Beach Club - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 5392.0, "pp": 2696.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 6041 reviews; adults-only"}, {"id": 73, "at": "2026-07-17 21:00", "dest": "Antigua", "trip": "SCOUT-ANU", "src": "CheapCaribbean", "kind": "Package", "what": "Royalton Antigua - AI", "dates": "2026-08-08 → 2026-08-15", "total": 5438.0, "pp": 2719.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 4918 reviews; overwater bungalows"}, {"id": 74, "at": "2026-07-17 21:00", "dest": "Antigua", "trip": "SCOUT-ANU", "src": "CheapCaribbean", "kind": "Package", "what": "Royalton CHIC Antigua - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 5750.0, "pp": 2875.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 1531 reviews; adults-only"}, {"id": 75, "at": "2026-07-17 21:00", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "El Cozumeleno Beach Resort - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2986.0, "pp": 1493.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "3.5-star; 7912 reviews; "}, {"id": 76, "at": "2026-07-17 21:00", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Dreams Cozumel Cape - AI", "dates": "2026-08-08 → 2026-08-15", "total": 3396.0, "pp": 1698.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 965 reviews; "}, {"id": 77, "at": "2026-07-17 21:00", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets Aura Cozumel - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3568.0, "pp": 1784.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 8024 reviews; adults-only; swim-out suites; west coast = clear + sargassum-protected"}, {"id": 78, "at": "2026-07-17 21:00", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Iberostar Waves Cozumel - AI", "dates": "2026-08-08 → 2026-08-15", "total": 3612.0, "pp": 1806.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 8945 reviews; bungalow-style"}, {"id": 79, "at": "2026-07-17 21:00", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Fiesta Americana Cozumel - AI", "dates": "2026-08-08 → 2026-08-15", "total": 3702.0, "pp": 1851.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 3403 reviews; "}, {"id": 80, "at": "2026-07-17 21:00", "dest": "St. Lucia", "trip": "SCOUT-UVF", "src": "CheapCaribbean", "kind": "Package", "what": "Royalton Saint Lucia - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4856.0, "pp": 2428.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 6388 reviews; "}, {"id": 81, "at": "2026-07-17 21:00", "dest": "St. Lucia", "trip": "SCOUT-UVF", "src": "CheapCaribbean", "kind": "Package", "what": "Zoetry Marigot Bay - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4890.0, "pp": 2445.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 1208 reviews; butler service"}, {"id": 82, "at": "2026-07-17 21:00", "dest": "St. Lucia", "trip": "SCOUT-UVF", "src": "CheapCaribbean", "kind": "Package", "what": "Coconut Bay Beach Resort - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4966.0, "pp": 2483.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 10171 reviews; "}, {"id": 83, "at": "2026-07-17 21:00", "dest": "St. Lucia", "trip": "SCOUT-UVF", "src": "CheapCaribbean", "kind": "Package", "what": "Royalton Hideaway St Lucia - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 5172.0, "pp": 2586.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 3203 reviews; adults-only"}, {"id": 84, "at": "2026-07-17 21:00", "dest": "St. Lucia", "trip": "SCOUT-UVF", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets St. Lucia - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 5396.0, "pp": 2698.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "5-star; 531 reviews; new resort"}, {"id": 85, "at": "2026-07-17 21:00", "dest": "Barbados", "trip": "SCOUT-BGI", "src": "CheapCaribbean", "kind": "Package", "what": "The Club Barbados - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 4520.0, "pp": 2260.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "3.5-star; 3042 reviews; adults-only"}, {"id": 86, "at": "2026-07-17 21:00", "dest": "Barbados", "trip": "SCOUT-BGI", "src": "CheapCaribbean", "kind": "Package", "what": "Savannah Beach Club - AI", "dates": "2026-08-08 → 2026-08-15", "total": 4712.0, "pp": 2356.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 2580 reviews; "}, {"id": 87, "at": "2026-07-17 21:00", "dest": "Barbados", "trip": "SCOUT-BGI", "src": "CheapCaribbean", "kind": "Package", "what": "Waves Resort & Spa - AI", "dates": "2026-08-08 → 2026-08-15", "total": 5444.0, "pp": 2722.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 1242 reviews; "}, {"id": 88, "at": "2026-07-17 21:00", "dest": "Barbados", "trip": "SCOUT-BGI", "src": "CheapCaribbean", "kind": "Package", "what": "Turtle Beach Barbados - AI", "dates": "2026-08-08 → 2026-08-15", "total": 5718.0, "pp": 2859.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4-star; 3606 reviews; "}, {"id": 89, "at": "2026-07-17 21:00", "dest": "Barbados", "trip": "SCOUT-BGI", "src": "CheapCaribbean", "kind": "Package", "what": "Sugar Bay Barbados - AI", "dates": "2026-08-08 → 2026-08-15", "total": 6406.0, "pp": 3203.0, "status": "", "promo": "$200 Jet Set July discount applied; hotel+flights+taxes from DTW", "notes": "4.5-star; 2603 reviews; "}, {"id": 90, "at": "2026-07-17 21:00", "dest": "Puerto Rico", "trip": "SCOUT-SJU", "src": "CheapCaribbean", "kind": "Package", "what": "San Juan market (no AI scene)", "dates": "2026-08-08 → 2026-08-15", "total": 0.0, "pp": 0.0, "status": "", "promo": "", "notes": "Puerto Rico: 42 hotels, no All-Inclusive filter offered; EP resorts from $953pp. Fails AI criterion."}, {"id": 91, "at": "2026-07-17 22:20", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Latino - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2412.0, "pp": 1206.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 92, "at": "2026-07-17 22:20", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets The Vine - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2924.0, "pp": 1462.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 93, "at": "2026-07-17 22:20", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Catalonia Riviera Maya - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2144.0, "pp": 1072.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 94, "at": "2026-07-17 22:20", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Hotel Marina El Cid Spa & Beach - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2310.0, "pp": 1155.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 95, "at": "2026-07-17 22:20", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Yucatan - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2134.0, "pp": 1067.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 96, "at": "2026-07-17 22:20", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Tequila - AI", "dates": "2026-08-08 → 2026-08-15", "total": 1970.0, "pp": 985.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 97, "at": "2026-07-17 22:20", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets Aura Cozumel - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3568.0, "pp": 1784.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 98, "at": "2026-07-17 22:20", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Dreams Cozumel Cape - AI", "dates": "2026-08-08 → 2026-08-15", "total": 3396.0, "pp": 1698.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 99, "at": "2026-07-17 22:20", "dest": "Jamaica", "trip": "SCOUT-MBJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Negril - AI", "dates": "2026-08-08 → 2026-08-15", "total": 2906.0, "pp": 1453.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 100, "at": "2026-07-17 22:20", "dest": "Jamaica", "trip": "SCOUT-MBJ", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Reggae - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3482.0, "pp": 1741.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 101, "at": "2026-07-17 22:20", "dest": "Bahamas", "trip": "SCOUT-NAS", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Palace Paradise Island - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3716.0, "pp": 1858.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 102, "at": "2026-07-17 22:20", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Barcelo Bavaro Beach - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2606.0, "pp": 1303.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 2 of 3"}, {"id": 103, "at": "2026-07-17 22:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Riu Latino - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2412.0, "pp": 1206.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 3 of 3"}, {"id": 104, "at": "2026-07-17 22:30", "dest": "Cancún / Riviera Maya", "trip": "SCOUT-CUN", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets The Vine - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2924.0, "pp": 1462.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 3 of 3"}, {"id": 105, "at": "2026-07-17 22:30", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Secrets Aura Cozumel - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 3568.0, "pp": 1784.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 3 of 3"}, {"id": 106, "at": "2026-07-17 22:30", "dest": "Cozumel", "trip": "SCOUT-CZM", "src": "CheapCaribbean", "kind": "Package", "what": "Dreams Cozumel Cape - AI", "dates": "2026-08-08 → 2026-08-15", "total": 3396.0, "pp": 1698.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 3 of 3"}, {"id": 107, "at": "2026-07-17 22:30", "dest": "Punta Cana", "trip": "SCOUT-PUJ", "src": "CheapCaribbean", "kind": "Package", "what": "Barcelo Bavaro Beach - AI - Adults Only", "dates": "2026-08-08 → 2026-08-15", "total": 2606.0, "pp": 1303.0, "status": "", "promo": "$200 promo applied", "notes": "verification pass 3 of 3"}];
+const fmt = n => n > 0 ? '$' + n.toLocaleString('en-US', {maximumFractionDigits: 0}) : '—';
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+const els = ['f-dest','f-src','f-kind','f-sort','f-q'].map(id => document.getElementById(id));
+const body = document.getElementById('ledger-body');
+const count = document.getElementById('f-count');
+function render() {
+  const [dest, src, kind, sort, q] = els.map(e => e.value);
+  const needle = q.trim().toLowerCase();
+  let rows = DATA.filter(r =>
+    (!dest || r.dest === dest) && (!src || r.src === src) && (!kind || r.kind === kind) &&
+    (!needle || (r.what + ' ' + r.notes + ' ' + r.promo + ' ' + r.dest).toLowerCase().includes(needle)));
+  if (sort === 'asc')  rows = rows.slice().sort((a, b) => a.total - b.total);
+  if (sort === 'desc') rows = rows.slice().sort((a, b) => b.total - a.total);
+  body.innerHTML = rows.map(r => `<tr>
+    <td class="num">${r.at.slice(5, 16)}</td>
+    <td>${esc(r.dest)}</td><td>${r.src}</td><td>${r.kind}</td>
+    <td class="what">${esc(r.what)}<div class="dim">${r.dates}</div></td>
+    <td class="num">${fmt(r.total)}${r.pp ? `<div class="pp">${fmt(r.pp)} pp</div>` : ''}</td>
+    <td>${r.status ? `<span class="pill ${r.status}">${r.status}</span>` : ''}</td>
+    <td class="notes">${esc(r.promo ? r.promo + (r.notes ? ' — ' + r.notes : '') : r.notes)}</td>
+  </tr>`).join('');
+  count.textContent = rows.length + ' / ' + DATA.length + ' rows';
+}
+els.forEach(e => e.addEventListener('input', render));
+render();
+</script>
