@@ -18,7 +18,11 @@ from . import alerts, channels, conditions, db, migrate, scope, status
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="farescout")
+    ap.add_argument("--db", help="alternate DB path (testing only)")
     sub = ap.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("run", help="one full cycle: conditions + channels + alerts + status")
+    p.add_argument("--no-channels", action="store_true",
+                   help="skip the Phase 2b channel pulls")
     sub.add_parser("migrate")
     sub.add_parser("scope")
     p = sub.add_parser("scrape")
@@ -34,8 +38,22 @@ def main(argv=None):
     sub.add_parser("status")
     args = ap.parse_args(argv)
 
-    con = db.connect()
+    con = db.connect(args.db)
     try:
+        if args.cmd == "run":
+            print("== conditions ==")
+            for row in conditions.run(con):
+                print(f"  {row['beach']:<18} {row['status']:<9} {row['notes'][:70]}")
+            if not args.no_channels:
+                print("== channels ==")
+                _, lines = channels.verify(channels.run(con))
+                print("\n".join(f"  {l}" for l in lines))
+            print("== alerts ==")
+            fired = alerts.fire(con)
+            print(f"  {len(fired)} new alert(s)")
+            out, _ = status.render(con)
+            print(out)
+            return 0
         if args.cmd == "migrate":
             result = migrate.apply(con)
             print(f"added columns: {result['added'] or 'none'}; "
