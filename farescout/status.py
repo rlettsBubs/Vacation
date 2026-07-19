@@ -16,12 +16,22 @@ GOOD_CONDITIONS = ("CLEAR", "LIGHT")
 def latest_prices(con):
     out = []
     for prop in config.TRACKED_PROPERTIES:
+        # The headline number is pinned to CheapCaribbean Package rows — the
+        # baseline channel. A hotel-only pull (e.g. HyattDirect) must never
+        # display as the property price or trip the baseline comparison.
         latest = con.execute(
             """SELECT CheckedAt, Source, Kind, TotalPrice FROM PriceCheck
-               WHERE RouteOrResort=? AND TotalPrice > 0
-                 AND Kind IN ('Package','Hotel')
+               WHERE RouteOrResort=? AND Source='CheapCaribbean'
+                 AND Kind='Package' AND TotalPrice > 0
                ORDER BY CheckId DESC LIMIT 1""", (prop["name"],)
         ).fetchone()
+        if not latest:
+            latest = con.execute(
+                """SELECT CheckedAt, Source, Kind, TotalPrice FROM PriceCheck
+                   WHERE RouteOrResort=? AND TotalPrice > 0
+                     AND Kind IN ('Package','Hotel')
+                   ORDER BY CheckId DESC LIMIT 1""", (prop["name"],)
+            ).fetchone()
         if not latest:
             continue
         # Delta only against the prior observation from the same source and

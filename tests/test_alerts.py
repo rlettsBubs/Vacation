@@ -29,12 +29,12 @@ def insert_price(con, resort, total, kind="Package", refundable=None,
     con.commit()
 
 
-def insert_condition(con, beach, status):
+def insert_condition(con, beach, status, notes=None):
     con.execute(
-        """INSERT INTO ConditionCheck (CheckedAt, Beach, Status, Source)
-           VALUES (?,?,?,?)""",
+        """INSERT INTO ConditionCheck (CheckedAt, Beach, Status, Source, Notes)
+           VALUES (?,?,?,?,?)""",
         (datetime.datetime.now().isoformat(timespec="seconds"), beach, status,
-         "synthetic"),
+         "synthetic", notes),
     )
     con.commit()
 
@@ -138,6 +138,32 @@ class AlertRuleTests(unittest.TestCase):
         scope.record_booking(self.con, "SCOUT-CZM", "booked Aura")
         self.assertNotIn("DECISION_DEADLINE",
                          self.fired_kinds(now=AT_DEADLINE))       # cleared
+
+    # --- PARSE_FAIL rows must not fire condition alerts -----------------------
+    def test_parse_fail_rows_dont_fire_condition_rules(self):
+        insert_condition(self.con, "Palm Beach Aruba", "MODERATE",
+                         notes="PARSE_FAIL — source doesn't cover this beach")
+        self.assertNotIn("ARUBA_CONDITIONS", self.fired_kinds())
+        insert_condition(self.con, "Cozumel West", "MODERATE",
+                         notes="PARSE_FAIL — fetch blocked")
+        insert_condition(self.con, "Cozumel West", "MODERATE",
+                         notes="PARSE_FAIL — fetch blocked")
+        self.assertNotIn("CZM_WEST_CONDITIONS", self.fired_kinds())
+        # Real observations still fire.
+        insert_condition(self.con, "Palm Beach Aruba", "HEAVY")
+        self.assertIn("ARUBA_CONDITIONS", self.fired_kinds())
+
+    # --- Status baseline pinned to CheapCaribbean packages ---------------------
+    def test_status_price_pinned_to_cheapcaribbean_package(self):
+        from farescout import status
+        insert_price(self.con, alerts.AURA, 3568, source="CheapCaribbean")
+        # A newer, cheaper hotel-only pull must not become the PRIMARY price.
+        insert_price(self.con, alerts.AURA, 2590, kind="Hotel",
+                     source="HyattDirect")
+        prices = status.latest_prices(self.con)
+        aura = next(p for p in prices if p["label"] == "Secrets Aura Cozumel")
+        self.assertEqual(aura["price"], 3568)
+        self.assertEqual(aura["source"], "CheapCaribbean")
 
     # --- Phase 2b: CHANNEL_BEAT ----------------------------------------------
     def test_channel_beat_fires_and_clears(self):

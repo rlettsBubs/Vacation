@@ -25,8 +25,13 @@ def _last_two_packages(con, resort):
 
 
 def _last_conditions(con, beach, n):
+    # PARSE_FAIL rows are the scraper saying "couldn't read the page", not an
+    # observed beach state — they stay conservative in the status view but
+    # must not fire condition alerts (they re-fired ARUBA_CONDITIONS every
+    # cycle for beaches the source doesn't cover).
     return con.execute(
         """SELECT Status FROM ConditionCheck WHERE Beach=?
+             AND (Notes IS NULL OR Notes NOT LIKE 'PARSE_FAIL%')
            ORDER BY CheckId DESC LIMIT ?""", (beach, n)
     ).fetchall()
 
