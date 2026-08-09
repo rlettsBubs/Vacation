@@ -1,0 +1,485 @@
+<title>Nassau Trip Guide — Beach Week ’26</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #faf8f3;
+    --surface: #fffefb;
+    --surface-2: #f3f0e8;
+    --ink: #1a2426;
+    --ink-2: #4f5a58;
+    --ink-3: #8a908c;
+    --hairline: #e4e0d5;
+    --accent: #0c6b78;
+    --accent-ink: #ffffff;
+    --accent-wash: #e3f0f0;
+    --water: #cfe6ea;
+    --good: #0ca30c; --good-text: #006300;
+    --warn: #b06d00; --warn-bg: #fdf3e0;
+    --crit: #b02a2a; --crit-bg: #fbe9e9;
+    --shadow: 0 1px 2px rgba(26,36,38,.06), 0 8px 24px rgba(26,36,38,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #101a1c; --surface: #162225; --surface-2: #1c2a2d;
+      --ink: #eef2f0; --ink-2: #a9b4b0; --ink-3: #76817d;
+      --hairline: #263539;
+      --accent: #54c8d5; --accent-ink: #0b1516; --accent-wash: #143237;
+      --water: #12333c;
+      --good: #0ca30c; --good-text: #35c235;
+      --warn: #e8a33c; --warn-bg: #2e2413;
+      --crit: #e66767; --crit-bg: #331717;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #101a1c; --surface: #162225; --surface-2: #1c2a2d;
+    --ink: #eef2f0; --ink-2: #a9b4b0; --ink-3: #76817d;
+    --hairline: #263539;
+    --accent: #54c8d5; --accent-ink: #0b1516; --accent-wash: #143237;
+    --water: #12333c;
+    --good: #0ca30c; --good-text: #35c235;
+    --warn: #e8a33c; --warn-bg: #2e2413;
+    --crit: #e66767; --crit-bg: #331717;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 64px; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .display { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  nav.top {
+    position: sticky; top: 0; z-index: 20; background: var(--ground);
+    border-bottom: 1px solid var(--hairline);
+  }
+  nav.top .row { display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px; max-width: 760px; margin: 0 auto; scrollbar-width: none; }
+  nav.top .row::-webkit-scrollbar { display: none; }
+  nav.top a {
+    flex: none; text-decoration: none; color: var(--ink-2); font-weight: 600; font-size: 14px;
+    padding: 8px 14px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface);
+  }
+  nav.top a:hover { color: var(--accent); border-color: var(--accent); }
+
+  header.hero { padding: 26px 0 8px; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .13em; font-size: 11.5px; font-weight: 700; color: var(--accent); }
+  h1 { margin: 6px 0 4px; font-size: clamp(30px, 7vw, 44px); line-height: 1.06; font-weight: 600; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 15px; margin: 0; }
+
+  section { padding: 26px 0 4px; }
+  h2 { font-size: 22px; margin: 0 0 4px; font-weight: 650; }
+  .kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); font-weight: 700; }
+  .note-sm { font-size: 13px; color: var(--ink-3); margin: 4px 0 12px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px;
+    padding: 16px; box-shadow: var(--shadow); margin: 12px 0;
+  }
+  .card h3 { margin: 0 0 2px; font-size: 17px; }
+
+  /* today */
+  .today-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .today-date { font-size: 13px; color: var(--ink-2); font-weight: 600; }
+  .countdown {
+    display: flex; align-items: center; gap: 10px; background: var(--accent); color: var(--accent-ink);
+    border-radius: 12px; padding: 12px 16px; margin: 12px 0; font-weight: 650; font-size: 15px;
+  }
+  .countdown .t { font-variant-numeric: tabular-nums; font-size: 22px; }
+  .block { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--hairline); }
+  .block:first-of-type { border-top: 0; }
+  .block .time { flex: none; width: 74px; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 14px; color: var(--accent); padding-top: 1px; }
+  .block .what { font-size: 14.5px; color: var(--ink); }
+  .block .what .vlinks { margin-top: 4px; }
+  .vchip {
+    display: inline-block; font-size: 12px; font-weight: 700; text-decoration: none;
+    background: var(--accent-wash); color: var(--ink); border: 1px solid var(--hairline);
+    border-radius: 999px; padding: 3px 10px; margin: 2px 6px 0 0;
+  }
+  .evt { display: flex; gap: 10px; align-items: baseline; font-size: 14px; padding: 6px 0; }
+  .evt .when { flex: none; font-weight: 700; color: var(--accent); font-size: 13px; width: 74px; }
+
+  /* day timeline */
+  .day-card .dh { display: flex; gap: 10px; align-items: baseline; }
+  .day-card .dnum {
+    flex: none; width: 40px; height: 40px; border-radius: 10px; background: var(--accent-wash);
+    color: var(--ink); display: grid; place-items: center; font-weight: 800; font-size: 13px; text-align: center; line-height: 1.1;
+  }
+  .day-card .dh .t { font-size: 16.5px; font-weight: 650; }
+  .day-card .dh .d { font-size: 12.5px; color: var(--ink-3); font-weight: 600; }
+  .day-card.today-ring { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
+
+  /* flights */
+  .leg { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; padding: 10px 0; }
+  .leg .ap { font-weight: 800; font-size: 20px; }
+  .leg .ct { font-size: 12px; color: var(--ink-3); }
+  .leg .mid { text-align: center; color: var(--ink-3); font-size: 11.5px; }
+  .leg .mid .ln { border-top: 2px dotted var(--hairline); margin: 4px 10px; }
+  .leg .r { text-align: right; }
+  .fmeta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--ink-2); padding: 4px 0 8px; border-bottom: 1px solid var(--hairline); }
+  .fmeta:last-child { border-bottom: 0; }
+  .fmeta b { color: var(--ink); }
+  .ops { background: var(--warn-bg); border: 1px solid var(--hairline); border-radius: 10px; padding: 10px 13px; font-size: 13.5px; margin-top: 10px; }
+  .ops b { color: var(--warn); }
+
+  /* hotel */
+  .kv { display: grid; grid-template-columns: minmax(110px, auto) 1fr; gap: 4px 14px; font-size: 14px; }
+  .kv .k { color: var(--ink-3); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; padding-top: 2px; }
+  .kv .v { font-variant-numeric: tabular-nums; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .credit {
+    border: 1px solid var(--hairline); background: var(--surface-2); border-radius: 999px;
+    padding: 8px 14px; font: 600 13.5px system-ui, sans-serif; cursor: pointer; color: var(--ink);
+  }
+  .credit[aria-pressed="true"] { text-decoration: line-through; color: var(--ink-3); background: transparent; }
+  .credit .amt { color: var(--good-text); }
+  .credit[aria-pressed="true"] .amt { color: var(--ink-3); }
+  .rest { padding: 8px 0; border-top: 1px solid var(--hairline); font-size: 14px; }
+  .rest:first-of-type { border-top: 0; }
+  .rest b { display: block; }
+  .rest .m { color: var(--ink-3); font-size: 12.5px; }
+  .bucks { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  .bucks button { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--hairline); background: var(--surface-2); color: var(--ink); font-size: 20px; font-weight: 800; cursor: pointer; }
+  .bucks .n { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 44px; text-align: center; }
+
+  /* checklist */
+  .todo { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--hairline); }
+  .todo:first-of-type { border-top: 0; }
+  .todo input[type="checkbox"] { width: 24px; height: 24px; margin: 2px 0 0; accent-color: var(--accent); flex: none; }
+  .todo .body { font-size: 14.5px; }
+  .todo .body .links { margin-top: 3px; font-size: 13px; }
+  .todo.done .body { text-decoration: line-through; color: var(--ink-3); }
+  .urg { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: .05em; border-radius: 6px; padding: 2px 8px; margin-left: 6px; vertical-align: 1px; }
+  .urg.HIGH { background: var(--crit-bg); color: var(--crit); }
+  .urg.MED { background: var(--warn-bg); color: var(--warn); }
+  .urg.LOW { background: var(--surface-2); color: var(--ink-3); }
+
+  /* venues + map */
+  .venue { scroll-margin-top: 70px; }
+  .venue .vh { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .venue .stars { color: var(--ink-2); font-size: 13px; }
+  .venue .price { font-size: 13.5px; color: var(--ink-2); margin: 4px 0; }
+  .venue .ask { font-size: 14px; background: var(--accent-wash); border-radius: 10px; padding: 9px 12px; margin: 8px 0 4px; }
+  .venue .row2 { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .btn {
+    display: inline-block; text-decoration: none; font: 600 13.5px system-ui, sans-serif;
+    border: 1px solid var(--hairline); border-radius: 999px; padding: 8px 14px; color: var(--ink); background: var(--surface-2);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .walk { font-size: 11.5px; font-weight: 800; color: var(--good-text); }
+  .mapbox { background: var(--water); border: 1px solid var(--hairline); border-radius: 14px; overflow-x: auto; }
+  .mapbox svg { display: block; width: 100%; min-width: 620px; height: auto; }
+  .mapbox text { font-family: system-ui, sans-serif; }
+
+  .banner { background: var(--surface-2); border: 1px dashed var(--ink-3); border-radius: 12px; padding: 12px 15px; font-size: 13.5px; color: var(--ink-2); margin: 14px 0; }
+  footer { margin: 40px 0 30px; font-size: 13px; color: var(--ink-3); text-align: center; }
+  footer a { color: var(--ink-3); }
+</style>
+
+<nav class="top" aria-label="Sections"><div class="row">
+  <a href="#today">Today</a><a href="#days">Day by day</a><a href="#flights">Flights</a>
+  <a href="#hotel">Hotel</a><a href="#checklist">To book</a><a href="#map">Map</a><a href="#venues">Venues</a>
+</div></nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Beach Week ’26 · the public guide</div>
+    <h1 class="display" id="tripName"></h1>
+    <p class="sub" id="tripSub"></p>
+    <div class="banner"><b>Public copy.</b> This is the shareable guide — flight times, the plan, and every venue we researched. Confirmations, seats, and payment details live in the private portal.</div>
+  </header>
+
+  <section id="today">
+    <div class="kicker">Right now in Nassau</div>
+    <h2 class="display">Today</h2>
+    <div id="todayMount"></div>
+  </section>
+
+  <section id="days">
+    <div class="kicker">The plan · Aug 9–16</div>
+    <h2 class="display">Day by day</h2>
+    <p class="note-sm">Times are Nassau time (same as Detroit in August). Tap a venue chip for booking details.</p>
+    <div id="daysMount"></div>
+  </section>
+
+  <section id="flights">
+    <div class="kicker">Delta · both directions</div>
+    <h2 class="display">Flights</h2>
+    <div id="flightsMount"></div>
+  </section>
+
+  <section id="hotel">
+    <div class="kicker">Home base</div>
+    <h2 class="display">The hotel</h2>
+    <div id="hotelMount"></div>
+  </section>
+
+  <section id="checklist">
+    <div class="kicker">Time-sensitive first</div>
+    <h2 class="display">Still to book</h2>
+    <p class="note-sm">Checkboxes save on this device.</p>
+    <div class="card" id="checklistMount"></div>
+  </section>
+
+  <section id="map">
+    <div class="kicker">Paradise Island &amp; downtown</div>
+    <h2 class="display">The map</h2>
+    <p class="note-sm">Schematic — tap any pin's venue card below for exact Google Maps directions. Solid pins are walkable from the Riu; ringed pins need a ride (~10–15 min taxi downtown).</p>
+    <div class="mapbox" id="mapMount"></div>
+  </section>
+
+  <section id="venues">
+    <div class="kicker">Booking notes, prices, phone numbers</div>
+    <h2 class="display">Venue cards</h2>
+    <div id="venuesMount"></div>
+  </section>
+
+  <footer>
+    Built from the <a href="research.html">FareScout research</a> that picked this trip. Prices shown are venue list prices, not what anyone paid.
+  </footer>
+</div>
+
+<script>
+const MODE = "public";
+const TRIP = {"trip":{"name":"Nassau, Bahamas","destination":"Paradise Island, Nassau, Bahamas","startDate":"2026-08-09","endDate":"2026-08-16","nights":7,"timezone":"America/Nassau","homeAirport":"DTW","notes":"All-inclusive base at Riu Palace Paradise Island."},"flights":{"airline":"Delta","outbound":{"date":"2026-08-09","segments":[{"flight":"DL2375","cabin":"Delta Comfort (W)","from":"DTW Detroit","to":"ATL Atlanta","depart":"05:20","arrive":"07:13","boardingCloses":"05:05","duration":"1h 53m"},{"flight":"DL1944","cabin":"Delta Main (T)","from":"ATL Atlanta","to":"NAS Nassau","depart":"09:40","arrive":"11:51","boardingCloses":"09:25","duration":"2h 11m"}],"layover":"ATL 2h 27m","opsNote":"Delta advises arriving DTW 3h before the 5:20 AM departure. Check-in opened 2026-08-08."},"return":{"date":"2026-08-16","segments":[{"flight":"DL1918","cabin":"Delta Main Classic (H)","from":"NAS Nassau","to":"JFK New York","depart":"13:09","arrive":"16:15"},{"flight":"DL1253","cabin":"Delta Main Classic (H)","from":"JFK New York","to":"DTW Detroit","depart":"19:20","arrive":"21:52"}],"layover":"JFK ~3h 05m","opsNote":"NAS has US CBP Preclearance — plan to leave the Riu by ~09:45-10:00 for the 13:09 departure. Hotel checkout is 12:00 but you'll be gone before that."},"baggage":{"carryOn":"Free","firstChecked":"$45 USD 50lb/23kg","secondChecked":"$55 USD 50lb/23kg"}},"hotel":{"name":"Hotel Riu Palace Paradise Island","type":"Adults-only, All-Inclusive 24h","address":"Casino Drive, Paradise Island 6307, Bahamas","phone":"+1 242 363 3500","room":"Jr. Suite Superior, sea view","guests":"2 adults","stay":"2026-08-09 to 2026-08-16 (7 nights)","checkInTime":"15:00 (room held until 18:00)","checkOutTime":"12:00","amenities":["2 outdoor pools incl. infinity pool with swim-up bar","Reserved beach section on Cabbage Beach with loungers, parasols, hammocks, drink service","Renova Spa (treatments extra — use 210 CAD credit) + free sauna + gym","Free WiFi property-wide","24h room service, 24h snacks and drinks","In-room minibar + liquor dispenser, restocked","Gift shop, hair salon"],"restaurants":[{"name":"Atlantic","type":"Main buffet, show cooking","meals":"B/L/D","notes":"Themed buffet dinners ~3x/week — ask which nights at check-in"},{"name":"Krystal","type":"Fusion a la carte","meals":"Dinner"},{"name":"Tengoku","type":"Japanese a la carte","meals":"Dinner"},{"name":"Sir Alexander","type":"Gourmet a la carte","meals":"Dinner"},{"name":"Bahamas","type":"Lunch/snacks by day; Grill Steakhouse by night","meals":"L/D"},{"name":"Capuchino","type":"Patisserie & ice cream parlor","meals":"All day"},{"name":"Poolside jerk chicken stand","type":"Lunch — guest favorite","meals":"Lunch"}],"dressCode":"Dinner: no sleeveless shirts; long trousers for men at specialty restaurants","alaCarteReservations":"Policy varies — some guests report walk-in/first-come with lines, others report reservations required. Confirm at check-in and lock nights early.","entertainment":{"daily":["RiuFit group fitness classes","Beach volleyball","Pool DJ + games","Ping-pong","Intro scuba lesson in pool","Watersports: kayak/sail/parasail (some fees)"],"nightly":"Games ~21:00 (earn 'Riu bucks' for merch auction), main show ~21:30, live music","special":{"name":"Romantic open-air dinner","notes":"Reservation required in advance, extra charge — book at check-in for Sat 8/15"}}},"recurringEvents":[{"name":"Junkanoo Rush Out","where":"Marina Village, Atlantis (free, no pass needed)","when":"Tue / Fri / Sat ~21:00 — schedule shifts, confirm on-site","datesThisTrip":["2026-08-11","2026-08-14","2026-08-15"]},{"name":"Fish Fry local night","where":"Arawak Cay","when":"Sunday evenings (open daily otherwise)","datesThisTrip":["2026-08-09"]},{"name":"Riu theme buffet nights","where":"Atlantic restaurant","when":"~3x/week — ask at check-in","datesThisTrip":[]},{"name":"Riu evening show","where":"Resort theater/stage","when":"Nightly ~21:30","datesThisTrip":["daily"]}],"itinerary":[{"date":"2026-08-09","dow":"Sun","title":"Travel + Arrival + Fish Fry (only Sunday!)","blocks":[{"time":"05:20","activity":"DL2375 DTW→ATL, then DL1944 ATL→NAS, land 11:51"},{"time":"12:30","activity":"RIU Class free transfer to hotel (pre-arrange via Call Center)"},{"time":"13:00","activity":"Drop bags, pool/beach + lunch while room readies (check-in 15:00)"},{"time":"18:30","activity":"Fish Fry at Arawak Cay — Oh Andros snapper + Twin Brothers pina coladas. Only Sunday of the trip; if too wiped from the 5AM flight, resort dinner + early night (Fish Fry is open daily as fallback).","venueIds":["ohAndros","twinBrothers"]}]},{"date":"2026-08-10","dow":"Mon","title":"Recovery beach day","blocks":[{"time":"morning","activity":"Cabbage Beach — stingrays in the shallows early","venueIds":["cabbageBeach"]},{"time":"afternoon","activity":"Pool / swim-up bar / Renova Spa couples massage (use 210 CAD credit)"},{"time":"21:00","activity":"Riu games + show nightcap"}]},{"date":"2026-08-11","dow":"Tue","title":"Aquaventure + Junkanoo night","blocks":[{"time":"10:00","activity":"Aquaventure full day — book Atlantis Day Pass IN ADVANCE (sells out); wristbands at Atlantis Adventures desk","venueIds":["aquaventure"]},{"time":"19:00","activity":"Dinner at resort (Tengoku or Steakhouse)"},{"time":"21:00","activity":"Junkanoo Rush Out at Marina Village — walk over, free"}]},{"date":"2026-08-12","dow":"Wed","title":"Downtown date day","blocks":[{"time":"09:00","activity":"Queen's Staircase before cruise crowds (free)","venueIds":["queensStaircase"]},{"time":"12:30","activity":"Graycliff 5-course wine luncheon + cellar tour — BOOK AHEAD, smart casual, dietary notes 24h prior","venueIds":["graycliff"]},{"time":"15:00","activity":"John Watling's Distillery — free tour, 2-for-$22 cocktails, USE the 25 CAD resort credit, bottle-your-own rum souvenir","venueIds":["johnWatlings"]},{"time":"evening","activity":"Back to resort — theme buffet if it lands tonight"}]},{"date":"2026-08-13","dow":"Thu","title":"On the water — pick one","blocks":[{"time":"morning","activity":"Option A: Flying Cloud half-day sail & snorkel from PI Ferry Terminal (BBQ + open bar included)","venueIds":["flyingCloud"]},{"time":"full day","activity":"Option B: Blue Lagoon Island beach day — hammocks, lagoon, adults-only beach section","venueIds":["blueLagoon"]},{"time":"21:30","activity":"Riu show"}]},{"date":"2026-08-14","dow":"Fri","title":"Flex + Junkanoo","blocks":[{"time":"day","activity":"The boat option you didn't do Thursday, or beach + Straw Market souvenir run downtown"},{"time":"21:00","activity":"Junkanoo Rush Out at Marina Village (2nd chance)"}]},{"date":"2026-08-15","dow":"Sat","title":"Last full day — finale night","blocks":[{"time":"day","activity":"Repeat the trip winner; pack in the afternoon"},{"time":"sunset","activity":"Romantic open-air dinner at the Riu (book day 1, extra charge) — trip finale"},{"time":"21:00","activity":"Final Junkanoo Rush Out if you want one more"}]},{"date":"2026-08-16","dow":"Sun","title":"Departure","blocks":[{"time":"08:00","activity":"Last breakfast at Atlantic"},{"time":"09:45","activity":"Leave for NAS — US CBP Preclearance takes time"},{"time":"13:09","activity":"DL1918 NAS→JFK, then DL1253 JFK→DTW, land 21:52"}]}],"venues":{"aquaventure":{"name":"Aquaventure at Atlantis","rating":4.4,"reviews":977,"lat":25.0862,"lng":-77.3237,"website":"https://www.atlantisbahamas.com/daybooking","phone":"+1 242-363-3000","hours":"10:00-19:00 daily","price":"Atlantis Day Pass from ~$195/adult (seasonal, can hit $250+); limited daily quantity","bookingAsk":"Buy the 'Atlantis Day Pass' online in advance; pick up wristbands at Atlantis Adventures desk. Includes Aquaventure, The Dig, beaches, pools, casino.","walkable":true},"cabbageBeach":{"name":"Cabbage Beach","rating":4.5,"reviews":818,"lat":25.0846,"lng":-77.3069,"website":"http://www.bahamas.com/vendor/cabbage-beach","price":"Free (Riu sits on it)","bookingAsk":"None — walk out the back of the hotel","walkable":true},"ohAndros":{"name":"Oh Andros (Fish Fry)","rating":4.2,"reviews":1898,"lat":25.0799,"lng":-77.3586,"phone":"+1 242-326-7115","hours":"11:30-23:30 daily","price":"~$22 whole fried snapper plate; cash or PayPal","bookingAsk":"Walk up; ask for Big Mama's whole fried snapper with rice & peas","walkable":false},"twinBrothers":{"name":"Twin Brothers (Fish Fry)","rating":4.0,"reviews":5859,"lat":25.0799,"lng":-77.3584,"website":"https://twinbrothersbahamas.com","phone":"+1 242-328-5033","hours":"11:00-22:00 daily","price":"$$ — famous thick frozen pina coladas, fresh conch salad","bookingAsk":"Walk up","walkable":false},"queensStaircase":{"name":"Queen's Staircase","rating":4.5,"reviews":5565,"lat":25.073,"lng":-77.3376,"website":"https://queensstaircase.com","hours":"24h","price":"Free; fresh coconuts for sale at top","bookingAsk":"None — go early morning before cruise crowds","walkable":false},"graycliff":{"name":"Graycliff","rating":4.3,"reviews":567,"lat":25.0758,"lng":-77.3455,"website":"http://www.graycliff.com","phone":"+1 242-302-9150","price":"Wine luncheon ~$175-185/person, 12:30 start, ~2h, 5 courses + champagne + sommelier cellar tour (250k bottles)","bookingAsk":"Book the '5-Course Wine Luncheon' in advance (graycliff.com or GetYourGuide/Viator); smart casual, long pants recommended for the cool cellar; dietary requests 24h ahead. Chocolate + cigar factories on site.","walkable":false},"johnWatlings":{"name":"John Watling's Distillery","rating":4.5,"reviews":769,"lat":25.0746,"lng":-77.3485,"website":"http://www.johnwatlings.com","phone":"+1 242-322-2811","hours":"10:00-18:00 daily","price":"Free tour; tasting flights cheap; 2-for-$22 cocktail special; YOU HAVE a 25 CAD resort credit here","bookingAsk":"Walk in; ask for the tour + tasting flight; do bottle-your-own amber rum","walkable":false},"blueLagoon":{"name":"Blue Lagoon Island (Salt Cay)","rating":4.3,"reviews":247,"lat":25.0998,"lng":-77.2675,"website":"https://www.dolphinencounters.com/programs/island-beach-day","price":"Beach day from $109/adult incl. lunch; dolphin swim from $235; cashless island","bookingAsk":"Book 'Beach Day' (or ask about the adults-only beach); boats depart Paradise Island Ferry Terminal, ~25 min ride, arrive early for the morning departure","walkable":false},"flyingCloud":{"name":"Flying Cloud Catamaran","rating":4.2,"reviews":92,"lat":25.0804,"lng":-77.3212,"website":"https://flyingcloud.com","phone":"+1 242-394-5067","price":"Half-day sail & snorkel ~3.5h with BBQ lunch + all-inclusive bar; older listings ~$70/pp — confirm current rate when booking","bookingAsk":"Book 'Half-Day Sail & Snorkel'; departs Paradise Island Ferry Terminal (5 min from Riu); hotel transport included; sunset sails run select evenings — ask days","walkable":true},"marinaVillage":{"name":"Marina Village at Atlantis","rating":null,"lat":25.0847,"lng":-77.3195,"price":"Free to wander (shops/restaurants extra); Junkanoo Rush Out Tue/Fri/Sat ~21:00","bookingAsk":"None — walk over after 6pm, no day pass needed","walkable":true}},"bookingChecklist":[{"item":"Atlantis Day Pass x2 for Tue 8/11","status":"TODO","url":"https://www.atlantisbahamas.com/daybooking","urgency":"HIGH — limited daily inventory, book before arrival"},{"item":"Graycliff wine luncheon x2 for Wed 8/12 12:30","status":"TODO","url":"http://www.graycliff.com","urgency":"HIGH — advance booking required"},{"item":"RIU airport transfer (free RIU Class benefit) for 8/9 arrival + 8/16 departure","status":"TODO","phone":"1-866-845-3765","urgency":"HIGH — pre-arrange"},{"item":"Romantic open-air dinner at Riu for Sat 8/15","status":"TODO at check-in","urgency":"MED — book day 1"},{"item":"Flying Cloud half-day OR Blue Lagoon beach day for Thu 8/13","status":"TODO","urgency":"MED — can book 1-2 days out"},{"item":"Ask at check-in: theme buffet nights + a la carte reservation policy","status":"TODO at check-in","urgency":"LOW"}],"opsNotes":["Resort credits are coupons, not cash — Renova Spa 210 CAD is the big one; John Watling's 25 CAD pairs with Wednesday.","Downtown crowd check: ships repeat weekdays all season — check nassaucruiseport.com the night before Wednesday and go early.","Cabbage Beach current can run strong on the east end — swim near the resort flags.","Blue Lagoon went cashless — cards/Apple Pay only.","Sunday 8/16: checkout 12:00 but leave ~09:45 — NAS US preclearance before the 13:09 flight."]};
+
+const HOTEL_POS = { lat: 25.0857, lng: -77.3113 };
+const NAME1 = TRIP.travelers?.[0]?.name.split(" ")[0] ?? "";
+const NAME2 = TRIP.travelers?.[1]?.name.split(" ")[0] ?? "";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = (k, v) => v === undefined ? JSON.parse(localStorage.getItem(k) || "null") : localStorage.setItem(k, JSON.stringify(v));
+
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const fmtDate = iso => { const [y,m,d] = iso.split("-").map(Number); return DOW[new Date(Date.UTC(y,m-1,d)).getUTCDay()] + " " + ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1] + " " + d; };
+function nassauToday() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: TRIP.trip.timezone }).format(new Date());
+}
+const mapsLink = v => `https://www.google.com/maps/search/?api=1&query=${v.lat},${v.lng}`;
+
+/* header */
+$("#tripName").textContent = MODE === "private" ? TRIP.trip.name : "Nassau, Bahamas";
+$("#tripSub").textContent = `${fmtDate(TRIP.trip.startDate)} → ${fmtDate(TRIP.trip.endDate)}, 2026 · ${TRIP.trip.nights} nights · ${TRIP.hotel.name}`;
+
+/* venue chip helper */
+const vchips = ids => (ids || []).map(id => TRIP.venues[id] ? `<a class="vchip" href="#v-${id}">${esc(TRIP.venues[id].name)} →</a>` : "").join("");
+
+/* ---------- TODAY ---------- */
+function renderToday() {
+  const today = nassauToday();
+  const day = TRIP.itinerary.find(d => d.date === today);
+  const el = $("#todayMount");
+  let html = "";
+
+  // flight countdown when within 24h
+  const departures = [
+    { label: `${TRIP.flights.outbound.segments[0].flight} to ${TRIP.trip.destination.split(",")[0]}`, at: new Date(`${TRIP.flights.outbound.date}T${TRIP.flights.outbound.segments[0].depart}:00-04:00`) },
+    { label: `${TRIP.flights.return.segments[0].flight} home`, at: new Date(`${TRIP.flights.return.date}T${TRIP.flights.return.segments[0].depart}:00-04:00`) },
+  ];
+  const now = new Date();
+  const next = departures.find(d => d.at > now && d.at - now < 24 * 3600e3);
+  if (next) {
+    html += `<div class="countdown"><span>✈ ${esc(next.label)} in</span><span class="t" id="cdT" data-at="${next.at.toISOString()}"></span></div>`;
+  }
+
+  if (day) {
+    html += `<div class="card"><div class="today-head"><h3 class="display">${esc(day.title)}</h3><span class="today-date">${fmtDate(day.date)}</span></div>`;
+    html += day.blocks.map(b => `<div class="block"><div class="time">${esc(b.time)}</div><div class="what">${esc(b.activity)}<div class="vlinks">${vchips(b.venueIds)}</div></div></div>`).join("");
+    html += `</div>`;
+    const evts = TRIP.recurringEvents.filter(e => e.datesThisTrip.includes(day.date) || e.datesThisTrip.includes("daily"));
+    if (evts.length) {
+      html += `<div class="card"><h3>Tonight</h3>` + evts.map(e =>
+        `<div class="evt"><span class="when">${esc((e.when.match(/~?\d{1,2}:?\d{0,2}\s?(pm|PM)?|\d{2}:\d{2}/) || ["evening"])[0])}</span><span><b>${esc(e.name)}</b> — ${esc(e.where)}</span></div>`).join("") + `</div>`;
+    }
+  } else if (today < TRIP.trip.startDate) {
+    html += `<div class="card"><h3 class="display">Not long now</h3><p style="font-size:14.5px;color:var(--ink-2)">The trip starts ${fmtDate(TRIP.trip.startDate)}. Work through <a href="#checklist">the booking list</a> — two items sell out.</p></div>`;
+  } else {
+    html += `<div class="card"><h3 class="display">Trip complete 🌅</h3><p style="font-size:14.5px;color:var(--ink-2)">Hope it was everything. The day cards below are now a scrapbook outline.</p></div>`;
+  }
+
+  const openTodos = TRIP.bookingChecklist.filter((t, i) => !(store("nassau-checklist") || [])[i]);
+  if (openTodos.length && day) {
+    html += `<div class="card"><h3>Still open (${openTodos.length})</h3>` +
+      openTodos.map(t => `<div class="evt"><span class="when urg ${esc(t.urgency.split(" ")[0])}" style="width:auto">${esc(t.urgency.split(" ")[0])}</span><span>${esc(t.item)}</span></div>`).join("") +
+      `<div style="margin-top:8px"><a class="btn" href="#checklist">Open the booking list</a></div></div>`;
+  }
+  el.innerHTML = html;
+  const cd = $("#cdT");
+  if (cd) {
+    const tick = () => {
+      const ms = new Date(cd.dataset.at) - new Date();
+      if (ms <= 0) { cd.textContent = "boarding!"; return; }
+      const h = Math.floor(ms/3600e3), m = Math.floor(ms%3600e3/60e3), s = Math.floor(ms%60e3/1e3);
+      cd.textContent = `${h}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`;
+    };
+    tick(); setInterval(tick, 1000);
+  }
+}
+
+/* ---------- DAY BY DAY ---------- */
+function renderDays() {
+  const today = nassauToday();
+  $("#daysMount").innerHTML = TRIP.itinerary.map((d, i) => {
+    const extra = d.date === "2026-08-12"
+      ? `<div class="note-sm" style="margin:8px 0 0">Cruise-crowd check the night before: <a href="https://nassaucruiseport.com" rel="noopener">nassaucruiseport.com</a> — go early if 4+ ships.</div>` : "";
+    return `<div class="card day-card${d.date === today ? " today-ring" : ""}">
+      <div class="dh"><div class="dnum">${d.dow}<br>${d.date.slice(8)}</div><div><div class="t display">${esc(d.title)}</div><div class="d">${fmtDate(d.date)}${d.date === today ? " · today" : ""}</div></div></div>
+      ${d.blocks.map(b => `<div class="block"><div class="time">${esc(b.time)}</div><div class="what">${esc(b.activity)}<div class="vlinks">${vchips(b.venueIds)}</div></div></div>`).join("")}
+      ${extra}
+    </div>`;
+  }).join("");
+}
+
+/* ---------- FLIGHTS ---------- */
+function seg(s, showSeats) {
+  return `<div class="leg">
+    <div><div class="ap">${esc(s.from.split(" ")[0])}</div><div class="ct">${esc(s.from.split(" ").slice(1).join(" "))}</div><div class="ct"><b style="color:var(--ink)">${esc(s.depart)}</b>${s.boardingCloses ? " · doors " + esc(s.boardingCloses) : ""}</div></div>
+    <div class="mid">${esc(s.flight)}<div class="ln"></div>${esc(s.duration || "")}</div>
+    <div class="r"><div class="ap">${esc(s.to.split(" ")[0])}</div><div class="ct">${esc(s.to.split(" ").slice(1).join(" "))}</div><div class="ct"><b style="color:var(--ink)">${esc(s.arrive)}</b></div></div>
+  </div>
+  <div class="fmeta"><span>${esc(s.cabin)}</span>${showSeats && s.seatRichard ? `<span>${esc(NAME1)} <b>${esc(s.seatRichard)}</b></span><span>${esc(NAME2)}: <b>Fly Delta app</b></span>` : ""}</div>`;
+}
+function renderFlights() {
+  const f = TRIP.flights, priv = MODE === "private";
+  let html = `<div class="card"><h3>Out · ${fmtDate(f.outbound.date)}</h3>` +
+    f.outbound.segments.map(s => seg(s, priv)).join(`<div class="note-sm" style="margin:6px 0">Layover: ${esc(f.outbound.layover)}</div>`) +
+    `<div class="ops"><b>Heads up:</b> ${esc(f.outbound.opsNote)}</div></div>`;
+  html += `<div class="card"><h3>Home · ${fmtDate(f.return.date)}</h3>` +
+    f.return.segments.map(s => seg(s, priv)).join(`<div class="note-sm" style="margin:6px 0">Layover: ${esc(f.return.layover)}</div>`) +
+    `<div class="ops"><b>Heads up:</b> ${esc(f.return.opsNote)}</div></div>`;
+  html += `<div class="card"><h3>The fine print</h3><div class="kv">`;
+  if (priv) html += `<div class="k">Confirmation</div><div class="v"><b>${esc(f.confirmation)}</b> · ${esc(f.airline)}</div>
+    <div class="k">Ticket (R)</div><div class="v">${esc(f.ticketNumberRichard)}</div>
+    <div class="k">Paid</div><div class="v">$${f.totalPaidRichardUSD.toLocaleString()} on ${esc(f.paymentCard)} + ${esc(f.comfortUpsell)}</div>`;
+  html += `<div class="k">Bags</div><div class="v">Carry-on free · 1st checked ${esc(String(f.baggage.firstChecked))} · 2nd ${esc(f.baggage.secondChecked)}</div></div></div>`;
+  $("#flightsMount").innerHTML = html;
+}
+
+/* ---------- HOTEL ---------- */
+function renderHotel() {
+  const h = TRIP.hotel, priv = MODE === "private";
+  let html = `<div class="card"><h3 class="display">${esc(h.name)}</h3>
+    <p class="note-sm" style="margin:2px 0 10px">${esc(h.type)} · ${esc(h.room)} · ${esc(h.stay)}</p><div class="kv">`;
+  if (priv) html += `<div class="k">Confirmation</div><div class="v"><b>${esc(h.confirmation)}</b> (online check-in done)</div>
+    <div class="k">Bring</div><div class="v">${h.checkInDocs.map(esc).join(" · ")}</div>
+    <div class="k">Paid</div><div class="v">$${h.chargedUSD.toLocaleString()} USD (${h.totalCAD.toLocaleString()} CAD) on ${esc(h.paymentCard)}</div>`;
+  html += `<div class="k">Check-in</div><div class="v">${esc(h.checkInTime)}</div>
+    <div class="k">Check-out</div><div class="v">${esc(h.checkOutTime)}</div>
+    <div class="k">Phone</div><div class="v"><a href="tel:${h.phone.replace(/[^+\d]/g,"")}">${esc(h.phone)}</a></div>
+    <div class="k">Address</div><div class="v">${esc(h.address)}</div></div>
+    <div class="row2 chips"><a class="btn primary" href="${mapsLink(HOTEL_POS)}" rel="noopener">Open in Maps</a>
+    <a class="btn" href="tel:18668453765">RIU Call Center (transfer)</a></div></div>`;
+
+  if (priv && h.resortCreditsCAD) {
+    const names = { renovaSpa: "Renova Spa", weddingsByRiu: "Weddings by RIU", photography: "Photography", rentACar: "Rent-a-car", johnWatlingsDistillery: "John Watling’s (pairs with Wed)", shops: "Shops" };
+    html += `<div class="card"><h3>Resort credits — tap when used</h3><p class="note-sm" style="margin:2px 0 4px">Coupons, not cash. The spa one is the big one.</p><div class="chips" id="credits">` +
+      Object.entries(h.resortCreditsCAD).map(([k, v]) =>
+        `<button class="credit" data-k="${k}" aria-pressed="false">${esc(names[k] || k)} · <span class="amt">${v} CAD</span></button>`).join("") + `</div></div>`;
+  }
+
+  html += `<div class="card"><h3>Dinner game plan</h3><p class="note-sm" style="margin:2px 0 8px">${esc(h.dressCode)}. ${esc(h.alaCarteReservations)}</p>` +
+    h.restaurants.map(r => `<div class="rest"><b>${esc(r.name)}</b>${esc(r.type)} <span class="m">· ${esc(r.meals)}${r.notes ? " · " + esc(r.notes) : ""}</span></div>`).join("") + `</div>`;
+
+  html += `<div class="card"><h3>The nightly rhythm</h3>
+    <div class="evt"><span class="when">daily</span><span>${h.entertainment.daily.map(esc).join(" · ")}</span></div>
+    <div class="evt"><span class="when">21:00</span><span>${esc(h.entertainment.nightly)}</span></div>
+    <div class="evt"><span class="when">Sat 8/15</span><span><b>${esc(h.entertainment.special.name)}</b> — ${esc(h.entertainment.special.notes)}</span></div>
+    <div class="bucks"><span style="font-weight:700;font-size:14px">Riu bucks won:</span>
+      <button id="bMinus" aria-label="minus one">−</button><span class="n" id="bN">0</span><button id="bPlus" aria-label="plus one">+</button></div></div>`;
+
+  const ops = priv ? TRIP.opsNotes : TRIP.opsNotes.filter(n => !/visa|•/i.test(n));
+  html += `<div class="card"><h3>Ops notes</h3>` + ops.map(n => `<div class="evt"><span class="when">→</span><span>${esc(n)}</span></div>`).join("") + `</div>`;
+  $("#hotelMount").innerHTML = html;
+
+  const claimed = store("nassau-credits") || {};
+  document.querySelectorAll(".credit").forEach(b => {
+    b.setAttribute("aria-pressed", claimed[b.dataset.k] ? "true" : "false");
+    b.addEventListener("click", () => {
+      claimed[b.dataset.k] = !claimed[b.dataset.k];
+      b.setAttribute("aria-pressed", claimed[b.dataset.k] ? "true" : "false");
+      store("nassau-credits", claimed);
+    });
+  });
+  const bN = $("#bN"); let bucks = store("nassau-riubucks") || 0;
+  const setB = () => { bN.textContent = bucks; store("nassau-riubucks", bucks); };
+  $("#bPlus").addEventListener("click", () => { bucks++; setB(); });
+  $("#bMinus").addEventListener("click", () => { bucks = Math.max(0, bucks - 1); setB(); });
+  setB();
+}
+
+/* ---------- CHECKLIST ---------- */
+function renderChecklist() {
+  const done = store("nassau-checklist") || [];
+  const order = { HIGH: 0, MED: 1, LOW: 2 };
+  const items = TRIP.bookingChecklist.map((t, i) => ({ ...t, i })).sort((a, b) => order[a.urgency.split(" ")[0]] - order[b.urgency.split(" ")[0]]);
+  $("#checklistMount").innerHTML = items.map(t => {
+    const u = t.urgency.split(" ")[0];
+    const why = t.urgency.includes("—") ? t.urgency.split("—")[1].trim() : "";
+    return `<label class="todo${done[t.i] ? " done" : ""}"><input type="checkbox" data-i="${t.i}" ${done[t.i] ? "checked" : ""}>
+      <span class="body"><b>${esc(t.item)}</b><span class="urg ${u}">${u}</span>${why ? `<div class="note-sm" style="margin:2px 0 0">${esc(why)}</div>` : ""}
+      <div class="links">${t.url ? `<a href="${esc(t.url)}" rel="noopener">Book online</a>` : ""}${t.url && t.phone ? " · " : ""}${t.phone ? `<a href="tel:${String(t.phone).replace(/[^+\d]/g,"")}">Call ${esc(t.phone)}</a>` : ""}</div></span></label>`;
+  }).join("");
+  $("#checklistMount").addEventListener("change", e => {
+    const i = +e.target.dataset.i, d = store("nassau-checklist") || [];
+    d[i] = e.target.checked; store("nassau-checklist", d);
+    e.target.closest(".todo").classList.toggle("done", e.target.checked);
+    renderToday();
+  });
+}
+
+/* ---------- MAP ---------- */
+function renderMap() {
+  const pts = Object.entries(TRIP.venues).filter(([, v]) => v.lat);
+  const lngs = pts.map(([, v]) => v.lng).concat(HOTEL_POS.lng), lats = pts.map(([, v]) => v.lat).concat(HOTEL_POS.lat);
+  const pad = 0.008;
+  const x0 = Math.min(...lngs) - pad, x1 = Math.max(...lngs) + pad;
+  const y0 = Math.min(...lats) - pad * .6, y1 = Math.max(...lats) + pad * .6;
+  const W = 720, H = 420;
+  const X = lng => (lng - x0) / (x1 - x0) * W;
+  const Y = lat => H - (lat - y0) / (y1 - y0) * H;
+  const LBL = { // label offsets to dodge collisions
+    ohAndros: [8, -14], twinBrothers: [8, 14], queensStaircase: [10, 12], graycliff: [-8, -10],
+    johnWatlings: [10, 14], aquaventure: [-10, -8], cabbageBeach: [10, 4], marinaVillage: [-8, 18],
+    blueLagoon: [-10, 4], flyingCloud: [8, 16],
+  };
+  const anchor = k => (LBL[k] || [8, 4])[0] < 0 ? "end" : "start";
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Schematic map of trip venues around Nassau and Paradise Island">`;
+  s += `<text x="14" y="24" font-size="12" fill="var(--ink-3)" font-weight="700" letter-spacing="1.5">NASSAU HARBOUR — SCHEMATIC</text>`;
+  // hotel
+  const hx = X(HOTEL_POS.lng), hy = Y(HOTEL_POS.lat);
+  s += `<g><circle cx="${hx}" cy="${hy}" r="9" fill="var(--accent)"/><text x="${hx}" y="${hy + 4}" font-size="10" text-anchor="middle" fill="var(--accent-ink)" font-weight="800">R</text>
+    <text x="${hx}" y="${hy - 14}" font-size="12.5" font-weight="800" text-anchor="middle" fill="var(--ink)">Riu Palace</text></g>`;
+  for (const [k, v] of pts) {
+    const x = X(v.lng), y = Y(v.lat), [dx, dy] = LBL[k] || [8, 4];
+    const fill = v.walkable ? "var(--accent)" : "var(--surface)";
+    const stroke = v.walkable ? "none" : "var(--accent)";
+    s += `<a href="#v-${k}"><circle cx="${x}" cy="${y}" r="6" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/>
+      <text x="${x + dx}" y="${y + dy}" font-size="11.5" font-weight="650" fill="var(--ink)" text-anchor="${anchor(k)}">${esc(v.name.split(" (")[0].replace(" at Atlantis","").replace(" Island (Salt Cay)"," Island"))}</text></a>`;
+  }
+  s += `</svg>`;
+  $("#mapMount").innerHTML = s;
+}
+
+/* ---------- VENUES ---------- */
+function renderVenues() {
+  $("#venuesMount").innerHTML = Object.entries(TRIP.venues).map(([k, v]) => `
+    <div class="card venue" id="v-${k}">
+      <div class="vh"><h3 class="display">${esc(v.name)}</h3>
+      ${v.rating ? `<span class="stars">★ ${v.rating} · ${v.reviews?.toLocaleString() ?? "—"} reviews</span>` : ""}</div>
+      ${v.walkable ? `<div class="walk">WALKABLE FROM THE RIU</div>` : `<div class="walk" style="color:var(--ink-3)">TAXI / FERRY</div>`}
+      <div class="price">${esc(v.price)}${v.hours ? ` · ${esc(v.hours)}` : ""}</div>
+      ${v.bookingAsk && v.bookingAsk !== "None" ? `<div class="ask"><b>The move:</b> ${esc(v.bookingAsk)}</div>` : ""}
+      <div class="row2">
+        <a class="btn primary" href="${mapsLink(v)}" rel="noopener">Directions</a>
+        ${v.website ? `<a class="btn" href="${esc(v.website)}" rel="noopener">Website</a>` : ""}
+        ${v.phone ? `<a class="btn" href="tel:${v.phone.replace(/[^+\d]/g,"")}">Call</a>` : ""}
+      </div>
+    </div>`).join("");
+}
+
+renderToday(); renderDays(); renderFlights(); renderHotel(); renderChecklist(); renderMap(); renderVenues();
+</script>
