@@ -1,4 +1,4 @@
-<title>Beach Week 2026 — Trip Portal</title>
+<title>Nassau Trip Guide — Beach Week ’26</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root {
@@ -13,656 +13,473 @@
     --accent: #0c6b78;
     --accent-ink: #ffffff;
     --accent-wash: #e3f0f0;
-    --good: #0ca30c;
-    --good-text: #006300;
-    --bad-text: #b02a2a;
-    --chart-surface: #fcfcfb;
-    --grid: #e1e0d9;
-    --axis: #c3c2b7;
-    --bar-context: #cbc8bd;
-    --bar-pick: #2a78d6;
-    --bar-water: #1baf7a;
-    --seq-100: #cde2fb; --seq-200: #9ec5f4; --seq-300: #6da7ec;
-    --seq-400: #3987e5; --seq-500: #256abf; --seq-600: #184f95; --seq-700: #0d366b;
+    --water: #cfe6ea;
+    --good: #0ca30c; --good-text: #006300;
+    --warn: #b06d00; --warn-bg: #fdf3e0;
+    --crit: #b02a2a; --crit-bg: #fbe9e9;
     --shadow: 0 1px 2px rgba(26,36,38,.06), 0 8px 24px rgba(26,36,38,.05);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       color-scheme: dark;
-      --ground: #101a1c;
-      --surface: #162225;
-      --surface-2: #1c2a2d;
-      --ink: #eef2f0;
-      --ink-2: #a9b4b0;
-      --ink-3: #76817d;
+      --ground: #101a1c; --surface: #162225; --surface-2: #1c2a2d;
+      --ink: #eef2f0; --ink-2: #a9b4b0; --ink-3: #76817d;
       --hairline: #263539;
-      --accent: #54c8d5;
-      --accent-ink: #0b1516;
-      --accent-wash: #143237;
-      --good: #0ca30c;
-      --good-text: #35c235;
-      --bad-text: #e66767;
-      --chart-surface: #142023;
-      --grid: #24343a;
-      --axis: #3a4b50;
-      --bar-context: #3d4d51;
-      --bar-pick: #3987e5;
-      --bar-water: #199e70;
+      --accent: #54c8d5; --accent-ink: #0b1516; --accent-wash: #143237;
+      --water: #12333c;
+      --good: #0ca30c; --good-text: #35c235;
+      --warn: #e8a33c; --warn-bg: #2e2413;
+      --crit: #e66767; --crit-bg: #331717;
       --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
     }
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --ground: #101a1c;
-    --surface: #162225;
-    --surface-2: #1c2a2d;
-    --ink: #eef2f0;
-    --ink-2: #a9b4b0;
-    --ink-3: #76817d;
+    --ground: #101a1c; --surface: #162225; --surface-2: #1c2a2d;
+    --ink: #eef2f0; --ink-2: #a9b4b0; --ink-3: #76817d;
     --hairline: #263539;
-    --accent: #54c8d5;
-    --accent-ink: #0b1516;
-    --accent-wash: #143237;
-    --good: #0ca30c;
-    --good-text: #35c235;
-    --bad-text: #e66767;
-    --chart-surface: #142023;
-    --grid: #24343a;
-    --axis: #3a4b50;
-    --bar-context: #3d4d51;
-    --bar-pick: #3987e5;
-    --bar-water: #199e70;
+    --accent: #54c8d5; --accent-ink: #0b1516; --accent-wash: #143237;
+    --water: #12333c;
+    --good: #0ca30c; --good-text: #35c235;
+    --warn: #e8a33c; --warn-bg: #2e2413;
+    --crit: #e66767; --crit-bg: #331717;
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
   }
 
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--ground);
-    color: var(--ink);
-    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
+  html { scroll-padding-top: 64px; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
   .display { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
-
-  header.site {
+  nav.top {
+    position: sticky; top: 0; z-index: 20; background: var(--ground);
     border-bottom: 1px solid var(--hairline);
-    background: color-mix(in srgb, var(--ground) 92%, transparent);
   }
-  .site-inner { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 18px 0; flex-wrap: wrap; }
-  .brand { font-weight: 700; letter-spacing: .02em; }
-  .brand .display { font-size: 18px; }
-  nav.toc { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; }
-  nav.toc a { color: var(--ink-2); text-decoration: none; }
-  nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); }
-  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
-
-  .hero { padding: 64px 0 40px; }
-  .eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 600; color: var(--accent); }
-  h1 { margin: 10px 0 14px; font-size: clamp(40px, 6.5vw, 64px); line-height: 1.04; font-weight: 600; text-wrap: balance; }
-  .hero p.lede { max-width: 62ch; font-size: 18px; color: var(--ink-2); margin: 0 0 26px; }
-  .status-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent-wash); color: var(--ink);
-    border: 1px solid var(--hairline); border-radius: 999px;
-    padding: 6px 14px; font-size: 13.5px; font-weight: 600;
+  nav.top .row { display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px; max-width: 760px; margin: 0 auto; scrollbar-width: none; }
+  nav.top .row::-webkit-scrollbar { display: none; }
+  nav.top a {
+    flex: none; text-decoration: none; color: var(--ink-2); font-weight: 600; font-size: 14px;
+    padding: 8px 14px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface);
   }
-  .status-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-  .meta-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; margin-top: 30px; }
-  .meta-cell { background: var(--surface); padding: 14px 16px; }
-  .meta-cell .k { font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); font-weight: 600; }
-  .meta-cell .v { font-size: 15.5px; font-weight: 600; margin-top: 2px; }
-  .meta-cell .v small { font-weight: 400; color: var(--ink-2); }
+  nav.top a:hover { color: var(--accent); border-color: var(--accent); }
 
-  section { padding: 44px 0 8px; }
-  section > .wrap > h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 0 0 6px; font-weight: 600; text-wrap: balance; }
-  .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .13em; color: var(--ink-3); font-weight: 600; margin-bottom: 6px; }
-  .section-note { color: var(--ink-2); max-width: 68ch; margin: 0 0 24px; }
+  header.hero { padding: 26px 0 8px; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .13em; font-size: 11.5px; font-weight: 700; color: var(--accent); }
+  h1 { margin: 6px 0 4px; font-size: clamp(30px, 7vw, 44px); line-height: 1.06; font-weight: 600; text-wrap: balance; }
+  .sub { color: var(--ink-2); font-size: 15px; margin: 0; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  section { padding: 26px 0 4px; }
+  h2 { font-size: 22px; margin: 0 0 4px; font-weight: 650; }
+  .kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); font-weight: 700; }
+  .note-sm { font-size: 13px; color: var(--ink-3); margin: 4px 0 12px; }
+
   .card {
-    background: var(--surface); border: 1px solid var(--hairline);
-    border-radius: 14px; padding: 24px 24px 20px; box-shadow: var(--shadow);
-    display: flex; flex-direction: column; gap: 10px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px;
+    padding: 16px; box-shadow: var(--shadow); margin: 12px 0;
   }
-  .card .tag { font-size: 11.5px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
-  .card.pick .tag { color: var(--bar-pick); }
-  .card.water .tag { color: var(--good-text); }
-  .card h3 { margin: 0; font-size: 24px; font-weight: 600; }
-  .card .where { color: var(--ink-2); font-size: 14.5px; margin-top: -6px; }
-  .price-line { display: flex; align-items: baseline; gap: 10px; margin: 6px 0 2px; }
-  .price-line .big { font-size: 38px; font-weight: 700; letter-spacing: -.01em; }
-  .price-line .per { color: var(--ink-2); font-size: 14px; }
-  .facts { margin: 0; padding: 0; list-style: none; font-size: 14.5px; color: var(--ink-2); display: grid; gap: 6px; }
-  .facts li::before { content: "—"; color: var(--accent); margin-right: 8px; }
-  .facts li b { color: var(--ink); font-weight: 600; }
+  .card h3 { margin: 0 0 2px; font-size: 17px; }
 
-  .heart {
-    margin-top: auto; align-self: flex-start;
-    border: 1px solid var(--hairline); background: var(--surface-2); color: var(--ink-2);
-    border-radius: 999px; padding: 7px 14px; font: 600 13.5px system-ui, sans-serif; cursor: pointer;
+  /* today */
+  .today-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .today-date { font-size: 13px; color: var(--ink-2); font-weight: 600; }
+  .countdown {
+    display: flex; align-items: center; gap: 10px; background: var(--accent); color: var(--accent-ink);
+    border-radius: 12px; padding: 12px 16px; margin: 12px 0; font-weight: 650; font-size: 15px;
   }
-  .heart[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .countdown .t { font-variant-numeric: tabular-nums; font-size: 22px; }
+  .block { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--hairline); }
+  .block:first-of-type { border-top: 0; }
+  .block .time { flex: none; width: 74px; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 14px; color: var(--accent); padding-top: 1px; }
+  .block .what { font-size: 14.5px; color: var(--ink); }
+  .block .what .vlinks { margin-top: 4px; }
+  .vchip {
+    display: inline-block; font-size: 12px; font-weight: 700; text-decoration: none;
+    background: var(--accent-wash); color: var(--ink); border: 1px solid var(--hairline);
+    border-radius: 999px; padding: 3px 10px; margin: 2px 6px 0 0;
+  }
+  .evt { display: flex; gap: 10px; align-items: baseline; font-size: 14px; padding: 6px 0; }
+  .evt .when { flex: none; font-weight: 700; color: var(--accent); font-size: 13px; width: 74px; }
 
-  .figure {
-    background: var(--chart-surface); border: 1px solid var(--hairline);
-    border-radius: 14px; padding: 22px 22px 16px; box-shadow: var(--shadow); overflow-x: auto;
+  /* day timeline */
+  .day-card .dh { display: flex; gap: 10px; align-items: baseline; }
+  .day-card .dnum {
+    flex: none; width: 40px; height: 40px; border-radius: 10px; background: var(--accent-wash);
+    color: var(--ink); display: grid; place-items: center; font-weight: 800; font-size: 13px; text-align: center; line-height: 1.1;
   }
-  .figure h3 { margin: 0 0 2px; font-size: 17px; }
-  .figure .sub { font-size: 13.5px; color: var(--ink-2); margin: 0 0 14px; }
-  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--ink-2); margin: 10px 0 2px; }
-  .legend .key { display: inline-flex; align-items: center; gap: 7px; }
-  .legend .swatch { width: 12px; height: 12px; border-radius: 3px; }
-  .figure svg { display: block; min-width: 640px; width: 100%; height: auto; }
-  #chart-water svg { min-width: 480px; }
-  .figure text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
-  .bar-row { cursor: default; }
-  .bar-row:hover rect.bar, .bar-row:focus rect.bar { filter: brightness(1.08); }
+  .day-card .dh .t { font-size: 16.5px; font-weight: 650; }
+  .day-card .dh .d { font-size: 12.5px; color: var(--ink-3); font-weight: 600; }
+  .day-card.today-ring { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
 
-  .tooltip {
-    position: fixed; z-index: 30; pointer-events: none; display: none;
-    background: var(--surface); color: var(--ink); border: 1px solid var(--hairline);
-    border-radius: 10px; padding: 10px 12px; font-size: 13px; line-height: 1.45;
-    box-shadow: var(--shadow); max-width: 300px;
-  }
-  .tooltip b { display: block; margin-bottom: 2px; }
-  .tooltip .t2 { color: var(--ink-2); }
+  /* flights */
+  .leg { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; padding: 10px 0; }
+  .leg .ap { font-weight: 800; font-size: 20px; }
+  .leg .ct { font-size: 12px; color: var(--ink-3); }
+  .leg .mid { text-align: center; color: var(--ink-3); font-size: 11.5px; }
+  .leg .mid .ln { border-top: 2px dotted var(--hairline); margin: 4px 10px; }
+  .leg .r { text-align: right; }
+  .fmeta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--ink-2); padding: 4px 0 8px; border-bottom: 1px solid var(--hairline); }
+  .fmeta:last-child { border-bottom: 0; }
+  .fmeta b { color: var(--ink); }
+  .ops { background: var(--warn-bg); border: 1px solid var(--hairline); border-radius: 10px; padding: 10px 13px; font-size: 13.5px; margin-top: 10px; }
+  .ops b { color: var(--warn); }
 
-  .split { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: start; }
-  @media (max-width: 800px) { .split { grid-template-columns: 1fr; } }
-  .notes { display: grid; gap: 14px; }
-  .note {
-    background: var(--surface); border: 1px solid var(--hairline); border-left: 3px solid var(--accent);
-    border-radius: 10px; padding: 14px 16px; font-size: 14.5px; color: var(--ink-2);
+  /* hotel */
+  .kv { display: grid; grid-template-columns: minmax(110px, auto) 1fr; gap: 4px 14px; font-size: 14px; }
+  .kv .k { color: var(--ink-3); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; padding-top: 2px; }
+  .kv .v { font-variant-numeric: tabular-nums; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .credit {
+    border: 1px solid var(--hairline); background: var(--surface-2); border-radius: 999px;
+    padding: 8px 14px; font: 600 13.5px system-ui, sans-serif; cursor: pointer; color: var(--ink);
   }
-  .note b { color: var(--ink); }
+  .credit[aria-pressed="true"] { text-decoration: line-through; color: var(--ink-3); background: transparent; }
+  .credit .amt { color: var(--good-text); }
+  .credit[aria-pressed="true"] .amt { color: var(--ink-3); }
+  .rest { padding: 8px 0; border-top: 1px solid var(--hairline); font-size: 14px; }
+  .rest:first-of-type { border-top: 0; }
+  .rest b { display: block; }
+  .rest .m { color: var(--ink-3); font-size: 12.5px; }
+  .bucks { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  .bucks button { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--hairline); background: var(--surface-2); color: var(--ink); font-size: 20px; font-weight: 800; cursor: pointer; }
+  .bucks .n { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 44px; text-align: center; }
 
-  .tablewrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
-  table { border-collapse: collapse; width: 100%; font-size: 14px; }
-  thead th {
-    text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .09em;
-    color: var(--ink-3); font-weight: 700; padding: 12px 14px; border-bottom: 1px solid var(--hairline);
-    background: var(--surface-2); white-space: nowrap;
-  }
-  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
-  tbody tr:last-child td { border-bottom: 0; }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .rowtag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; border-radius: 6px; padding: 2px 7px; }
-  .rowtag.pick { background: var(--accent-wash); color: var(--ink); border: 1px solid var(--hairline); }
-  .muted { color: var(--ink-2); }
-  .tiny { font-size: 12.5px; color: var(--ink-3); }
+  /* checklist */
+  .todo { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--hairline); }
+  .todo:first-of-type { border-top: 0; }
+  .todo input[type="checkbox"] { width: 24px; height: 24px; margin: 2px 0 0; accent-color: var(--accent); flex: none; }
+  .todo .body { font-size: 14.5px; }
+  .todo .body .links { margin-top: 3px; font-size: 13px; }
+  .todo.done .body { text-decoration: line-through; color: var(--ink-3); }
+  .urg { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: .05em; border-radius: 6px; padding: 2px 8px; margin-left: 6px; vertical-align: 1px; }
+  .urg.HIGH { background: var(--crit-bg); color: var(--crit); }
+  .urg.MED { background: var(--warn-bg); color: var(--warn); }
+  .urg.LOW { background: var(--surface-2); color: var(--ink-3); }
 
-  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 14px; align-items: center; }
-  .filters input[type="search"] {
-    flex: 1 1 220px; max-width: 320px; padding: 8px 12px; border-radius: 8px;
-    border: 1px solid var(--hairline); background: var(--surface); color: var(--ink); font: 14px system-ui, sans-serif;
+  /* venues + map */
+  .venue { scroll-margin-top: 70px; }
+  .venue .vh { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .venue .stars { color: var(--ink-2); font-size: 13px; }
+  .venue .price { font-size: 13.5px; color: var(--ink-2); margin: 4px 0; }
+  .venue .ask { font-size: 14px; background: var(--accent-wash); border-radius: 10px; padding: 9px 12px; margin: 8px 0 4px; }
+  .venue .row2 { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .btn {
+    display: inline-block; text-decoration: none; font: 600 13.5px system-ui, sans-serif;
+    border: 1px solid var(--hairline); border-radius: 999px; padding: 8px 14px; color: var(--ink); background: var(--surface-2);
   }
-  .chip {
-    border: 1px solid var(--hairline); background: var(--surface); color: var(--ink-2);
-    border-radius: 999px; padding: 6px 13px; font: 600 13px system-ui, sans-serif; cursor: pointer;
-  }
-  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-  .count { font-size: 13px; color: var(--ink-3); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .walk { font-size: 11.5px; font-weight: 800; color: var(--good-text); }
+  .mapbox { background: var(--water); border: 1px solid var(--hairline); border-radius: 14px; overflow-x: auto; }
+  .mapbox svg { display: block; width: 100%; min-width: 620px; height: auto; }
+  .mapbox text { font-family: system-ui, sans-serif; }
 
-  .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
-  .doc {
-    display: block; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px;
-    padding: 16px 18px; text-decoration: none; color: var(--ink); box-shadow: var(--shadow);
-  }
-  .doc:hover { border-color: var(--accent); }
-  .doc .k { font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); font-weight: 700; }
-  .doc .t { font-weight: 600; margin: 4px 0 2px; }
-  .doc .d { font-size: 13.5px; color: var(--ink-2); }
-
-  .banner {
-    margin-top: 26px; background: var(--surface-2); border: 1px dashed var(--axis);
-    border-radius: 12px; padding: 14px 18px; font-size: 14px; color: var(--ink-2); max-width: 100%;
-  }
-  .banner b { color: var(--ink); }
-
-  .picks-bar {
-    position: sticky; bottom: 14px; display: none; justify-content: space-between; align-items: center; gap: 14px;
-    background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px;
-    padding: 12px 16px; box-shadow: var(--shadow); margin-top: 22px; font-size: 14px;
-  }
-  .picks-bar.on { display: flex; }
-  .picks-bar button {
-    border: 0; background: var(--accent); color: var(--accent-ink); font: 600 13.5px system-ui, sans-serif;
-    border-radius: 8px; padding: 8px 14px; cursor: pointer;
-  }
-
-  footer.site { margin-top: 56px; border-top: 1px solid var(--hairline); padding: 26px 0 40px; font-size: 13.5px; color: var(--ink-3); }
-  footer.site .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  @media (prefers-reduced-motion: no-preference) {
-    .card, .doc { transition: border-color .15s ease; }
-  }
+  .banner { background: var(--surface-2); border: 1px dashed var(--ink-3); border-radius: 12px; padding: 12px 15px; font-size: 13.5px; color: var(--ink-2); margin: 14px 0; }
+  footer { margin: 40px 0 30px; font-size: 13px; color: var(--ink-3); text-align: center; }
+  footer a { color: var(--ink-3); }
 </style>
 
-<header class="site">
-  <div class="wrap site-inner">
-    <div class="brand"><span class="display">Beach Week ’26</span> <span class="muted" style="font-weight:400">· trip portal</span></div>
-    <nav class="toc" aria-label="Sections">
-      <a href="#verdict">The verdict</a>
-      <a href="#prices">Prices</a>
-      <a href="#water">Water report</a>
-      <a href="#ranking">Full ranking</a>
-      <a href="#log">Price log</a>
-      <a href="#docs">Documents</a>
-    </nav>
-  </div>
-</header>
+<nav class="top" aria-label="Sections"><div class="row">
+  <a href="#today">Today</a><a href="#days">Day by day</a><a href="#flights">Flights</a>
+  <a href="#hotel">Hotel</a><a href="#checklist">To book</a><a href="#map">Map</a><a href="#venues">Venues</a>
+</div></nav>
 
-<main>
-  <div class="hero wrap">
-    <div class="eyebrow">Our trip portal</div>
-    <h1 class="display">Where are we going?</h1>
-    <p class="lede">One week, two of us, all-inclusive, and the water has to be actually
-    turquoise. This page is everything the research turned up — 106 live prices across
-    14 destinations, a seaweed report, and a shortlist. Tap the hearts on anything you like.</p>
-    <span class="status-pill"><span class="dot"></span>Deciding — shortlist is ready, nothing booked yet</span>
-    <div class="meta-row" role="list">
-      <div class="meta-cell" role="listitem"><div class="k">Flying from</div><div class="v">Detroit <small>(DTW)</small></div></div>
-      <div class="meta-cell" role="listitem"><div class="k">Window researched</div><div class="v">Sat Aug 8 → Sat 15 <small>· 7 nights</small></div></div>
-      <div class="meta-cell" role="listitem"><div class="k">Style</div><div class="v">All-inclusive <small>· adults-only preferred</small></div></div>
-      <div class="meta-cell" role="listitem"><div class="k">Prices captured</div><div class="v">Jul 17, 2026 <small>· quotes move daily</small></div></div>
-    </div>
-  </div>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Beach Week ’26 · the public guide</div>
+    <h1 class="display" id="tripName"></h1>
+    <p class="sub" id="tripSub"></p>
+    <div class="banner"><b>Public copy.</b> This is the shareable guide — flight times, the plan, and every venue we researched. Confirmations, seats, and payment details live in the private portal.</div>
+  </header>
 
-  <section id="verdict">
-    <div class="wrap">
-      <div class="kicker">Round 2, conditions-adjusted</div>
-      <h2 class="display">The two finalists</h2>
-      <p class="section-note">Twenty options were scored on ten criteria — price, flight pain,
-      adults-only, reviews, and (the tiebreaker of 2026) how clear the water will actually be
-      in August. These two won for different reasons.</p>
-      <div class="cards">
-        <article class="card pick">
-          <div class="tag">№ 1 · Best overall value</div>
-          <h3 class="display">Riu Latino</h3>
-          <div class="where">Costa Mujeres, Cancún, Mexico · adults-only 4.5★</div>
-          <div class="price-line"><span class="big">$2,412</span><span class="per">total for both of us — flights, room, food, drinks, taxes</span></div>
-          <ul class="facts">
-            <li><b>Nonstop</b> from Detroit, ~3h45m (Delta daily)</li>
-            <li>New resort (2024), adults-only, white-sand Costa Mujeres beach</li>
-            <li>NW-facing shore — one of the few mainland stretches staying <b>relatively clear</b> of seaweed this year (7.5/10)</li>
-            <li>Scored <b>7.90</b> — first of all twenty options</li>
-          </ul>
-          <button class="heart" data-pick="Riu Latino (Costa Mujeres) — $2,412" aria-pressed="false">♥ I like this one</button>
-        </article>
-        <article class="card water">
-          <div class="tag">№ 2 · The crystal-water guarantee</div>
-          <h3 class="display">Secrets Aura Cozumel</h3>
-          <div class="where">West coast of Cozumel, Mexico · adults-only 5★</div>
-          <div class="price-line"><span class="big">$3,568</span><span class="per">total for both of us, all-in</span></div>
-          <ul class="facts">
-            <li>Cozumel’s west coast is <b>physically shielded</b> from the seaweed belt — clarity 9/10, best of any affordable option</li>
-            <li>Adults-only 5★ with swim-out suites</li>
-            <li>~5.5h with one stop (no nonstop) — the trade for certain water</li>
-            <li>Scored <b>7.45</b> — the +$1,156 buys certainty, not luxury</li>
-          </ul>
-          <button class="heart" data-pick="Secrets Aura Cozumel — $3,568" aria-pressed="false">♥ I like this one</button>
-        </article>
-      </div>
-      <div class="banner"><b>Why this is urgent-ish:</b> 2026 is the second-worst Caribbean
-      seaweed (sargassum) year ever recorded, so “famous beach” and “clear water in August”
-      are different lists this year. Hurricanes, happily, are forecast at their quietest
-      since 2014 — and our week sits before the season’s ramp. Details in the
-      <a href="#water" style="color:var(--accent)">water report</a>.</div>
-    </div>
+  <section id="today">
+    <div class="kicker">Right now in Nassau</div>
+    <h2 class="display">Today</h2>
+    <div id="todayMount"></div>
   </section>
 
-  <section id="prices">
-    <div class="wrap">
-      <div class="kicker">106 live observations · CheapCaribbean, Riu, Expedia, Kayak, Google Flights</div>
-      <h2 class="display">What a week actually costs</h2>
-      <p class="section-note">Total for two people — flight + hotel + all food and drinks + taxes,
-      same week, same airport. The two finalists are highlighted; everything else is context.
-      Aruba, the original idea, is at the bottom for scale.</p>
-      <figure class="figure" style="margin:0">
-        <h3>Package price for two, Aug 8–15 from DTW</h3>
-        <p class="sub">USD, all-inclusive, as displayed on Jul 17 · lower is better</p>
-        <div id="chart-price"></div>
-        <div class="legend" aria-hidden="true">
-          <span class="key"><span class="swatch" style="background:var(--bar-pick)"></span>№ 1 value pick</span>
-          <span class="key"><span class="swatch" style="background:var(--bar-water)"></span>№ 2 crystal-water pick</span>
-          <span class="key"><span class="swatch" style="background:var(--bar-context)"></span>the rest of the field</span>
-        </div>
-      </figure>
-    </div>
-  </section>
-
-  <section id="water">
-    <div class="wrap">
-      <div class="kicker">Sargassum · hurricanes · rain</div>
-      <h2 class="display">The water report</h2>
-      <p class="section-note">“Crystal clear” is the whole point of this trip, so the research
-      scored expected August water clarity per destination. Resorts rake their sand every
-      morning — nobody can rake the sea.</p>
-      <div class="split">
-        <figure class="figure" style="margin:0">
-          <h3>Expected water clarity, August 2026</h3>
-          <p class="sub">0–10, from USF sargassum bulletins + local reports · darker is clearer</p>
-          <div id="chart-water"></div>
-        </figure>
-        <div class="notes">
-          <div class="note"><b>Seaweed year from hell.</b> USF’s June 30 bulletin measured
-          33.6&nbsp;million metric tons — the second-worst on record — and expects beaching to
-          keep increasing through August. Punta Cana, Cancún’s hotel zone, Barbados and
-          Puerto Rico are the hit zones.</div>
-          <div class="note"><b>The shelters.</b> Cozumel’s west coast, Grand Cayman’s Seven Mile
-          Beach and Negril sit outside or shielded from the belt. Costa Mujeres faces northwest
-          and was reported light in July.</div>
-          <div class="note"><b>Hurricanes: green light.</b> Quietest forecast since 2014
-          (9 named storms vs a 14 average; NOAA 55% below-normal). Our week also lands well
-          before the mid-September peak.</div>
-          <div class="note"><b>Day-to-day honesty:</b> beach-level seaweed is wind-dependent.
-          The scores are odds, not promises — which is exactly why Cozumel’s physical shelter
-          is worth a premium if clear water is non-negotiable.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="aruba">
-    <div class="wrap">
-      <div class="kicker">The post-mortem</div>
-      <h2 class="display">What happened to Aruba?</h2>
-      <p class="section-note" style="margin-bottom:18px">Aruba was the original target — zero hurricane
-      risk since 1851 and reliably clear Palm Beach water. The problem is August math from Detroit:</p>
-      <div class="tablewrap" style="max-width:760px">
-        <table>
-          <thead><tr><th>The number</th><th class="num">Aruba</th><th class="num">Same-tier Mexico</th></tr></thead>
-          <tbody>
-            <tr><td>Best complete trip for two (package, AI, 7 nights)</td><td class="num">$5,972</td><td class="num">$2,412</td></tr>
-            <tr><td>Flight from DTW</td><td class="num">6h40m+, 1 stop<br><span class="tiny">no nonstop until Dec 19</span></td><td class="num">3h45m nonstop</td></tr>
-            <tr><td>Cheapest airfare seen, per person</td><td class="num">$921 <span class="tiny">(RED — threshold was $650)</span></td><td class="num">bundled in package</td></tr>
-            <tr><td>Every price vs. its baseline</td><td class="num"><span style="color:var(--bad-text);font-weight:700">🔴 RED across the board</span></td><td class="num"><span style="color:var(--good-text);font-weight:700">2–2.5× cheaper</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="section-note" style="margin-top:18px">Verdict from the July 17 run: <i>“Aruba was the
-      expensive way to do this.”</i> Same week, same airport, Mexico and the DR cost roughly a third —
-      with a shorter flight and equal-or-better water this particular August. Aruba stays on the list
-      for a winter trip, when the Delta nonstop returns.</p>
-    </div>
-  </section>
-
-  <section id="ranking">
-    <div class="wrap">
-      <div class="kicker">All twenty options · ten criteria</div>
-      <h2 class="display">The full board</h2>
-      <p class="section-note">Score blends price, flight pain, adults-only availability, review volume,
-      resort tier and August water conditions. Heart anything you want on the shortlist.</p>
-      <div class="tablewrap">
-        <table id="rank-table">
-          <thead><tr><th>#</th><th>Resort</th><th>Where</th><th class="num">Total (2 ppl)</th><th class="num">Score</th><th></th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="picks-bar" id="picksBar">
-        <span id="picksSummary"></span>
-        <button id="copyPicks">Copy my picks to send back</button>
-      </div>
-    </div>
+  <section id="days">
+    <div class="kicker">The plan · Aug 9–16</div>
+    <h2 class="display">Day by day</h2>
+    <p class="note-sm">Times are Nassau time (same as Detroit in August). Tap a venue chip for booking details.</p>
+    <div id="daysMount"></div>
   </section>
 
   <section id="flights">
-    <div class="wrap">
-      <div class="kicker">From Detroit, in August</div>
-      <h2 class="display">Flight reality</h2>
-      <div class="doc-grid" style="margin-top:8px">
-        <div class="doc" role="note"><div class="k">Cancún / Costa Mujeres</div><div class="t">~3h45m nonstop</div><div class="d">Delta daily — the shortest practical beach flight at these prices.</div></div>
-        <div class="doc" role="note"><div class="k">Nassau</div><div class="t">~3h nonstop when offered</div><div class="d">Otherwise one stop via Atlanta.</div></div>
-        <div class="doc" role="note"><div class="k">Punta Cana / Montego Bay</div><div class="t">~4h class, often 1 stop</div><div class="d">Check which flight the package picked before paying — upgrade off a 2-stop for ~$50–100.</div></div>
-        <div class="doc" role="note"><div class="k">Aruba</div><div class="t">6h40m+, always 1 stop</div><div class="d">No nonstop until Dec 19 — a big part of why it prices so badly in August.</div></div>
-      </div>
-    </div>
+    <div class="kicker">Delta · both directions</div>
+    <h2 class="display">Flights</h2>
+    <div id="flightsMount"></div>
   </section>
 
-  <section id="log">
-    <div class="wrap">
-      <div class="kicker">The receipts</div>
-      <h2 class="display">Every price we saw</h2>
-      <p class="section-note">All 106 observations from the July 17 runs, straight from the FareScout
-      database. Prices are quotes as displayed — they move daily and can change at checkout.</p>
-      <div class="filters">
-        <input type="search" id="logSearch" placeholder="Search resort, source, notes…" aria-label="Search price log">
-        <button class="chip" data-kind="" aria-pressed="true">All</button>
-        <button class="chip" data-kind="Package" aria-pressed="false">Packages</button>
-        <button class="chip" data-kind="Flight" aria-pressed="false">Flights</button>
-        <button class="chip" data-kind="Hotel" aria-pressed="false">Hotel-only</button>
-        <span class="count" id="logCount"></span>
-      </div>
-      <div class="tablewrap">
-        <table id="log-table">
-          <thead><tr><th>Resort / route</th><th>Kind</th><th>Source</th><th class="num">Total (2)</th><th class="num">Per person</th><th>Notes</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
+  <section id="hotel">
+    <div class="kicker">Home base</div>
+    <h2 class="display">The hotel</h2>
+    <div id="hotelMount"></div>
   </section>
 
-  <section id="docs">
-    <div class="wrap">
-      <div class="kicker">The paperwork</div>
-      <h2 class="display">Documents &amp; reports</h2>
-      <div class="doc-grid" style="margin-top:8px">
-        <a class="doc" href="files/VacationPlan.pptx" download><div class="k">Slide deck · .pptx</div><div class="t">VacationPlan</div><div class="d">The full pitch deck version of this page.</div></a>
-        <a class="doc" href="files/VacationScorecard.xlsx" download><div class="k">Spreadsheet · .xlsx</div><div class="t">VacationScorecard</div><div class="d">The 10-criterion scoring model behind the ranking, with the Conditions tab and sources.</div></a>
-        <a class="doc" href="https://github.com/rlettsBubs/Vacation/blob/main/reports/DeepDive_2026-07-17.md"><div class="k">Report · round 2</div><div class="t">DeepDive — 14 destinations</div><div class="d">The conditions-adjusted rescore that produced the finalists.</div></a>
-        <a class="doc" href="https://github.com/rlettsBubs/Vacation/blob/main/reports/VacationScout_2026-07-17.md"><div class="k">Report · round 1</div><div class="t">VacationScout — top 10</div><div class="d">The first Caribbean-wide sweep from Detroit.</div></a>
-        <a class="doc" href="https://github.com/rlettsBubs/Vacation/blob/main/reports/FareScout_2026-07-17.md"><div class="k">Report · Aruba</div><div class="t">FareScout — ARUBA-001</div><div class="d">The original Aruba run that triggered the pivot.</div></a>
-        <a class="doc" href="https://github.com/rlettsBubs/Vacation"><div class="k">Everything else</div><div class="t">The repository</div><div class="d">Raw price database, methodology, and this page’s source.</div></a>
-      </div>
-      <div class="banner" style="margin-top:22px"><b>Draft — unverified.</b> Every number here is a
-      live quote captured on Jul 17, 2026 by a read-only price scout. Nothing has been booked; no
-      payment or personal data was ever entered. Before booking, re-check the day-of price — and if
-      the dates shift, the whole board should be re-run for the new week.</div>
-    </div>
+  <section id="checklist">
+    <div class="kicker">Time-sensitive first</div>
+    <h2 class="display">Still to book</h2>
+    <p class="note-sm">Checkboxes save on this device.</p>
+    <div class="card" id="checklistMount"></div>
   </section>
-</main>
 
-<footer class="site">
-  <div class="wrap">
-    <span>Beach Week ’26 — a two-person decision, heavily over-researched.</span>
-    <span>Data: FareScout DB · 106 observations · Jul 17, 2026</span>
-  </div>
-</footer>
+  <section id="map">
+    <div class="kicker">Paradise Island &amp; downtown</div>
+    <h2 class="display">The map</h2>
+    <p class="note-sm">Schematic — tap any pin's venue card below for exact Google Maps directions. Solid pins are walkable from the Riu; ringed pins need a ride (~10–15 min taxi downtown).</p>
+    <div class="mapbox" id="mapMount"></div>
+  </section>
 
-<div class="tooltip" id="tip" role="status" aria-hidden="true"></div>
+  <section id="venues">
+    <div class="kicker">Booking notes, prices, phone numbers</div>
+    <h2 class="display">Venue cards</h2>
+    <div id="venuesMount"></div>
+  </section>
+
+  <footer>
+    Built from the <a href="research.html">FareScout research</a> that picked this trip. Prices shown are venue list prices, not what anyone paid.
+  </footer>
+</div>
 
 <script>
-const PRICE_LOG = [{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-SJU","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"San Juan market (no AI scene)","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":0.0,"PerPerson":0.0,"PromoNotes":null,"Status":null,"RawNotes":"Puerto Rico: 42 hotels, no All-Inclusive filter offered; EP resorts from $953pp. Fails AI criterion."},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"VIK Arena Blanca - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":1804.0,"PerPerson":902.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"3-star; 4377 reviews; Punta Cana beach; budget 3-star"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"Delta","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":1,"ConnectionAirport":"ATL","RoomType":null,"TotalPrice":1842.0,"PerPerson":921.0,"PromoNotes":null,"Status":"RED","RawNotes":"5:20AM-12:00PM 6h40m; Google insight: prices HIGH; tip Aug5-13 $1140"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"American","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":1,"ConnectionAirport":"CLT","RoomType":null,"TotalPrice":1862.0,"PerPerson":931.0,"PromoNotes":null,"Status":"RED","RawNotes":"7:15AM-1:59PM 6h44m"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"American","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-16","Stops":1,"ConnectionAirport":"CLT","RoomType":null,"TotalPrice":1872.0,"PerPerson":936.0,"PromoNotes":null,"Status":"RED","RawNotes":"7:15AM-1:59PM 6h44m; Google insight: prices HIGH"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Tequila - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":1970.0,"PerPerson":985.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 12758 reviews; Playa del Carmen OFF-beach (shuttle to beach); cheapest found"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Tequila - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":1970.0,"PerPerson":985.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"Delta","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":1,"ConnectionAirport":"ATL","RoomType":null,"TotalPrice":2042.0,"PerPerson":1021.0,"PromoNotes":null,"Status":"RED","RawNotes":"7:20AM-2:10PM 6h50m"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"JetBlue","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":1,"ConnectionAirport":"BOS","RoomType":null,"TotalPrice":2094.0,"PerPerson":1047.0,"PromoNotes":null,"Status":"RED","RawNotes":"7:30AM-4:40PM 9h10m long layover 2h24m"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Yucatan - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2134.0,"PerPerson":1067.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 9389 reviews; Playa del Carmen beachfront"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Yucatan - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2134.0,"PerPerson":1067.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Catalonia Riviera Maya - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2144.0,"PerPerson":1072.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 3183 reviews; Riviera Maya beach; 43mi from CUN"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Catalonia Riviera Maya - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2144.0,"PerPerson":1072.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"Delta","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-16","Stops":1,"ConnectionAirport":"ATL","RoomType":null,"TotalPrice":2160.0,"PerPerson":1080.0,"PromoNotes":null,"Status":"RED","RawNotes":"5:20AM-12:00PM 6h40m"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Bambu - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2174.0,"PerPerson":1087.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 5580 reviews; Punta Cana beach; family"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Sunscape Coco - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2194.0,"PerPerson":1097.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 3708 reviews; 1.6mi from PUJ"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"Southwest","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-16","Stops":2,"ConnectionAirport":"DEN/MCO","RoomType":null,"TotalPrice":2211.0,"PerPerson":1105.5,"PromoNotes":null,"Status":"RED","RawNotes":"5:35PM-1:40PM+1 20h5m overnight"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"JetBlue","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-16","Stops":1,"ConnectionAirport":"BOS","RoomType":null,"TotalPrice":2262.0,"PerPerson":1131.0,"PromoNotes":null,"Status":"RED","RawNotes":"7:30AM-4:40PM 9h10m"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Catalonia Bavaro Beach Golf & Casino - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2294.0,"PerPerson":1147.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 16247 reviews; "},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Hotel Marina El Cid Spa & Beach - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2310.0,"PerPerson":1155.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 10786 reviews; Puerto Morelos beachfront"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Hotel Marina El Cid Spa & Beach - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2310.0,"PerPerson":1155.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Dunamar - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2386.0,"PerPerson":1193.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 5186 reviews; Costa Mujeres beach"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Latino - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2412.0,"PerPerson":1206.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 2900 reviews; Costa Mujeres; adults-only"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Latino - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2412.0,"PerPerson":1206.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T22:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Latino - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2412.0,"PerPerson":1206.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 3 of 3"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Hotel Marina El Cid Spa & Beach - AI","DepartDate":"2026-08-11","ReturnDate":"2026-08-18","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2426.0,"PerPerson":1213.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"JetBlue","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-16","Stops":1,"ConnectionAirport":"FLL","RoomType":null,"TotalPrice":2432.0,"PerPerson":1216.0,"PromoNotes":null,"Status":"RED","RawNotes":"6:00AM-1:30PM 7h30m"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Punta Cana - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2454.0,"PerPerson":1227.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 4067 reviews; Punta Cana beach"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Barcelo Bavaro Beach - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2460.0,"PerPerson":1230.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 16399 reviews; Bavaro beach; adults-only"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Hotel Marina El Cid Spa & Beach - AI","DepartDate":"2026-08-10","ReturnDate":"2026-08-17","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2470.0,"PerPerson":1235.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Latino - AI - Adults Only","DepartDate":"2026-08-11","ReturnDate":"2026-08-18","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2482.0,"PerPerson":1241.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Hotel Marina El Cid Spa & Beach - AI","DepartDate":"2026-08-09","ReturnDate":"2026-08-16","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2514.0,"PerPerson":1257.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Latino - AI - Adults Only","DepartDate":"2026-08-10","ReturnDate":"2026-08-17","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2548.0,"PerPerson":1274.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Barcelo Bavaro Palace - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2588.0,"PerPerson":1294.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 0 reviews; "},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Barcelo Bavaro Beach - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2606.0,"PerPerson":1303.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T22:30:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Barcelo Bavaro Beach - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2606.0,"PerPerson":1303.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 3 of 3"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Latino - AI - Adults Only","DepartDate":"2026-08-09","ReturnDate":"2026-08-16","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2614.0,"PerPerson":1307.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Costa Mujeres - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2632.0,"PerPerson":1316.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 4946 reviews; "},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Riviera Maya - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2676.0,"PerPerson":1338.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 8712 reviews; Playa del Carmen beach"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Cancun - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2696.0,"PerPerson":1348.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 14781 reviews; Hotel Zone beach"},{"CheckedAt":"2026-07-17T18:55:00","TripId":"ARUBA-001","Source":"GoogleFlights","Kind":"Flight","Carrier":"United","RouteOrResort":"DTW-AUA","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":1,"ConnectionAirport":"IAD","RoomType":null,"TotalPrice":2730.0,"PerPerson":1365.0,"PromoNotes":null,"Status":"RED","RawNotes":"6:00AM-12:40PM 6h40m"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Macao - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2904.0,"PerPerson":1452.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 6928 reviews; Beachfront swim-up rooms; adults-only"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-MBJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Negril - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2906.0,"PerPerson":1453.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 9094 reviews; Negril beach (Seven Mile area)"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-MBJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Negril - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2906.0,"PerPerson":1453.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets The Vine - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2924.0,"PerPerson":1462.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 19475 reviews; Hotel Zone; adults-only luxury"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets The Vine - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2924.0,"PerPerson":1462.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T22:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets The Vine - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":2924.0,"PerPerson":1462.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 3 of 3"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets The Vine - AI - Adults Only","DepartDate":"2026-08-11","ReturnDate":"2026-08-18","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2944.0,"PerPerson":1472.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"El Cozumeleno Beach Resort - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":2986.0,"PerPerson":1493.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"3.5-star; 7912 reviews; "},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets The Vine - AI - Adults Only","DepartDate":"2026-08-10","ReturnDate":"2026-08-17","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3000.0,"PerPerson":1500.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Kukulkan - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3050.0,"PerPerson":1525.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 1700 reviews; Hotel Zone beach"},{"CheckedAt":"2026-07-17T20:30:00","TripId":"SCOUT-CUN","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets The Vine - AI - Adults Only","DepartDate":"2026-08-09","ReturnDate":"2026-08-16","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3122.0,"PerPerson":1561.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"date-shift variant check; Aug 8 start remains cheapest"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-PUJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets Royal Beach - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3146.0,"PerPerson":1573.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 23486 reviews; adults-only"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-MBJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Tropical Bay - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3200.0,"PerPerson":1600.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 8686 reviews; Negril beach"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Dreams Cozumel Cape - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3396.0,"PerPerson":1698.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 965 reviews; "},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Dreams Cozumel Cape - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":3396.0,"PerPerson":1698.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T22:30:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Dreams Cozumel Cape - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":3396.0,"PerPerson":1698.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 3 of 3"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-NAS","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Breezes Bahamas - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3408.0,"PerPerson":1704.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"3.5-star; 11151 reviews; Cable Beach Nassau"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-MBJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Bahia Principe Escape Runaway Bay - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3426.0,"PerPerson":1713.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 5888 reviews; "},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-MBJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Reggae - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3482.0,"PerPerson":1741.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 4136 reviews; Montego Bay"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-MBJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Reggae - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":3482.0,"PerPerson":1741.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets Aura Cozumel - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3568.0,"PerPerson":1784.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 8024 reviews; adults-only; swim-out suites; west coast = clear + sargassum-protected"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets Aura Cozumel - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":3568.0,"PerPerson":1784.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T22:30:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets Aura Cozumel - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":3568.0,"PerPerson":1784.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 3 of 3"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Iberostar Waves Cozumel - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3612.0,"PerPerson":1806.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 8945 reviews; bungalow-style"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-CZM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Fiesta Americana Cozumel - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3702.0,"PerPerson":1851.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 3403 reviews; "},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-NAS","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Paradise Island - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3716.0,"PerPerson":1858.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 2973 reviews; Paradise Island / Cabbage Beach; adults-only"},{"CheckedAt":"2026-07-17T22:20:00","TripId":"SCOUT-NAS","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Paradise Island - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":null,"TotalPrice":3716.0,"PerPerson":1858.0,"PromoNotes":"$200 promo applied","Status":null,"RawNotes":"verification pass 2 of 3"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-NAS","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Warwick Paradise Island - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":3890.0,"PerPerson":1945.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 3188 reviews; Harbour beach; adults-only"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-MBJ","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Jamaica - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4062.0,"PerPerson":2031.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 5078 reviews; Montego Bay beach"},{"CheckedAt":"2026-07-17T19:35:00","TripId":"ARUBA-001","Source":"Kayak","Kind":"Hotel","Carrier":null,"RouteOrResort":"Barcelo Aruba","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4340.0,"PerPerson":2170.0,"PromoNotes":"$620/night cross-check","Status":"RED","RawNotes":"Book DIRECT Barcelo.com $620 nightly cheapest; Expedia $763 AI; Agoda $773 w/breakfast; before taxes; 7nt approx $4340"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-BGI","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"The Club Barbados - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4520.0,"PerPerson":2260.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"3.5-star; 3042 reviews; adults-only"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUR","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Dreams Curacao Resort Spa & Casino - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4632.0,"PerPerson":2316.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 2224 reviews; "},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-BGI","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Savannah Beach Club - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4712.0,"PerPerson":2356.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 2580 reviews; "},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-SXM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Sonesta Maho Beach - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4716.0,"PerPerson":2358.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 1999 reviews; Maho Beach (planes overhead!)"},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUR","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Mangrove Beach Corendon Curio Hilton - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4778.0,"PerPerson":2389.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 1983 reviews; "},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-UVF","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Royalton Saint Lucia - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4856.0,"PerPerson":2428.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 6388 reviews; "},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-UVF","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Zoetry Marigot Bay - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4890.0,"PerPerson":2445.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 1208 reviews; butler service"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-ANU","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"St. James's Club - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4892.0,"PerPerson":2446.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 5088 reviews; "},{"CheckedAt":"2026-07-17T19:35:00","TripId":"ARUBA-001","Source":"Kayak","Kind":"Hotel","Carrier":null,"RouteOrResort":"Riu Palace Aruba","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4921.0,"PerPerson":2460.5,"PromoNotes":"$703/night cross-check","Status":"RED","RawNotes":"Nightly $703 AI (Expedia/Hotels.com), book-direct $702, low option Pricetravel $620; nightly incl fees BEFORE taxes; 7nt approx $4921"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-UVF","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Coconut Bay Beach Resort - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4966.0,"PerPerson":2483.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 10171 reviews; "},{"CheckedAt":"2026-07-17T20:00:00","TripId":"SCOUT-CUR","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Sunscape Curacao - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4996.0,"PerPerson":2498.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 10177 reviews; "},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-ANU","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"The Verandah - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":4998.0,"PerPerson":2499.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 5377 reviews; adults-only"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-UVF","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Royalton Hideaway St Lucia - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5172.0,"PerPerson":2586.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 3203 reviews; adults-only"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-GCM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"The Reef Beach Resort - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5214.0,"PerPerson":2607.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"3.5-star; 2765 reviews; East End 18.5mi; only true AI on island"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-ANU","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Pineapple Beach Club - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5392.0,"PerPerson":2696.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 6041 reviews; adults-only"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-UVF","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Secrets St. Lucia - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5396.0,"PerPerson":2698.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 531 reviews; new resort"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-ANU","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Royalton Antigua - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5438.0,"PerPerson":2719.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 4918 reviews; overwater bungalows"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-BGI","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Waves Resort & Spa - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5444.0,"PerPerson":2722.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 1242 reviews; "},{"CheckedAt":"2026-07-17T19:25:00","TripId":"ARUBA-001","Source":"Expedia","Kind":"Hotel","Carrier":null,"RouteOrResort":"Riu Palace Aruba","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5560.0,"PerPerson":2780.0,"PromoNotes":"$703/night; total w/ taxes+fees","Status":"RED","RawNotes":"was $9250; fully refundable"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-BGI","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Turtle Beach Barbados - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5718.0,"PerPerson":2859.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 3606 reviews; "},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-ANU","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Royalton CHIC Antigua - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5750.0,"PerPerson":2875.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 1531 reviews; adults-only"},{"CheckedAt":"2026-07-17T19:35:00","TripId":"ARUBA-001","Source":"Kayak","Kind":"Hotel","Carrier":null,"RouteOrResort":"Riu Palace Antillas (Adults Only)","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5782.0,"PerPerson":2891.0,"PromoNotes":"$826/night cross-check","Status":"RED","RawNotes":"Nightly $826 (Agoda), Expedia $928 AI, Super.com $693 AI; before taxes; 7nt approx $5782"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-SXM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Sonesta Ocean Point - AI - Adults Only","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5820.0,"PerPerson":2910.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 1042 reviews; adults-only"},{"CheckedAt":"2026-07-17T19:15:00","TripId":"ARUBA-001","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Aruba","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5972.0,"PerPerson":2986.0,"PromoNotes":"$200 Jet Set July discount applied; price incl hotel+flights+taxes","Status":"RED","RawNotes":"4-star; 9500 reviews; 5.1mi from AUA"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-GCM","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Westin Grand Cayman Seven Mile (EP)","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5996.0,"PerPerson":2998.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 1636 reviews; NOT AI; reference"},{"CheckedAt":"2026-07-17T19:25:00","TripId":"ARUBA-001","Source":"Expedia","Kind":"Hotel","Carrier":null,"RouteOrResort":"Barcelo Aruba","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":5999.0,"PerPerson":2999.5,"PromoNotes":"$728/night; total w/ taxes+fees","Status":"RED","RawNotes":"was $9216 ($3217 off); 1 left at this price"},{"CheckedAt":"2026-07-17T19:05:00","TripId":"ARUBA-001","Source":"Riu","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Aruba","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":6034.0,"PerPerson":3017.0,"PromoNotes":"100% off flights promo","Status":"RED","RawNotes":"Promo '100% off flights'; was $4595/traveler now $3017/traveler; fully refundable; 8.2/10 (1762 reviews)"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-BGI","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Sugar Bay Barbados - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":6406.0,"PerPerson":3203.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 2603 reviews; "},{"CheckedAt":"2026-07-17T19:25:00","TripId":"ARUBA-001","Source":"Expedia","Kind":"Hotel","Carrier":null,"RouteOrResort":"Riu Palace Antillas (Adults Only)","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":6537.0,"PerPerson":3268.5,"PromoNotes":"$827/night; total w/ taxes+fees","Status":"RED","RawNotes":"was $11866; 4 left at this price; fully refundable"},{"CheckedAt":"2026-07-17T19:15:00","TripId":"ARUBA-001","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Antillas (Adults Only)","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":6924.0,"PerPerson":3462.0,"PromoNotes":"$200 Jet Set July discount applied; price incl hotel+flights+taxes","Status":"RED","RawNotes":"Elite Club by RIU badge; 4-star; Palm Beach 5.1mi from AUA"},{"CheckedAt":"2026-07-17T19:15:00","TripId":"ARUBA-001","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Barcelo Aruba","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":6968.0,"PerPerson":3484.0,"PromoNotes":"$200 Jet Set July discount applied; price incl hotel+flights+taxes","Status":"RED","RawNotes":"4-star; 12983 reviews; Beach 5.3mi from AUA"},{"CheckedAt":"2026-07-17T19:05:00","TripId":"ARUBA-001","Source":"Riu","Kind":"Package","Carrier":null,"RouteOrResort":"Riu Palace Antillas (Adults Only)","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":7213.0,"PerPerson":3607.0,"PromoNotes":"100% off flights promo","Status":"RED","RawNotes":"Promo '100% off flights'; was $5849/traveler now $3607/traveler; fully refundable; 8.6/10 (1656 reviews)"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-PLS","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Ritz-Carlton Turks & Caicos (EP)","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":7778.0,"PerPerson":3889.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"5-star; 789 reviews; NOT all-inclusive; for reference"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-PLS","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Blue Haven Resort - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":8328.0,"PerPerson":4164.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4.5-star; 1886 reviews; Turks & Caicos; true AI; expensive market"},{"CheckedAt":"2026-07-17T21:00:00","TripId":"SCOUT-PLS","Source":"CheapCaribbean","Kind":"Package","Carrier":null,"RouteOrResort":"Alexandra Resort - AI","DepartDate":"2026-08-08","ReturnDate":"2026-08-15","Stops":null,"ConnectionAirport":null,"RoomType":"Entry (default)","TotalPrice":8482.0,"PerPerson":4241.0,"PromoNotes":"$200 Jet Set July discount applied; hotel+flights+taxes from DTW","Status":null,"RawNotes":"4-star; 4355 reviews; Grace Bay Beach"}];
+const MODE = "public";
+const TRIP = {"trip":{"name":"Nassau, Bahamas","destination":"Paradise Island, Nassau, Bahamas","startDate":"2026-08-09","endDate":"2026-08-16","nights":7,"timezone":"America/Nassau","homeAirport":"DTW","notes":"All-inclusive base at Riu Palace Paradise Island."},"flights":{"airline":"Delta","outbound":{"date":"2026-08-09","segments":[{"flight":"DL2375","cabin":"Delta Comfort (W)","from":"DTW Detroit","to":"ATL Atlanta","depart":"05:20","arrive":"07:13","boardingCloses":"05:05","duration":"1h 53m"},{"flight":"DL1944","cabin":"Delta Main (T)","from":"ATL Atlanta","to":"NAS Nassau","depart":"09:40","arrive":"11:51","boardingCloses":"09:25","duration":"2h 11m"}],"layover":"ATL 2h 27m","opsNote":"Delta advises arriving DTW 3h before the 5:20 AM departure. Check-in opened 2026-08-08."},"return":{"date":"2026-08-16","segments":[{"flight":"DL1918","cabin":"Delta Main Classic (H)","from":"NAS Nassau","to":"JFK New York","depart":"13:09","arrive":"16:15"},{"flight":"DL1253","cabin":"Delta Main Classic (H)","from":"JFK New York","to":"DTW Detroit","depart":"19:20","arrive":"21:52"}],"layover":"JFK ~3h 05m","opsNote":"NAS has US CBP Preclearance — plan to leave the Riu by ~09:45-10:00 for the 13:09 departure. Hotel checkout is 12:00 but you'll be gone before that."},"baggage":{"carryOn":"Free","firstChecked":"$45 USD 50lb/23kg","secondChecked":"$55 USD 50lb/23kg"}},"hotel":{"name":"Hotel Riu Palace Paradise Island","type":"Adults-only, All-Inclusive 24h","address":"Casino Drive, Paradise Island 6307, Bahamas","phone":"+1 242 363 3500","room":"Jr. Suite Superior, sea view","guests":"2 adults","stay":"2026-08-09 to 2026-08-16 (7 nights)","checkInTime":"15:00 (room held until 18:00)","checkOutTime":"12:00","amenities":["2 outdoor pools incl. infinity pool with swim-up bar","Reserved beach section on Cabbage Beach with loungers, parasols, hammocks, drink service","Renova Spa (treatments extra — use 210 CAD credit) + free sauna + gym","Free WiFi property-wide","24h room service, 24h snacks and drinks","In-room minibar + liquor dispenser, restocked","Gift shop, hair salon"],"restaurants":[{"name":"Atlantic","type":"Main buffet, show cooking","meals":"B/L/D","notes":"Themed buffet dinners ~3x/week — ask which nights at check-in"},{"name":"Krystal","type":"Fusion a la carte","meals":"Dinner"},{"name":"Tengoku","type":"Japanese a la carte","meals":"Dinner"},{"name":"Sir Alexander","type":"Gourmet a la carte","meals":"Dinner"},{"name":"Bahamas","type":"Lunch/snacks by day; Grill Steakhouse by night","meals":"L/D"},{"name":"Capuchino","type":"Patisserie & ice cream parlor","meals":"All day"},{"name":"Poolside jerk chicken stand","type":"Lunch — guest favorite","meals":"Lunch"}],"dressCode":"Dinner: no sleeveless shirts; long trousers for men at specialty restaurants","alaCarteReservations":"Policy varies — some guests report walk-in/first-come with lines, others report reservations required. Confirm at check-in and lock nights early.","entertainment":{"daily":["RiuFit group fitness classes","Beach volleyball","Pool DJ + games","Ping-pong","Intro scuba lesson in pool","Watersports: kayak/sail/parasail (some fees)"],"nightly":"Games ~21:00 (earn 'Riu bucks' for merch auction), main show ~21:30, live music","special":{"name":"Romantic open-air dinner","notes":"Reservation required in advance, extra charge — book at check-in for Sat 8/15"}}},"recurringEvents":[{"name":"Junkanoo Rush Out","where":"Marina Village, Atlantis (free, no pass needed)","when":"Tue / Fri / Sat ~21:00 — schedule shifts, confirm on-site","datesThisTrip":["2026-08-11","2026-08-14","2026-08-15"]},{"name":"Fish Fry local night","where":"Arawak Cay","when":"Sunday evenings (open daily otherwise)","datesThisTrip":["2026-08-09"]},{"name":"Riu theme buffet nights","where":"Atlantic restaurant","when":"~3x/week — ask at check-in","datesThisTrip":[]},{"name":"Riu evening show","where":"Resort theater/stage","when":"Nightly ~21:30","datesThisTrip":["daily"]}],"itinerary":[{"date":"2026-08-09","dow":"Sun","title":"Travel + Arrival + Fish Fry (only Sunday!)","blocks":[{"time":"05:20","activity":"DL2375 DTW→ATL, then DL1944 ATL→NAS, land 11:51"},{"time":"12:30","activity":"RIU Class free transfer to hotel (pre-arrange via Call Center)"},{"time":"13:00","activity":"Drop bags, pool/beach + lunch while room readies (check-in 15:00)"},{"time":"18:30","activity":"Fish Fry at Arawak Cay — Oh Andros snapper + Twin Brothers pina coladas. Only Sunday of the trip; if too wiped from the 5AM flight, resort dinner + early night (Fish Fry is open daily as fallback).","venueIds":["ohAndros","twinBrothers"]}]},{"date":"2026-08-10","dow":"Mon","title":"Recovery beach day","blocks":[{"time":"morning","activity":"Cabbage Beach — stingrays in the shallows early","venueIds":["cabbageBeach"]},{"time":"afternoon","activity":"Pool / swim-up bar / Renova Spa couples massage (use 210 CAD credit)"},{"time":"21:00","activity":"Riu games + show nightcap"}]},{"date":"2026-08-11","dow":"Tue","title":"Aquaventure + Junkanoo night","blocks":[{"time":"10:00","activity":"Aquaventure full day — book Atlantis Day Pass IN ADVANCE (sells out); wristbands at Atlantis Adventures desk","venueIds":["aquaventure"]},{"time":"19:00","activity":"Dinner at resort (Tengoku or Steakhouse)"},{"time":"21:00","activity":"Junkanoo Rush Out at Marina Village — walk over, free"}]},{"date":"2026-08-12","dow":"Wed","title":"Downtown date day","blocks":[{"time":"09:00","activity":"Queen's Staircase before cruise crowds (free)","venueIds":["queensStaircase"]},{"time":"12:30","activity":"Graycliff 5-course wine luncheon + cellar tour — BOOK AHEAD, smart casual, dietary notes 24h prior","venueIds":["graycliff"]},{"time":"15:00","activity":"John Watling's Distillery — free tour, 2-for-$22 cocktails, USE the 25 CAD resort credit, bottle-your-own rum souvenir","venueIds":["johnWatlings"]},{"time":"evening","activity":"Back to resort — theme buffet if it lands tonight"}]},{"date":"2026-08-13","dow":"Thu","title":"On the water — pick one","blocks":[{"time":"morning","activity":"Option A: Flying Cloud half-day sail & snorkel from PI Ferry Terminal (BBQ + open bar included)","venueIds":["flyingCloud"]},{"time":"full day","activity":"Option B: Blue Lagoon Island beach day — hammocks, lagoon, adults-only beach section","venueIds":["blueLagoon"]},{"time":"21:30","activity":"Riu show"}]},{"date":"2026-08-14","dow":"Fri","title":"Flex + Junkanoo","blocks":[{"time":"day","activity":"The boat option you didn't do Thursday, or beach + Straw Market souvenir run downtown"},{"time":"21:00","activity":"Junkanoo Rush Out at Marina Village (2nd chance)"}]},{"date":"2026-08-15","dow":"Sat","title":"Last full day — finale night","blocks":[{"time":"day","activity":"Repeat the trip winner; pack in the afternoon"},{"time":"sunset","activity":"Romantic open-air dinner at the Riu (book day 1, extra charge) — trip finale"},{"time":"21:00","activity":"Final Junkanoo Rush Out if you want one more"}]},{"date":"2026-08-16","dow":"Sun","title":"Departure","blocks":[{"time":"08:00","activity":"Last breakfast at Atlantic"},{"time":"09:45","activity":"Leave for NAS — US CBP Preclearance takes time"},{"time":"13:09","activity":"DL1918 NAS→JFK, then DL1253 JFK→DTW, land 21:52"}]}],"venues":{"aquaventure":{"name":"Aquaventure at Atlantis","rating":4.4,"reviews":977,"lat":25.0862,"lng":-77.3237,"website":"https://www.atlantisbahamas.com/daybooking","phone":"+1 242-363-3000","hours":"10:00-19:00 daily","price":"Atlantis Day Pass from ~$195/adult (seasonal, can hit $250+); limited daily quantity","bookingAsk":"Buy the 'Atlantis Day Pass' online in advance; pick up wristbands at Atlantis Adventures desk. Includes Aquaventure, The Dig, beaches, pools, casino.","walkable":true},"cabbageBeach":{"name":"Cabbage Beach","rating":4.5,"reviews":818,"lat":25.0846,"lng":-77.3069,"website":"http://www.bahamas.com/vendor/cabbage-beach","price":"Free (Riu sits on it)","bookingAsk":"None — walk out the back of the hotel","walkable":true},"ohAndros":{"name":"Oh Andros (Fish Fry)","rating":4.2,"reviews":1898,"lat":25.0799,"lng":-77.3586,"phone":"+1 242-326-7115","hours":"11:30-23:30 daily","price":"~$22 whole fried snapper plate; cash or PayPal","bookingAsk":"Walk up; ask for Big Mama's whole fried snapper with rice & peas","walkable":false},"twinBrothers":{"name":"Twin Brothers (Fish Fry)","rating":4.0,"reviews":5859,"lat":25.0799,"lng":-77.3584,"website":"https://twinbrothersbahamas.com","phone":"+1 242-328-5033","hours":"11:00-22:00 daily","price":"$$ — famous thick frozen pina coladas, fresh conch salad","bookingAsk":"Walk up","walkable":false},"queensStaircase":{"name":"Queen's Staircase","rating":4.5,"reviews":5565,"lat":25.073,"lng":-77.3376,"website":"https://queensstaircase.com","hours":"24h","price":"Free; fresh coconuts for sale at top","bookingAsk":"None — go early morning before cruise crowds","walkable":false},"graycliff":{"name":"Graycliff","rating":4.3,"reviews":567,"lat":25.0758,"lng":-77.3455,"website":"http://www.graycliff.com","phone":"+1 242-302-9150","price":"Wine luncheon ~$175-185/person, 12:30 start, ~2h, 5 courses + champagne + sommelier cellar tour (250k bottles)","bookingAsk":"Book the '5-Course Wine Luncheon' in advance (graycliff.com or GetYourGuide/Viator); smart casual, long pants recommended for the cool cellar; dietary requests 24h ahead. Chocolate + cigar factories on site.","walkable":false},"johnWatlings":{"name":"John Watling's Distillery","rating":4.5,"reviews":769,"lat":25.0746,"lng":-77.3485,"website":"http://www.johnwatlings.com","phone":"+1 242-322-2811","hours":"10:00-18:00 daily","price":"Free tour; tasting flights cheap; 2-for-$22 cocktail special; YOU HAVE a 25 CAD resort credit here","bookingAsk":"Walk in; ask for the tour + tasting flight; do bottle-your-own amber rum","walkable":false},"blueLagoon":{"name":"Blue Lagoon Island (Salt Cay)","rating":4.3,"reviews":247,"lat":25.0998,"lng":-77.2675,"website":"https://www.dolphinencounters.com/programs/island-beach-day","price":"Beach day from $109/adult incl. lunch; dolphin swim from $235; cashless island","bookingAsk":"Book 'Beach Day' (or ask about the adults-only beach); boats depart Paradise Island Ferry Terminal, ~25 min ride, arrive early for the morning departure","walkable":false},"flyingCloud":{"name":"Flying Cloud Catamaran","rating":4.2,"reviews":92,"lat":25.0804,"lng":-77.3212,"website":"https://flyingcloud.com","phone":"+1 242-394-5067","price":"Half-day sail & snorkel ~3.5h with BBQ lunch + all-inclusive bar; older listings ~$70/pp — confirm current rate when booking","bookingAsk":"Book 'Half-Day Sail & Snorkel'; departs Paradise Island Ferry Terminal (5 min from Riu); hotel transport included; sunset sails run select evenings — ask days","walkable":true},"marinaVillage":{"name":"Marina Village at Atlantis","rating":null,"lat":25.0847,"lng":-77.3195,"price":"Free to wander (shops/restaurants extra); Junkanoo Rush Out Tue/Fri/Sat ~21:00","bookingAsk":"None — walk over after 6pm, no day pass needed","walkable":true}},"bookingChecklist":[{"item":"Atlantis Day Pass x2 for Tue 8/11","status":"TODO","url":"https://www.atlantisbahamas.com/daybooking","urgency":"HIGH — limited daily inventory, book before arrival"},{"item":"Graycliff wine luncheon x2 for Wed 8/12 12:30","status":"TODO","url":"http://www.graycliff.com","urgency":"HIGH — advance booking required"},{"item":"RIU airport transfer (free RIU Class benefit) for 8/9 arrival + 8/16 departure","status":"TODO","phone":"1-866-845-3765","urgency":"HIGH — pre-arrange"},{"item":"Romantic open-air dinner at Riu for Sat 8/15","status":"TODO at check-in","urgency":"MED — book day 1"},{"item":"Flying Cloud half-day OR Blue Lagoon beach day for Thu 8/13","status":"TODO","urgency":"MED — can book 1-2 days out"},{"item":"Ask at check-in: theme buffet nights + a la carte reservation policy","status":"TODO at check-in","urgency":"LOW"}],"opsNotes":["Resort credits are coupons, not cash — Renova Spa 210 CAD is the big one; John Watling's 25 CAD pairs with Wednesday.","Downtown crowd check: ships repeat weekdays all season — check nassaucruiseport.com the night before Wednesday and go early.","Cabbage Beach current can run strong on the east end — swim near the resort flags.","Blue Lagoon went cashless — cards/Apple Pay only.","Sunday 8/16: checkout 12:00 but leave ~09:45 — NAS US preclearance before the 13:09 flight."]};
 
-const RANKING = [
-  {r:1,  name:"Riu Latino — adults-only 4.5★", where:"Costa Mujeres, Mexico", total:2412, score:7.90, tag:"pick"},
-  {r:2,  name:"Secrets Aura Cozumel — adults-only 5★", where:"Cozumel west coast, Mexico", total:3568, score:7.45, tag:"water"},
-  {r:3,  name:"Secrets The Vine — adults-only 5★", where:"Cancún Hotel Zone, Mexico", total:2924, score:7.34},
-  {r:4,  name:"Catalonia Riviera Maya 5★", where:"Riviera Maya, Mexico", total:2144, score:7.30},
-  {r:5,  name:"Hotel Marina El Cid Spa & Beach 4.5★", where:"Puerto Morelos, Mexico", total:2310, score:7.25},
-  {r:6,  name:"Riu Negril 4★", where:"Negril, Jamaica", total:2906, score:7.23},
-  {r:7,  name:"Riu Yucatan 4★", where:"Playa del Carmen, Mexico", total:2134, score:7.20},
-  {r:8,  name:"Riu Palace Paradise Island — adults-only 4.5★", where:"Nassau, Bahamas", total:3716, score:7.18},
-  {r:9,  name:"Dreams Cozumel Cape 5★", where:"Cozumel west coast, Mexico", total:3396, score:7.05},
-  {r:10, name:"Barceló Bávaro Beach — adults-only 4★", where:"Punta Cana, Dominican Republic", total:2460, score:6.95},
-  {r:11, name:"Riu Palace Punta Cana 5★", where:"Punta Cana, Dominican Republic", total:2454, score:6.85},
-  {r:12, name:"Riu Palace Macao — adults-only 5★", where:"Punta Cana, Dominican Republic", total:2904, score:6.85},
-  {r:13, name:"Sonesta Ocean Point — adults-only 5★", where:"St. Maarten", total:5820, score:6.52},
-  {r:14, name:"Riu Palace Aruba 5★", where:"Palm Beach, Aruba", total:5972, score:6.18},
-  {r:15, name:"The Reef Resort 3.5★", where:"Grand Cayman", total:5214, score:6.17},
-  {r:16, name:"Blue Haven Resort", where:"Turks & Caicos", total:8328, score:6.16},
-  {r:17, name:"The Verandah — adults-only", where:"Antigua", total:4998, score:6.11},
-  {r:18, name:"Riu Palace Antillas — adults-only", where:"Palm Beach, Aruba", total:6924, score:6.10},
-  {r:19, name:"Royalton Hideaway — adults-only", where:"St. Lucia", total:5172, score:5.89},
-  {r:20, name:"The Club Barbados — adults-only", where:"Barbados", total:4520, score:5.54},
-];
-
-const PRICE_CHART = [
-  {name:"Riu Yucatan", where:"Playa del Carmen", v:2134},
-  {name:"Catalonia Riviera Maya", where:"Riviera Maya", v:2144},
-  {name:"Marina El Cid", where:"Puerto Morelos", v:2310},
-  {name:"Riu Latino", where:"Costa Mujeres · № 1 pick", v:2412, cls:"pick"},
-  {name:"Riu Palace Punta Cana", where:"Punta Cana", v:2454},
-  {name:"Barceló Bávaro Beach", where:"Punta Cana", v:2460},
-  {name:"Riu Palace Macao", where:"Punta Cana", v:2904},
-  {name:"Riu Negril", where:"Negril", v:2906},
-  {name:"Secrets The Vine", where:"Cancún Hotel Zone", v:2924},
-  {name:"Dreams Cozumel Cape", where:"Cozumel west", v:3396},
-  {name:"Secrets Aura Cozumel", where:"Cozumel west · № 2 pick", v:3568, cls:"water"},
-  {name:"Riu Palace Paradise Island", where:"Nassau", v:3716},
-  {name:"Riu Palace Aruba", where:"the original plan", v:5972},
-];
-
-const WATER = [
-  {name:"Grace Bay, Turks & Caicos", v:9.5, note:"Clearest water in the Caribbean — and $8,300+ a couple"},
-  {name:"Cozumel west coast", v:9,   note:"The island physically blocks the seaweed flow"},
-  {name:"Seven Mile Beach, Cayman", v:9, note:"Superb water; only one true all-inclusive on the island"},
-  {name:"Palm Beach, Aruba", v:8,    note:"Outside the belt entirely — but see the price"},
-  {name:"Negril, Jamaica", v:8,      note:"Historically seaweed-free"},
-  {name:"Costa Mujeres", v:7.5,      note:"NW-facing; light landings in July reports"},
-  {name:"Cancún Hotel Zone", v:5,    note:"Hit zone in August"},
-  {name:"Riviera Maya / Playa del Carmen", v:4.5, note:"Hit zone"},
-  {name:"Punta Cana / Bávaro", v:4,  note:"Worst on the list this August"},
-];
-
-const fmt = n => "$" + Math.round(n).toLocaleString("en-US");
+const HOTEL_POS = { lat: 25.0857, lng: -77.3113 };
+const NAME1 = TRIP.travelers?.[0]?.name.split(" ")[0] ?? "";
+const NAME2 = TRIP.travelers?.[1]?.name.split(" ")[0] ?? "";
+const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = (k, v) => v === undefined ? JSON.parse(localStorage.getItem(k) || "null") : localStorage.setItem(k, JSON.stringify(v));
 
-/* ---------- tooltip ---------- */
-const tip = document.getElementById("tip");
-function showTip(html, x, y) {
-  tip.innerHTML = html; tip.style.display = "block"; tip.setAttribute("aria-hidden","false");
-  const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
-  tip.style.left = Math.min(x + pad, innerWidth - w - 8) + "px";
-  tip.style.top  = (y - h - pad < 8 ? y + pad : y - h - pad) + "px";
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const fmtDate = iso => { const [y,m,d] = iso.split("-").map(Number); return DOW[new Date(Date.UTC(y,m-1,d)).getUTCDay()] + " " + ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1] + " " + d; };
+function nassauToday() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: TRIP.trip.timezone }).format(new Date());
 }
-function hideTip(){ tip.style.display = "none"; tip.setAttribute("aria-hidden","true"); }
+const mapsLink = v => `https://www.google.com/maps/search/?api=1&query=${v.lat},${v.lng}`;
 
-/* ---------- horizontal bar chart ---------- */
-function barChart(el, rows, opts) {
-  const {max, colorOf, labelOf, tipOf, unit} = opts;
-  const rowH = 34, labelW = opts.labelW ?? 232, valueW = opts.valueW ?? 74, top = 6;
-  const W = opts.W ?? 920, plotW = W - labelW - valueW - 12;
-  const H = top + rows.length * rowH + 8;
-  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.aria)}">`;
-  const ticks = opts.ticks || [];
-  for (const t of ticks) {
-    const x = labelW + (t / max) * plotW;
-    s += `<line x1="${x}" y1="${top}" x2="${x}" y2="${H-8}" stroke="var(--grid)" stroke-width="1"/>`;
-    s += `<text x="${x}" y="${H-1}" font-size="10.5" fill="var(--ink-3)" text-anchor="middle">${unit==="$"?"$"+(t/1000)+"k":t}</text>`;
+/* header */
+$("#tripName").textContent = MODE === "private" ? TRIP.trip.name : "Nassau, Bahamas";
+$("#tripSub").textContent = `${fmtDate(TRIP.trip.startDate)} → ${fmtDate(TRIP.trip.endDate)}, 2026 · ${TRIP.trip.nights} nights · ${TRIP.hotel.name}`;
+
+/* venue chip helper */
+const vchips = ids => (ids || []).map(id => TRIP.venues[id] ? `<a class="vchip" href="#v-${id}">${esc(TRIP.venues[id].name)} →</a>` : "").join("");
+
+/* ---------- TODAY ---------- */
+function renderToday() {
+  const today = nassauToday();
+  const day = TRIP.itinerary.find(d => d.date === today);
+  const el = $("#todayMount");
+  let html = "";
+
+  // flight countdown when within 24h
+  const departures = [
+    { label: `${TRIP.flights.outbound.segments[0].flight} to ${TRIP.trip.destination.split(",")[0]}`, at: new Date(`${TRIP.flights.outbound.date}T${TRIP.flights.outbound.segments[0].depart}:00-04:00`) },
+    { label: `${TRIP.flights.return.segments[0].flight} home`, at: new Date(`${TRIP.flights.return.date}T${TRIP.flights.return.segments[0].depart}:00-04:00`) },
+  ];
+  const now = new Date();
+  const next = departures.find(d => d.at > now && d.at - now < 24 * 3600e3);
+  if (next) {
+    html += `<div class="countdown"><span>✈ ${esc(next.label)} in</span><span class="t" id="cdT" data-at="${next.at.toISOString()}"></span></div>`;
   }
-  s += `<line x1="${labelW}" y1="${top}" x2="${labelW}" y2="${H-8}" stroke="var(--axis)" stroke-width="1"/>`;
-  rows.forEach((d, i) => {
-    const y = top + i * rowH, bh = 20;
-    const bw = Math.max(3, (d.v / max) * plotW);
-    const fill = colorOf(d);
-    const bold = d.cls ? 700 : 500;
-    s += `<g class="bar-row" tabindex="0" data-i="${i}">`;
-    s += `<rect x="${labelW}" y="${y+3}" width="${plotW}" height="${rowH-8}" fill="transparent"/>`;
-    s += `<text x="${labelW-10}" y="${y + bh/2 + 8}" font-size="12.5" font-weight="${bold}" fill="var(--ink)" text-anchor="end">${esc(d.name)}</text>`;
-    s += `<rect class="bar" x="${labelW}" y="${y+4}" width="${bw}" height="${bh}" rx="4" fill="${fill}"/>`;
-    s += `<text x="${labelW + bw + 8}" y="${y + bh/2 + 8.5}" font-size="12.5" font-weight="${d.cls?700:500}" fill="var(--ink)" style="font-variant-numeric:tabular-nums">${labelOf(d)}</text>`;
-    s += `</g>`;
-  });
-  s += `</svg>`;
-  el.innerHTML = s;
-  el.querySelectorAll(".bar-row").forEach(g => {
-    const d = rows[+g.dataset.i];
-    g.addEventListener("pointermove", e => showTip(tipOf(d), e.clientX, e.clientY));
-    g.addEventListener("pointerleave", hideTip);
-    g.addEventListener("focus", () => { const r = g.getBoundingClientRect(); showTip(tipOf(d), r.left + r.width/2, r.top); });
-    g.addEventListener("blur", hideTip);
-  });
+
+  if (day) {
+    html += `<div class="card"><div class="today-head"><h3 class="display">${esc(day.title)}</h3><span class="today-date">${fmtDate(day.date)}</span></div>`;
+    html += day.blocks.map(b => `<div class="block"><div class="time">${esc(b.time)}</div><div class="what">${esc(b.activity)}<div class="vlinks">${vchips(b.venueIds)}</div></div></div>`).join("");
+    html += `</div>`;
+    const evts = TRIP.recurringEvents.filter(e => e.datesThisTrip.includes(day.date) || e.datesThisTrip.includes("daily"));
+    if (evts.length) {
+      html += `<div class="card"><h3>Tonight</h3>` + evts.map(e =>
+        `<div class="evt"><span class="when">${esc((e.when.match(/~?\d{1,2}:?\d{0,2}\s?(pm|PM)?|\d{2}:\d{2}/) || ["evening"])[0])}</span><span><b>${esc(e.name)}</b> — ${esc(e.where)}</span></div>`).join("") + `</div>`;
+    }
+  } else if (today < TRIP.trip.startDate) {
+    html += `<div class="card"><h3 class="display">Not long now</h3><p style="font-size:14.5px;color:var(--ink-2)">The trip starts ${fmtDate(TRIP.trip.startDate)}. Work through <a href="#checklist">the booking list</a> — two items sell out.</p></div>`;
+  } else {
+    html += `<div class="card"><h3 class="display">Trip complete 🌅</h3><p style="font-size:14.5px;color:var(--ink-2)">Hope it was everything. The day cards below are now a scrapbook outline.</p></div>`;
+  }
+
+  const openTodos = TRIP.bookingChecklist.filter((t, i) => !(store("nassau-checklist") || [])[i]);
+  if (openTodos.length && day) {
+    html += `<div class="card"><h3>Still open (${openTodos.length})</h3>` +
+      openTodos.map(t => `<div class="evt"><span class="when urg ${esc(t.urgency.split(" ")[0])}" style="width:auto">${esc(t.urgency.split(" ")[0])}</span><span>${esc(t.item)}</span></div>`).join("") +
+      `<div style="margin-top:8px"><a class="btn" href="#checklist">Open the booking list</a></div></div>`;
+  }
+  el.innerHTML = html;
+  const cd = $("#cdT");
+  if (cd) {
+    const tick = () => {
+      const ms = new Date(cd.dataset.at) - new Date();
+      if (ms <= 0) { cd.textContent = "boarding!"; return; }
+      const h = Math.floor(ms/3600e3), m = Math.floor(ms%3600e3/60e3), s = Math.floor(ms%60e3/1e3);
+      cd.textContent = `${h}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`;
+    };
+    tick(); setInterval(tick, 1000);
+  }
 }
 
-barChart(document.getElementById("chart-price"), PRICE_CHART, {
-  max: 6200, ticks: [0,1000,2000,3000,4000,5000,6000], unit: "$",
-  aria: "Package price for two people by resort, two to six thousand dollars",
-  colorOf: d => d.cls === "pick" ? "var(--bar-pick)" : d.cls === "water" ? "var(--bar-water)" : "var(--bar-context)",
-  labelOf: d => fmt(d.v),
-  tipOf: d => `<b>${esc(d.name)}</b><span class="t2">${esc(d.where)}</span><br>${fmt(d.v)} total for two · ${fmt(d.v/2)}/person<br><span class="t2">Flight + all-inclusive hotel + taxes, Aug 8–15</span>`
-});
-
-const seq = ["var(--seq-100)","var(--seq-200)","var(--seq-300)","var(--seq-400)","var(--seq-500)","var(--seq-600)","var(--seq-700)"];
-const waterColor = v => seq[Math.min(6, Math.floor((v - 3.5) / 6.5 * 6.5))];
-barChart(document.getElementById("chart-water"), WATER, {
-  max: 10, ticks: [0,2,4,6,8,10], unit: "",
-  W: 560, labelW: 210, valueW: 42,
-  aria: "Expected August water clarity by destination, zero to ten",
-  colorOf: d => waterColor(d.v),
-  labelOf: d => d.v.toFixed(1).replace(".0",""),
-  tipOf: d => `<b>${esc(d.name)}</b>${esc(d.note)}<br><span class="t2">Clarity ${d.v}/10 · USF bulletin + July local reports</span>`
-});
-
-/* ---------- ranking table + hearts ---------- */
-const PICKS_KEY = "beachweek26-picks";
-let picks = new Set(JSON.parse(localStorage.getItem(PICKS_KEY) || "[]"));
-
-const rankBody = document.querySelector("#rank-table tbody");
-rankBody.innerHTML = RANKING.map(d => `
-  <tr>
-    <td class="num muted">${d.r}</td>
-    <td><b>${esc(d.name)}</b>${d.tag ? ` <span class="rowtag pick">${d.tag === "pick" ? "№ 1 pick" : "water pick"}</span>` : ""}</td>
-    <td class="muted">${esc(d.where)}</td>
-    <td class="num">${fmt(d.total)}</td>
-    <td class="num"><b>${d.score.toFixed(2)}</b></td>
-    <td><button class="heart" data-pick="${esc(d.name)} — ${fmt(d.total)}" aria-pressed="false" aria-label="Add ${esc(d.name)} to my picks">♥</button></td>
-  </tr>`).join("");
-
-const picksBar = document.getElementById("picksBar");
-function syncHearts() {
-  document.querySelectorAll(".heart").forEach(b => b.setAttribute("aria-pressed", picks.has(b.dataset.pick) ? "true" : "false"));
-  const n = picks.size;
-  picksBar.classList.toggle("on", n > 0);
-  document.getElementById("picksSummary").textContent =
-    n === 1 ? "1 pick hearted" : n + " picks hearted";
-  localStorage.setItem(PICKS_KEY, JSON.stringify([...picks]));
-}
-document.addEventListener("click", e => {
-  const b = e.target.closest(".heart");
-  if (!b) return;
-  picks.has(b.dataset.pick) ? picks.delete(b.dataset.pick) : picks.add(b.dataset.pick);
-  syncHearts();
-});
-document.getElementById("copyPicks").addEventListener("click", async e => {
-  const text = "My beach-week picks:\n" + [...picks].map(p => "• " + p).join("\n");
-  try { await navigator.clipboard.writeText(text); e.target.textContent = "Copied — paste it in a text!"; }
-  catch { prompt("Copy your picks:", text); }
-  setTimeout(() => e.target.textContent = "Copy my picks to send back", 2200);
-});
-syncHearts();
-
-/* ---------- price log ---------- */
-const logBody = document.querySelector("#log-table tbody");
-const logCount = document.getElementById("logCount");
-let kindFilter = "", query = "";
-
-function renderLog() {
-  const q = query.toLowerCase();
-  const rows = PRICE_LOG.filter(r =>
-    (!kindFilter || r.Kind === kindFilter) &&
-    (!q || [r.RouteOrResort, r.Source, r.RawNotes, r.PromoNotes, r.Carrier].join(" ").toLowerCase().includes(q))
-  );
-  logCount.textContent = rows.length + " of " + PRICE_LOG.length + " rows";
-  logBody.innerHTML = rows.map(r => {
-    const notes = [r.Carrier, r.ConnectionAirport ? "via " + r.ConnectionAirport : "", r.RoomType, r.PromoNotes, r.RawNotes]
-      .filter(Boolean).join(" · ");
-    return `<tr>
-      <td><b>${esc(r.RouteOrResort)}</b></td>
-      <td class="muted">${esc(r.Kind)}</td>
-      <td class="muted">${esc(r.Source)}</td>
-      <td class="num">${r.TotalPrice ? fmt(r.TotalPrice) : "—"}</td>
-      <td class="num muted">${r.PerPerson ? fmt(r.PerPerson) : "—"}</td>
-      <td class="tiny" style="max-width:340px">${esc(notes)}</td>
-    </tr>`;
+/* ---------- DAY BY DAY ---------- */
+function renderDays() {
+  const today = nassauToday();
+  $("#daysMount").innerHTML = TRIP.itinerary.map((d, i) => {
+    const extra = d.date === "2026-08-12"
+      ? `<div class="note-sm" style="margin:8px 0 0">Cruise-crowd check the night before: <a href="https://nassaucruiseport.com" rel="noopener">nassaucruiseport.com</a> — go early if 4+ ships.</div>` : "";
+    return `<div class="card day-card${d.date === today ? " today-ring" : ""}">
+      <div class="dh"><div class="dnum">${d.dow}<br>${d.date.slice(8)}</div><div><div class="t display">${esc(d.title)}</div><div class="d">${fmtDate(d.date)}${d.date === today ? " · today" : ""}</div></div></div>
+      ${d.blocks.map(b => `<div class="block"><div class="time">${esc(b.time)}</div><div class="what">${esc(b.activity)}<div class="vlinks">${vchips(b.venueIds)}</div></div></div>`).join("")}
+      ${extra}
+    </div>`;
   }).join("");
 }
-document.getElementById("logSearch").addEventListener("input", e => { query = e.target.value; renderLog(); });
-document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
-  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", "false"));
-  c.setAttribute("aria-pressed", "true");
-  kindFilter = c.dataset.kind; renderLog();
-}));
-renderLog();
+
+/* ---------- FLIGHTS ---------- */
+function seg(s, showSeats) {
+  return `<div class="leg">
+    <div><div class="ap">${esc(s.from.split(" ")[0])}</div><div class="ct">${esc(s.from.split(" ").slice(1).join(" "))}</div><div class="ct"><b style="color:var(--ink)">${esc(s.depart)}</b>${s.boardingCloses ? " · doors " + esc(s.boardingCloses) : ""}</div></div>
+    <div class="mid">${esc(s.flight)}<div class="ln"></div>${esc(s.duration || "")}</div>
+    <div class="r"><div class="ap">${esc(s.to.split(" ")[0])}</div><div class="ct">${esc(s.to.split(" ").slice(1).join(" "))}</div><div class="ct"><b style="color:var(--ink)">${esc(s.arrive)}</b></div></div>
+  </div>
+  <div class="fmeta"><span>${esc(s.cabin)}</span>${showSeats && s.seatRichard ? `<span>${esc(NAME1)} <b>${esc(s.seatRichard)}</b></span><span>${esc(NAME2)}: <b>Fly Delta app</b></span>` : ""}</div>`;
+}
+function renderFlights() {
+  const f = TRIP.flights, priv = MODE === "private";
+  let html = `<div class="card"><h3>Out · ${fmtDate(f.outbound.date)}</h3>` +
+    f.outbound.segments.map(s => seg(s, priv)).join(`<div class="note-sm" style="margin:6px 0">Layover: ${esc(f.outbound.layover)}</div>`) +
+    `<div class="ops"><b>Heads up:</b> ${esc(f.outbound.opsNote)}</div></div>`;
+  html += `<div class="card"><h3>Home · ${fmtDate(f.return.date)}</h3>` +
+    f.return.segments.map(s => seg(s, priv)).join(`<div class="note-sm" style="margin:6px 0">Layover: ${esc(f.return.layover)}</div>`) +
+    `<div class="ops"><b>Heads up:</b> ${esc(f.return.opsNote)}</div></div>`;
+  html += `<div class="card"><h3>The fine print</h3><div class="kv">`;
+  if (priv) html += `<div class="k">Confirmation</div><div class="v"><b>${esc(f.confirmation)}</b> · ${esc(f.airline)}</div>
+    <div class="k">Ticket (R)</div><div class="v">${esc(f.ticketNumberRichard)}</div>
+    <div class="k">Paid</div><div class="v">$${f.totalPaidRichardUSD.toLocaleString()} on ${esc(f.paymentCard)} + ${esc(f.comfortUpsell)}</div>`;
+  html += `<div class="k">Bags</div><div class="v">Carry-on free · 1st checked ${esc(String(f.baggage.firstChecked))} · 2nd ${esc(f.baggage.secondChecked)}</div></div></div>`;
+  $("#flightsMount").innerHTML = html;
+}
+
+/* ---------- HOTEL ---------- */
+function renderHotel() {
+  const h = TRIP.hotel, priv = MODE === "private";
+  let html = `<div class="card"><h3 class="display">${esc(h.name)}</h3>
+    <p class="note-sm" style="margin:2px 0 10px">${esc(h.type)} · ${esc(h.room)} · ${esc(h.stay)}</p><div class="kv">`;
+  if (priv) html += `<div class="k">Confirmation</div><div class="v"><b>${esc(h.confirmation)}</b> (online check-in done)</div>
+    <div class="k">Bring</div><div class="v">${h.checkInDocs.map(esc).join(" · ")}</div>
+    <div class="k">Paid</div><div class="v">$${h.chargedUSD.toLocaleString()} USD (${h.totalCAD.toLocaleString()} CAD) on ${esc(h.paymentCard)}</div>`;
+  html += `<div class="k">Check-in</div><div class="v">${esc(h.checkInTime)}</div>
+    <div class="k">Check-out</div><div class="v">${esc(h.checkOutTime)}</div>
+    <div class="k">Phone</div><div class="v"><a href="tel:${h.phone.replace(/[^+\d]/g,"")}">${esc(h.phone)}</a></div>
+    <div class="k">Address</div><div class="v">${esc(h.address)}</div></div>
+    <div class="row2 chips"><a class="btn primary" href="${mapsLink(HOTEL_POS)}" rel="noopener">Open in Maps</a>
+    <a class="btn" href="tel:18668453765">RIU Call Center (transfer)</a></div></div>`;
+
+  if (priv && h.resortCreditsCAD) {
+    const names = { renovaSpa: "Renova Spa", weddingsByRiu: "Weddings by RIU", photography: "Photography", rentACar: "Rent-a-car", johnWatlingsDistillery: "John Watling’s (pairs with Wed)", shops: "Shops" };
+    html += `<div class="card"><h3>Resort credits — tap when used</h3><p class="note-sm" style="margin:2px 0 4px">Coupons, not cash. The spa one is the big one.</p><div class="chips" id="credits">` +
+      Object.entries(h.resortCreditsCAD).map(([k, v]) =>
+        `<button class="credit" data-k="${k}" aria-pressed="false">${esc(names[k] || k)} · <span class="amt">${v} CAD</span></button>`).join("") + `</div></div>`;
+  }
+
+  html += `<div class="card"><h3>Dinner game plan</h3><p class="note-sm" style="margin:2px 0 8px">${esc(h.dressCode)}. ${esc(h.alaCarteReservations)}</p>` +
+    h.restaurants.map(r => `<div class="rest"><b>${esc(r.name)}</b>${esc(r.type)} <span class="m">· ${esc(r.meals)}${r.notes ? " · " + esc(r.notes) : ""}</span></div>`).join("") + `</div>`;
+
+  html += `<div class="card"><h3>The nightly rhythm</h3>
+    <div class="evt"><span class="when">daily</span><span>${h.entertainment.daily.map(esc).join(" · ")}</span></div>
+    <div class="evt"><span class="when">21:00</span><span>${esc(h.entertainment.nightly)}</span></div>
+    <div class="evt"><span class="when">Sat 8/15</span><span><b>${esc(h.entertainment.special.name)}</b> — ${esc(h.entertainment.special.notes)}</span></div>
+    <div class="bucks"><span style="font-weight:700;font-size:14px">Riu bucks won:</span>
+      <button id="bMinus" aria-label="minus one">−</button><span class="n" id="bN">0</span><button id="bPlus" aria-label="plus one">+</button></div></div>`;
+
+  const ops = priv ? TRIP.opsNotes : TRIP.opsNotes.filter(n => !/visa|•/i.test(n));
+  html += `<div class="card"><h3>Ops notes</h3>` + ops.map(n => `<div class="evt"><span class="when">→</span><span>${esc(n)}</span></div>`).join("") + `</div>`;
+  $("#hotelMount").innerHTML = html;
+
+  const claimed = store("nassau-credits") || {};
+  document.querySelectorAll(".credit").forEach(b => {
+    b.setAttribute("aria-pressed", claimed[b.dataset.k] ? "true" : "false");
+    b.addEventListener("click", () => {
+      claimed[b.dataset.k] = !claimed[b.dataset.k];
+      b.setAttribute("aria-pressed", claimed[b.dataset.k] ? "true" : "false");
+      store("nassau-credits", claimed);
+    });
+  });
+  const bN = $("#bN"); let bucks = store("nassau-riubucks") || 0;
+  const setB = () => { bN.textContent = bucks; store("nassau-riubucks", bucks); };
+  $("#bPlus").addEventListener("click", () => { bucks++; setB(); });
+  $("#bMinus").addEventListener("click", () => { bucks = Math.max(0, bucks - 1); setB(); });
+  setB();
+}
+
+/* ---------- CHECKLIST ---------- */
+function renderChecklist() {
+  const done = store("nassau-checklist") || [];
+  const order = { HIGH: 0, MED: 1, LOW: 2 };
+  const items = TRIP.bookingChecklist.map((t, i) => ({ ...t, i })).sort((a, b) => order[a.urgency.split(" ")[0]] - order[b.urgency.split(" ")[0]]);
+  $("#checklistMount").innerHTML = items.map(t => {
+    const u = t.urgency.split(" ")[0];
+    const why = t.urgency.includes("—") ? t.urgency.split("—")[1].trim() : "";
+    return `<label class="todo${done[t.i] ? " done" : ""}"><input type="checkbox" data-i="${t.i}" ${done[t.i] ? "checked" : ""}>
+      <span class="body"><b>${esc(t.item)}</b><span class="urg ${u}">${u}</span>${why ? `<div class="note-sm" style="margin:2px 0 0">${esc(why)}</div>` : ""}
+      <div class="links">${t.url ? `<a href="${esc(t.url)}" rel="noopener">Book online</a>` : ""}${t.url && t.phone ? " · " : ""}${t.phone ? `<a href="tel:${String(t.phone).replace(/[^+\d]/g,"")}">Call ${esc(t.phone)}</a>` : ""}</div></span></label>`;
+  }).join("");
+  $("#checklistMount").addEventListener("change", e => {
+    const i = +e.target.dataset.i, d = store("nassau-checklist") || [];
+    d[i] = e.target.checked; store("nassau-checklist", d);
+    e.target.closest(".todo").classList.toggle("done", e.target.checked);
+    renderToday();
+  });
+}
+
+/* ---------- MAP ---------- */
+function renderMap() {
+  const pts = Object.entries(TRIP.venues).filter(([, v]) => v.lat);
+  const lngs = pts.map(([, v]) => v.lng).concat(HOTEL_POS.lng), lats = pts.map(([, v]) => v.lat).concat(HOTEL_POS.lat);
+  const pad = 0.008;
+  const x0 = Math.min(...lngs) - pad, x1 = Math.max(...lngs) + pad;
+  const y0 = Math.min(...lats) - pad * .6, y1 = Math.max(...lats) + pad * .6;
+  const W = 720, H = 420;
+  const X = lng => (lng - x0) / (x1 - x0) * W;
+  const Y = lat => H - (lat - y0) / (y1 - y0) * H;
+  const LBL = { // label offsets to dodge collisions
+    ohAndros: [8, -14], twinBrothers: [8, 14], queensStaircase: [10, 12], graycliff: [-8, -10],
+    johnWatlings: [10, 14], aquaventure: [-10, -8], cabbageBeach: [10, 4], marinaVillage: [-8, 18],
+    blueLagoon: [-10, 4], flyingCloud: [8, 16],
+  };
+  const anchor = k => (LBL[k] || [8, 4])[0] < 0 ? "end" : "start";
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Schematic map of trip venues around Nassau and Paradise Island">`;
+  s += `<text x="14" y="24" font-size="12" fill="var(--ink-3)" font-weight="700" letter-spacing="1.5">NASSAU HARBOUR — SCHEMATIC</text>`;
+  // hotel
+  const hx = X(HOTEL_POS.lng), hy = Y(HOTEL_POS.lat);
+  s += `<g><circle cx="${hx}" cy="${hy}" r="9" fill="var(--accent)"/><text x="${hx}" y="${hy + 4}" font-size="10" text-anchor="middle" fill="var(--accent-ink)" font-weight="800">R</text>
+    <text x="${hx}" y="${hy - 14}" font-size="12.5" font-weight="800" text-anchor="middle" fill="var(--ink)">Riu Palace</text></g>`;
+  for (const [k, v] of pts) {
+    const x = X(v.lng), y = Y(v.lat), [dx, dy] = LBL[k] || [8, 4];
+    const fill = v.walkable ? "var(--accent)" : "var(--surface)";
+    const stroke = v.walkable ? "none" : "var(--accent)";
+    s += `<a href="#v-${k}"><circle cx="${x}" cy="${y}" r="6" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/>
+      <text x="${x + dx}" y="${y + dy}" font-size="11.5" font-weight="650" fill="var(--ink)" text-anchor="${anchor(k)}">${esc(v.name.split(" (")[0].replace(" at Atlantis","").replace(" Island (Salt Cay)"," Island"))}</text></a>`;
+  }
+  s += `</svg>`;
+  $("#mapMount").innerHTML = s;
+}
+
+/* ---------- VENUES ---------- */
+function renderVenues() {
+  $("#venuesMount").innerHTML = Object.entries(TRIP.venues).map(([k, v]) => `
+    <div class="card venue" id="v-${k}">
+      <div class="vh"><h3 class="display">${esc(v.name)}</h3>
+      ${v.rating ? `<span class="stars">★ ${v.rating} · ${v.reviews?.toLocaleString() ?? "—"} reviews</span>` : ""}</div>
+      ${v.walkable ? `<div class="walk">WALKABLE FROM THE RIU</div>` : `<div class="walk" style="color:var(--ink-3)">TAXI / FERRY</div>`}
+      <div class="price">${esc(v.price)}${v.hours ? ` · ${esc(v.hours)}` : ""}</div>
+      ${v.bookingAsk && v.bookingAsk !== "None" ? `<div class="ask"><b>The move:</b> ${esc(v.bookingAsk)}</div>` : ""}
+      <div class="row2">
+        <a class="btn primary" href="${mapsLink(v)}" rel="noopener">Directions</a>
+        ${v.website ? `<a class="btn" href="${esc(v.website)}" rel="noopener">Website</a>` : ""}
+        ${v.phone ? `<a class="btn" href="tel:${v.phone.replace(/[^+\d]/g,"")}">Call</a>` : ""}
+      </div>
+    </div>`).join("");
+}
+
+renderToday(); renderDays(); renderFlights(); renderHotel(); renderChecklist(); renderMap(); renderVenues();
 </script>

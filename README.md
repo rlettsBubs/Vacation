@@ -10,9 +10,17 @@ conditions — and produced the reports in `reports/`.
 
 ## 🌐 The trip portal
 
-`docs/index.html` is a self-contained, shareable web portal built from this data:
-the shortlist, price comparison, water report, the full 20-option ranking, and the
-complete price log. It has no build step and no external dependencies — one HTML file.
+**The trip is booked: Nassau, Bahamas — Riu Palace Paradise Island, Aug 9–16, 2026.**
+
+`docs/index.html` is the public trip guide — date-aware "Today" view, day-by-day
+itinerary, flight schedule, hotel/dining guide, booking checklist, venue cards with
+a schematic map. Self-contained, no build step, mobile-first, works offline once
+loaded. `docs/research.html` is the FareScout decision board that picked the trip.
+
+**The public copy is sanitized by design.** Confirmation numbers, ticket numbers,
+seats, payment details, and loyalty numbers are excluded; those live only in the
+private copy of the portal (not in this repo). Keep it that way — never commit the
+raw trip-data JSON or any booking confirmations here.
 
 ### Publishing it with GitHub Pages
 
